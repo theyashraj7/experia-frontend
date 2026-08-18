@@ -1,6 +1,7 @@
 {
   "name": "frontend",
   "version": "0.1.0",
+  "homepage": "https://theyashraj7.github.io/experia-frontend",
   "private": true,
   "dependencies": {
     "@hookform/resolvers": "5.0.1",
