@@ -14,57 +14,61 @@ import {
 } from "lucide-react";
 import { IMAGES } from "@/data/mockData";
 
-// Uniform, symmetric cards — 3 left / 4 right — matching the reference
-// layout exactly. No badges, no quotes, no embedded CTAs: label + stat only.
-const CARDS = [
+// Left stack (top → bottom) and right stack (top → bottom). Rendered with
+// flexbox + justify-between so cards space themselves based on whatever
+// height is actually available — they cannot overlap, unlike fixed percentages.
+const LEFT_CARDS = [
   {
     label: "SCIENTIST",
     stat: "18 years in biotechnology",
     image: IMAGES.neha,
     icon: FlaskConical,
-    className: "top-[6%] left-[10%] w-48 xl:w-52 -rotate-3",
+    className: "-rotate-3 self-start ml-[6%]",
   },
   {
     label: "FOUNDER",
     stat: "Built 3 companies",
     image: IMAGES.vikram,
     icon: Rocket,
-    className: "top-[34%] left-0 w-48 xl:w-52 rotate-2",
+    className: "rotate-2 self-start ml-0",
   },
   {
     label: "ENGINEER",
     stat: "10 years in aerospace",
     image: IMAGES.arjun,
     icon: HardHat,
-    className: "bottom-[4%] left-[6%] w-48 xl:w-52 -rotate-2",
+    className: "-rotate-2 self-start ml-[4%]",
   },
+];
+
+const RIGHT_CARDS = [
   {
     label: "ATHLETE",
     stat: "12 years professional",
     image: IMAGES.karan,
     icon: Activity,
-    className: "top-[2%] right-[8%] w-48 xl:w-52 rotate-3",
+    className: "rotate-3 self-end mr-[6%]",
   },
   {
     label: "DOCTOR",
     stat: "15 years in medicine",
     image: IMAGES.anjali,
     icon: Stethoscope,
-    className: "top-[26%] right-0 w-44 xl:w-48 -rotate-2",
+    className: "-rotate-2 self-end mr-0",
   },
   {
     label: "VC",
     stat: "20+ years in venture capital",
     image: IMAGES.rahul,
     icon: TrendingUp,
-    className: "bottom-[26%] right-[6%] w-48 xl:w-52 rotate-2",
+    className: "rotate-2 self-end mr-[4%]",
   },
   {
     label: "ARTIST",
     stat: "25 years in visual arts",
     image: IMAGES.karan,
     icon: Palette,
-    className: "bottom-[2%] right-[2%] w-44 xl:w-48 -rotate-2",
+    className: "-rotate-2 self-end mr-[8%]",
   },
 ];
 
@@ -77,18 +81,18 @@ function FloatingCard({ label, stat, image, icon: Icon, className, delay }) {
       initial={reduce ? false : { opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, delay }}
-      className={`pointer-events-none absolute hidden overflow-hidden rounded-2xl border border-white/[0.14] bg-white/[0.04] shadow-[0_20px_60px_rgba(0,0,0,0.55)] backdrop-blur-sm lg:block ${className}`}
+      className={`pointer-events-none w-40 shrink-0 overflow-hidden rounded-2xl border border-white/[0.14] bg-white/[0.04] shadow-[0_20px_60px_rgba(0,0,0,0.55)] backdrop-blur-sm xl:w-44 ${className}`}
     >
-      <div className="relative h-52 w-full xl:h-56">
+      <div className="relative h-32 w-full xl:h-36">
         <img src={image} alt="" loading="lazy" className="h-full w-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/10 to-transparent" />
-        <div className="absolute left-3 top-3 flex h-8 w-8 items-center justify-center rounded-lg border border-white/20 bg-black/40 backdrop-blur">
-          <Icon className="h-4 w-4 text-white" />
+        <div className="absolute left-2.5 top-2.5 flex h-7 w-7 items-center justify-center rounded-lg border border-white/20 bg-black/40 backdrop-blur">
+          <Icon className="h-3.5 w-3.5 text-white" />
         </div>
-        <div className="absolute bottom-3 left-3 right-3">
-          <p className="font-accent text-xs font-bold tracking-wide text-blue-400">{label}</p>
-          <p className="mt-0.5 text-sm leading-snug text-white">{stat}</p>
-        </div>
+      </div>
+      <div className="px-2.5 py-2">
+        <p className="font-accent text-[0.65rem] font-bold tracking-wide text-blue-400">{label}</p>
+        <p className="mt-0.5 text-xs leading-snug text-white">{stat}</p>
       </div>
     </motion.div>
   );
@@ -111,11 +115,21 @@ export default function Hero() {
         <span className="absolute bottom-[14%] left-[14%] h-1 w-1 rounded-full bg-white/70 shadow-[0_0_8px_2px_rgba(255,255,255,0.4)]" />
       </div>
 
-      {/* Safe zone: starts below the fixed header, ends above the trust strip. */}
-      <div className="pointer-events-none absolute inset-x-0 top-24 bottom-28 hidden lg:block">
-        {CARDS.map((c, i) => (
-          <FloatingCard key={c.label} {...c} delay={0.3 + i * 0.08} />
-        ))}
+      {/* Safe zone: starts below the fixed header, ends above the trust strip.
+          Left/right stacks use flexbox so cards space themselves based on
+          whatever height is actually available — they structurally cannot
+          overlap each other or run past the viewport edge. */}
+      <div className="pointer-events-none absolute inset-x-6 top-24 bottom-28 hidden justify-between lg:flex xl:inset-x-10">
+        <div className="flex flex-col justify-between py-2">
+          {LEFT_CARDS.map((c, i) => (
+            <FloatingCard key={c.label} {...c} delay={0.3 + i * 0.08} />
+          ))}
+        </div>
+        <div className="flex flex-col justify-between py-2">
+          {RIGHT_CARDS.map((c, i) => (
+            <FloatingCard key={c.label} {...c} delay={0.3 + i * 0.08} />
+          ))}
+        </div>
       </div>
 
       {/* Content */}
