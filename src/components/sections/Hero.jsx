@@ -1,176 +1,202 @@
-import { useRef } from "react";
 import { Link } from "react-router-dom";
-import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
-import { ArrowRight, Users } from "lucide-react";
-import CuriositySearch from "@/components/CuriositySearch";
-import { LiveDot } from "@/components/atoms";
-import { IMAGES, EXPERTS } from "@/data/mockData";
+import { motion, useReducedMotion } from "framer-motion";
+import {
+  ArrowRight,
+  Circle,
+  ShieldCheck,
+  FlaskConical,
+  Rocket,
+  HardHat,
+  Activity,
+  Stethoscope,
+  TrendingUp,
+} from "lucide-react";
+import { IMAGES } from "@/data/mockData";
 
-const LINES = ["You've seen the world.", "You haven't seen", "how it works."];
+const CARDS = [
+  {
+    label: "SCIENTIST",
+    stat: "18 years in biotechnology",
+    image: IMAGES.neha,
+    icon: FlaskConical,
+    className: "top-[6%] left-[2%] w-48 sm:w-56 -rotate-3",
+  },
+  {
+    label: "FOUNDER",
+    stat: "Built 3 companies",
+    image: IMAGES.vikram,
+    icon: Rocket,
+    className: "top-[34%] left-0 w-48 sm:w-56 rotate-2",
+  },
+  {
+    label: "ENGINEER",
+    stat: "10 years in aerospace",
+    image: IMAGES.arjun,
+    icon: HardHat,
+    className: "bottom-[8%] left-[4%] w-48 sm:w-56 -rotate-2",
+  },
+  {
+    label: "ATHLETE",
+    stat: "12 years professional",
+    image: IMAGES.karan,
+    icon: Activity,
+    className: "top-[4%] right-[2%] w-48 sm:w-56 rotate-3",
+  },
+  {
+    label: "DOCTOR",
+    stat: "15 years in medicine",
+    image: IMAGES.anjali,
+    icon: Stethoscope,
+    className: "top-[32%] right-0 w-44 sm:w-52 -rotate-2",
+  },
+  {
+    label: "VC",
+    stat: "20+ years in venture capital",
+    image: IMAGES.rahul,
+    icon: TrendingUp,
+    className: "bottom-[10%] right-[4%] w-48 sm:w-56 rotate-2",
+  },
+];
 
-export default function Hero() {
-  const ref = useRef(null);
+const TRUST = ["Verified professionals", "Founders", "Scientists", "Doctors", "Athletes", "Artists", "Leaders", "Experts"];
+
+function FloatingCard({ label, stat, image, icon: Icon, className, delay }) {
   const reduce = useReducedMotion();
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const imgY = useTransform(scrollYProgress, [0, 1], ["0%", "18%"]);
-  const imgScale = useTransform(scrollYProgress, [0, 1], [1.05, 1.18]);
-  const overlayOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0.4]);
-
-  const avatars = [EXPERTS[0], EXPERTS[1], EXPERTS[2], EXPERTS[4]];
-
   return (
-    <section ref={ref} className="relative min-h-[100svh] w-full overflow-hidden bg-[#0A0A0A]">
-      {/* Cinematic background */}
-      <motion.div
-        style={reduce ? {} : { y: imgY, scale: imgScale }}
-        className="absolute inset-0 h-full w-full"
-      >
-        <img
-          src={IMAGES.heroCockpit}
-          alt="Inside an airliner cockpit at dusk"
-          fetchPriority="high"
-          className="h-full w-full object-cover object-center"
-        />
-      </motion.div>
-      <motion.div
-        style={reduce ? {} : { opacity: overlayOpacity }}
-        className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/60 to-black/30"
-      />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/40" />
-      <div className="noise opacity-[0.06]" />
-
-      {/* Content */}
-      <div className="relative mx-auto flex min-h-[100svh] max-w-7xl flex-col justify-center px-4 pb-28 pt-28 sm:px-6 lg:px-8 lg:pb-24 lg:pt-32">
-        <div className="max-w-3xl">
-          <motion.div
-            initial={reduce ? false : { opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-3 py-1.5 backdrop-blur"
-          >
-            <LiveDot />
-            <span className="font-accent text-xs tracking-wide text-white/80">247 watching · Inside Indian Aviation</span>
-          </motion.div>
-
-          <h1 className="font-serif text-[2.7rem] font-medium leading-[0.95] tracking-tight text-white text-shadow-cinematic sm:text-6xl lg:text-[5.5rem]">
-            {LINES.map((line, i) => (
-              <span key={i} className="block overflow-hidden">
-                <motion.span
-                  className="block"
-                  initial={reduce ? false : { y: "110%" }}
-                  animate={{ y: "0%" }}
-                  transition={{ duration: 0.9, delay: 0.15 + i * 0.14, ease: [0.22, 1, 0.36, 1] }}
-                >
-                  {i === 2 ? <em className="font-display italic text-white/90">{line}</em> : line}
-                </motion.span>
-              </span>
-            ))}
-          </h1>
-
-          <motion.p
-            initial={reduce ? false : { opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="mt-7 max-w-xl text-base leading-relaxed text-white/80 sm:text-lg"
-          >
-            Behind every aircraft, hospital, factory, stock exchange, satellite and startup is someone
-            who knows what really happens. <span className="font-semibold text-white">Ask them. Live.</span>
-          </motion.p>
-
-          <motion.div
-            initial={reduce ? false : { opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.75 }}
-            className="mt-8 max-w-xl"
-          >
-            <CuriositySearch onDark />
-          </motion.div>
-
-          <motion.div
-            initial={reduce ? false : { opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.9 }}
-            className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center"
-          >
-            <Link
-              to="/live"
-              data-testid="hero-cta-live"
-              className="group inline-flex items-center justify-center gap-2 rounded-full bg-white px-7 py-3.5 font-accent text-sm font-bold text-black transition-transform hover:-translate-y-0.5"
-            >
-              Explore what's happening live
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </Link>
-            <Link
-              to="/experts"
-              data-testid="hero-cta-experts"
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-white/25 px-7 py-3.5 font-accent text-sm font-bold text-white transition-colors hover:bg-white/10"
-            >
-              Meet the people behind the answers
-            </Link>
-          </motion.div>
-
-          {/* Social proof */}
-          <motion.div
-            initial={reduce ? false : { opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 1.05 }}
-            className="mt-9 flex items-center gap-4"
-          >
-            <div className="flex -space-x-3">
-              {avatars.map((a) => (
-                <img
-                  key={a.slug}
-                  src={a.image}
-                  alt=""
-                  loading="lazy"
-                  className="h-9 w-9 rounded-full border-2 border-black/40 object-cover"
-                />
-              ))}
-            </div>
-            <div className="flex items-center gap-2 text-white/70">
-              <Users className="h-4 w-4" />
-              <span className="text-sm">18,427+ curious minds exploring real experience</span>
-            </div>
-          </motion.div>
+    <motion.div
+      initial={reduce ? false : { opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, delay }}
+      className={`pointer-events-none absolute hidden overflow-hidden rounded-2xl border border-white/15 bg-white/5 shadow-2xl backdrop-blur-sm lg:block ${className}`}
+    >
+      <div className="relative h-40 w-full sm:h-44">
+        <img src={image} alt="" loading="lazy" className="h-full w-full object-cover" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
+        <div className="absolute left-3 top-3 flex h-8 w-8 items-center justify-center rounded-lg border border-white/20 bg-black/40 backdrop-blur">
+          <Icon className="h-4 w-4 text-white" />
+        </div>
+        <div className="absolute bottom-3 left-3 right-3">
+          <p className="font-accent text-xs font-bold tracking-wide text-blue-400">{label}</p>
+          <p className="mt-0.5 text-sm leading-snug text-white">{stat}</p>
         </div>
       </div>
+    </motion.div>
+  );
+}
 
-      {/* Integrated live overlay */}
-      <motion.div
-        initial={reduce ? false : { opacity: 0, y: 24 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.9, delay: 1.1 }}
-        className="pointer-events-auto absolute bottom-24 right-4 z-10 hidden w-[320px] lg:bottom-10 lg:right-8 xl:block"
-      >
-        <Link
-          to="/conversations/inside-indian-aviation"
-          data-testid="hero-live-overlay"
-          className="group block overflow-hidden rounded-2xl border border-white/15 bg-white/10 p-1.5 backdrop-blur-xl transition-transform hover:-translate-y-1"
+export default function Hero() {
+  const reduce = useReducedMotion();
+
+  return (
+    <section className="relative min-h-[100svh] w-full overflow-hidden bg-[#05060B]">
+      {/* Starfield / radial background */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_35%,rgba(59,90,180,0.18),transparent_60%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(255,255,255,0.06),transparent_50%)]" />
+      <div className="noise opacity-[0.05]" />
+
+      {/* Orbit ring behind logo */}
+      <div className="pointer-events-none absolute left-1/2 top-[26%] hidden h-[280px] w-[720px] -translate-x-1/2 -translate-y-1/2 rounded-[50%] border border-white/10 sm:block" />
+
+      {/* Floating profile cards */}
+      {CARDS.map((c, i) => (
+        <FloatingCard key={c.label} {...c} delay={0.3 + i * 0.08} />
+      ))}
+
+      {/* Content */}
+      <div className="relative mx-auto flex min-h-[100svh] max-w-3xl flex-col items-center justify-center px-6 py-24 text-center">
+        <motion.p
+          initial={reduce ? false : { opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7 }}
+          className="font-accent text-[0.7rem] font-semibold uppercase tracking-[0.35em] text-white/50"
         >
-          <div className="relative overflow-hidden rounded-xl">
-            <img src={IMAGES.aviation} alt="Inside Indian Aviation" loading="lazy" className="h-36 w-full object-cover transition-transform duration-700 group-hover:scale-105" />
-            <div className="absolute left-3 top-3 flex items-center gap-2 rounded-full bg-black/50 px-2.5 py-1 backdrop-blur">
-              <LiveDot />
-              <span className="font-accent text-[0.65rem] font-semibold text-white">247 watching</span>
-            </div>
-          </div>
-          <div className="p-3.5 text-white">
-            <p className="font-serif text-lg leading-tight">Inside Indian Aviation</p>
-            <p className="text-xs text-white/60">30 Years in the Industry</p>
-            <div className="mt-3 flex items-center gap-3 border-t border-white/10 pt-3">
-              <img src={EXPERTS[0].image} alt="" className="h-9 w-9 rounded-full object-cover" />
-              <div className="min-w-0">
-                <p className="truncate text-sm font-semibold">Rahul Mehta</p>
-                <p className="truncate text-[0.7rem] text-white/60">Former Airline Ops Director · 28 yrs</p>
-              </div>
-            </div>
-            <span className="mt-3 flex items-center gap-1.5 font-accent text-xs font-bold text-white">
-              Join conversation
-              <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+          The people who know. Now within reach.
+        </motion.p>
+
+        <motion.h1
+          initial={reduce ? false : { opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.1 }}
+          className="mt-6 font-serif text-6xl font-medium tracking-wide text-transparent sm:text-7xl lg:text-8xl"
+          style={{
+            backgroundImage: "linear-gradient(180deg, #FFFFFF 0%, #C9CDD9 100%)",
+            WebkitBackgroundClip: "text",
+            backgroundClip: "text",
+          }}
+        >
+          EXPÉRIA
+        </motion.h1>
+
+        <motion.h2
+          initial={reduce ? false : { opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.25 }}
+          className="mt-8 font-serif text-3xl leading-[1.15] text-white sm:text-4xl lg:text-5xl"
+        >
+          Don't Just Learn It.
+          <br />
+          Ask Someone{" "}
+          <span
+            className="text-transparent"
+            style={{
+              backgroundImage: "linear-gradient(90deg, #93B4FF 0%, #E4EAFF 100%)",
+              WebkitBackgroundClip: "text",
+              backgroundClip: "text",
+            }}
+          >
+            Who's Done It.
+          </span>
+        </motion.h2>
+
+        <motion.p
+          initial={reduce ? false : { opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.35 }}
+          className="mt-6 max-w-xl text-base leading-relaxed text-white/60 sm:text-lg"
+        >
+          Live conversations with people who have actually built, achieved, discovered, solved, and
+          experienced what you want to understand.
+        </motion.p>
+
+        <motion.div
+          initial={reduce ? false : { opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.45 }}
+          className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center"
+        >
+          <Link
+            to="/experts"
+            data-testid="hero-cta-explore"
+            className="group inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-indigo-500 to-blue-500 px-8 py-3.5 font-accent text-sm font-bold text-white shadow-[0_0_30px_rgba(99,102,241,0.4)] transition-transform hover:-translate-y-0.5"
+          >
+            Explore EXPÉRIA
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+          </Link>
+          <Link
+            to="/live"
+            data-testid="hero-cta-live"
+            className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 px-8 py-3.5 font-accent text-sm font-bold text-white transition-colors hover:bg-white/10"
+          >
+            See Who's Live
+            <Circle className="h-3 w-3 fill-current" />
+          </Link>
+        </motion.div>
+
+        <motion.div
+          initial={reduce ? false : { opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+          className="mt-16 flex w-full max-w-2xl flex-wrap items-center justify-center gap-x-2 gap-y-2 border-t border-white/10 pt-6 text-xs text-white/45 sm:text-sm"
+        >
+          <ShieldCheck className="h-4 w-4 shrink-0 text-white/45" />
+          {TRUST.map((t, i) => (
+            <span key={t} className="flex items-center gap-2">
+              {t}
+              {i < TRUST.length - 1 && <span className="text-white/25">&bull;</span>}
             </span>
-          </div>
-        </Link>
-      </motion.div>
+          ))}
+        </motion.div>
+      </div>
     </section>
   );
 }
