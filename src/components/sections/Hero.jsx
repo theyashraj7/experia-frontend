@@ -10,106 +10,84 @@ import {
   Activity,
   Stethoscope,
   TrendingUp,
+  Palette,
 } from "lucide-react";
 import { IMAGES } from "@/data/mockData";
-import { LiveDot } from "@/components/atoms";
 
-// Positions are percentages *within the safe zone* (see the wrapper in Hero,
-// which already sits clear of the fixed header and the bottom trust strip) —
-// not percentages of the full section — so cards can never collide with either.
+// Uniform, symmetric cards — 3 left / 4 right — matching the reference
+// layout exactly. No badges, no quotes, no embedded CTAs: label + stat only.
 const CARDS = [
-  {
-    label: "FOUNDER",
-    stat: "Built 3 companies",
-    image: IMAGES.vikram,
-    icon: Rocket,
-    size: "dominant",
-    live: { when: "LIVE SESSION" },
-    quote: "What nobody tells you before starting.",
-    className: "top-[22%] left-[2%] w-60 xl:w-64 -rotate-2",
-  },
   {
     label: "SCIENTIST",
     stat: "18 years in biotechnology",
     image: IMAGES.neha,
     icon: FlaskConical,
-    size: "medium",
-    live: { when: "LIVE TOMORROW · 7:00 PM", curious: "1,842 curious people" },
-    cta: "Ask a question",
-    className: "top-[4%] right-[3%] w-48 xl:w-56 rotate-3",
+    className: "top-[6%] left-[10%] w-48 xl:w-52 -rotate-3",
   },
   {
-    label: "DOCTOR",
-    stat: "15 years in medicine",
-    image: IMAGES.anjali,
-    icon: Stethoscope,
-    size: "medium",
-    className: "bottom-[6%] right-[6%] w-44 xl:w-52 -rotate-2",
+    label: "FOUNDER",
+    stat: "Built 3 companies",
+    image: IMAGES.vikram,
+    icon: Rocket,
+    className: "top-[34%] left-0 w-48 xl:w-52 rotate-2",
   },
   {
     label: "ENGINEER",
     stat: "10 years in aerospace",
     image: IMAGES.arjun,
     icon: HardHat,
-    size: "small",
-    className: "bottom-[2%] left-[6%] w-32 xl:w-36 -rotate-3 opacity-90",
+    className: "bottom-[4%] left-[6%] w-48 xl:w-52 -rotate-2",
   },
   {
     label: "ATHLETE",
     stat: "12 years professional",
     image: IMAGES.karan,
     icon: Activity,
-    size: "small",
-    className: "top-[2%] left-[16%] w-28 xl:w-32 rotate-2 opacity-80",
+    className: "top-[2%] right-[8%] w-48 xl:w-52 rotate-3",
+  },
+  {
+    label: "DOCTOR",
+    stat: "15 years in medicine",
+    image: IMAGES.anjali,
+    icon: Stethoscope,
+    className: "top-[26%] right-0 w-44 xl:w-48 -rotate-2",
   },
   {
     label: "VC",
     stat: "20+ years in venture capital",
     image: IMAGES.rahul,
     icon: TrendingUp,
-    size: "small",
-    className: "top-[46%] right-[18%] w-28 xl:w-32 rotate-3 opacity-80",
+    className: "bottom-[26%] right-[6%] w-48 xl:w-52 rotate-2",
+  },
+  {
+    label: "ARTIST",
+    stat: "25 years in visual arts",
+    image: IMAGES.karan,
+    icon: Palette,
+    className: "bottom-[2%] right-[2%] w-44 xl:w-48 -rotate-2",
   },
 ];
 
-const TRUST = ["Verified professionals", "Founders", "Scientists", "Doctors", "Athletes", "Artists", "Leaders"];
+const TRUST = ["Verified professionals", "Founders", "Scientists", "Doctors", "Athletes", "Artists", "Leaders", "Experts"];
 
-const IMG_HEIGHT = { dominant: "h-52 sm:h-56", medium: "h-40 sm:h-44", small: "h-28 sm:h-32" };
-
-function FloatingCard({ label, stat, image, icon: Icon, className, delay, size, live, quote, cta }) {
+function FloatingCard({ label, stat, image, icon: Icon, className, delay }) {
   const reduce = useReducedMotion();
   return (
     <motion.div
       initial={reduce ? false : { opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, delay }}
-      className={`pointer-events-none absolute hidden overflow-hidden rounded-2xl border border-white/15 bg-white/5 shadow-2xl backdrop-blur-sm lg:block ${className}`}
+      className={`pointer-events-none absolute hidden overflow-hidden rounded-2xl border border-white/[0.14] bg-white/[0.04] shadow-[0_20px_60px_rgba(0,0,0,0.55)] backdrop-blur-sm lg:block ${className}`}
     >
-      <div className={`relative w-full ${IMG_HEIGHT[size] || IMG_HEIGHT.medium}`}>
+      <div className="relative h-52 w-full xl:h-56">
         <img src={image} alt="" loading="lazy" className="h-full w-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-transparent" />
-
+        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/10 to-transparent" />
         <div className="absolute left-3 top-3 flex h-8 w-8 items-center justify-center rounded-lg border border-white/20 bg-black/40 backdrop-blur">
           <Icon className="h-4 w-4 text-white" />
         </div>
-
-        {live && (
-          <div className="absolute right-3 top-3 flex items-center gap-1.5 rounded-full bg-black/50 px-2 py-1 backdrop-blur">
-            {live.when.startsWith("LIVE") && <LiveDot />}
-            <span className="font-accent text-[0.6rem] font-bold tracking-wide text-white">{live.when}</span>
-          </div>
-        )}
-
         <div className="absolute bottom-3 left-3 right-3">
           <p className="font-accent text-xs font-bold tracking-wide text-blue-400">{label}</p>
           <p className="mt-0.5 text-sm leading-snug text-white">{stat}</p>
-          {quote && <p className="mt-1.5 text-[0.8rem] italic leading-snug text-white/75">&ldquo;{quote}&rdquo;</p>}
-          {live?.curious && <p className="mt-1.5 text-[0.65rem] text-white/60">{live.curious}</p>}
-          {cta && (
-            <span className="mt-1.5 inline-flex items-center gap-1 text-[0.7rem] font-semibold text-blue-300">
-              {cta} <ArrowRight className="h-3 w-3" />
-            </span>
-          )}
         </div>
       </div>
     </motion.div>
@@ -120,17 +98,20 @@ export default function Hero() {
   const reduce = useReducedMotion();
 
   return (
-    <section className="relative min-h-[100svh] w-full overflow-hidden bg-[#05060B]">
+    <section className="relative min-h-[100svh] w-full overflow-hidden bg-[#04060F]">
       {/* Starfield / radial background */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_35%,rgba(59,90,180,0.18),transparent_60%)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(255,255,255,0.06),transparent_50%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_32%,rgba(76,105,210,0.28),transparent_58%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(255,255,255,0.05),transparent_45%)]" />
       <div className="noise opacity-[0.05]" />
 
-      {/* Orbit ring behind logo */}
-      <div className="pointer-events-none absolute left-1/2 top-[24%] hidden h-[240px] w-[640px] -translate-x-1/2 -translate-y-1/2 rounded-[50%] border border-white/10 sm:block" />
+      {/* Orbit ring behind logo, with two glinting dots on the path */}
+      <div className="pointer-events-none absolute left-1/2 top-[28%] hidden h-[280px] w-[720px] -translate-x-1/2 -translate-y-1/2 -rotate-3 sm:block">
+        <div className="absolute inset-0 rounded-[50%] border border-white/[0.12]" />
+        <span className="absolute right-[6%] top-[18%] h-1.5 w-1.5 rounded-full bg-white shadow-[0_0_10px_3px_rgba(255,255,255,0.6)]" />
+        <span className="absolute bottom-[14%] left-[14%] h-1 w-1 rounded-full bg-white/70 shadow-[0_0_8px_2px_rgba(255,255,255,0.4)]" />
+      </div>
 
-      {/* Safe zone: starts below the fixed header, ends above the trust strip.
-          All card positions are percentages of THIS box, not the full section. */}
+      {/* Safe zone: starts below the fixed header, ends above the trust strip. */}
       <div className="pointer-events-none absolute inset-x-0 top-24 bottom-28 hidden lg:block">
         {CARDS.map((c, i) => (
           <FloatingCard key={c.label} {...c} delay={0.3 + i * 0.08} />
@@ -148,27 +129,52 @@ export default function Hero() {
           The people who know. Now within reach.
         </motion.p>
 
-        {/* Brand — deliberately smaller than the headline so it reads as a mark, not the message */}
+        {/* Brand — dominant, matching the reference: EXPÉRIA is the visual centerpiece.
+            The X gets its own bright glint, echoing the swoosh in the reference art. */}
         <motion.h1
-          initial={reduce ? false : { opacity: 0, y: 12 }}
+          initial={reduce ? false : { opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.1 }}
-          className="mt-5 font-serif text-4xl font-medium tracking-wide text-transparent sm:text-5xl lg:text-6xl"
-          style={{
-            backgroundImage: "linear-gradient(180deg, #FFFFFF 0%, #C9CDD9 100%)",
-            WebkitBackgroundClip: "text",
-            backgroundClip: "text",
-          }}
+          className="relative mt-6 font-serif text-6xl font-medium tracking-wide sm:text-7xl lg:text-8xl"
         >
-          EXPÉRIA
+          <span
+            className="text-transparent"
+            style={{
+              backgroundImage: "linear-gradient(180deg, #FFFFFF 0%, #C9CDD9 100%)",
+              WebkitBackgroundClip: "text",
+              backgroundClip: "text",
+            }}
+          >
+            E
+          </span>
+          <span
+            className="relative inline-block text-transparent"
+            style={{
+              backgroundImage: "linear-gradient(200deg, #FFFFFF 10%, #A9B8E8 45%, #FFFFFF 70%)",
+              WebkitBackgroundClip: "text",
+              backgroundClip: "text",
+              filter: "drop-shadow(0 0 18px rgba(160,180,255,0.55))",
+            }}
+          >
+            X
+          </span>
+          <span
+            className="text-transparent"
+            style={{
+              backgroundImage: "linear-gradient(180deg, #FFFFFF 0%, #C9CDD9 100%)",
+              WebkitBackgroundClip: "text",
+              backgroundClip: "text",
+            }}
+          >
+            PÉRIA
+          </span>
         </motion.h1>
 
-        {/* Headline — primary visual weight */}
         <motion.h2
           initial={reduce ? false : { opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.25 }}
-          className="mt-8 font-serif text-4xl leading-[1.12] text-white sm:text-5xl lg:text-6xl"
+          className="mt-8 font-serif text-3xl leading-[1.15] text-white sm:text-4xl lg:text-5xl"
         >
           Don't Just Learn It.
           <br />
