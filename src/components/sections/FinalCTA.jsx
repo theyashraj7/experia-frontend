@@ -8,7 +8,7 @@ export default function FinalCTA() {
   return (
     <section className="mx-auto max-w-7xl px-4 py-24 sm:px-6 sm:py-32 lg:px-8 lg:py-40">
       <div className="mx-auto max-w-4xl text-center">
-        <Overline>Start with one</Overline>
+        <Overline>Ask someone who's done it</Overline>
         <motion.h2
           initial={reduce ? false : { opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -16,10 +16,10 @@ export default function FinalCTA() {
           transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
           className="mt-6 font-serif text-4xl leading-[0.95] tracking-tight sm:text-6xl lg:text-7xl"
         >
-          The world is full of things you haven't seen{" "}
-          <em className="font-display italic text-primary">from the inside.</em>
+          Don't just learn it.{" "}
+          <em className="font-display italic text-primary">Ask someone who's done it.</em>
         </motion.h2>
-        <p className="mt-7 font-display text-2xl italic text-muted-foreground sm:text-3xl">Start with one.</p>
+        <p className="mt-7 font-display text-2xl italic text-muted-foreground sm:text-3xl">Start with one conversation.</p>
 
         <div className="mt-11 flex flex-col items-center justify-center gap-3 sm:flex-row">
           <Link
