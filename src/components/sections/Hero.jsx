@@ -12,55 +12,69 @@ import {
   TrendingUp,
 } from "lucide-react";
 import { IMAGES } from "@/data/mockData";
+import { LiveDot } from "@/components/atoms";
 
+// Size tiers create visual depth instead of a uniform grid of cards.
 const CARDS = [
-  {
-    label: "SCIENTIST",
-    stat: "18 years in biotechnology",
-    image: IMAGES.neha,
-    icon: FlaskConical,
-    className: "top-[6%] left-[2%] w-48 sm:w-56 -rotate-3",
-  },
   {
     label: "FOUNDER",
     stat: "Built 3 companies",
     image: IMAGES.vikram,
     icon: Rocket,
-    className: "top-[34%] left-0 w-48 sm:w-56 rotate-2",
+    size: "dominant",
+    live: { when: "LIVE SESSION" },
+    quote: "What nobody tells you before starting.",
+    className: "top-[18%] left-[1%] w-64 sm:w-72 -rotate-2",
   },
   {
-    label: "ENGINEER",
-    stat: "10 years in aerospace",
-    image: IMAGES.arjun,
-    icon: HardHat,
-    className: "bottom-[8%] left-[4%] w-48 sm:w-56 -rotate-2",
-  },
-  {
-    label: "ATHLETE",
-    stat: "12 years professional",
-    image: IMAGES.karan,
-    icon: Activity,
-    className: "top-[4%] right-[2%] w-48 sm:w-56 rotate-3",
+    label: "SCIENTIST",
+    stat: "18 years in biotechnology",
+    image: IMAGES.neha,
+    icon: FlaskConical,
+    size: "medium",
+    live: { when: "LIVE TOMORROW · 7:00 PM", curious: "1,842 curious people" },
+    cta: "Ask a question",
+    className: "top-[3%] right-[6%] w-52 sm:w-60 rotate-3",
   },
   {
     label: "DOCTOR",
     stat: "15 years in medicine",
     image: IMAGES.anjali,
     icon: Stethoscope,
-    className: "top-[32%] right-0 w-44 sm:w-52 -rotate-2",
+    size: "medium",
+    className: "bottom-[26%] right-[1%] w-48 sm:w-56 -rotate-2",
+  },
+  {
+    label: "ENGINEER",
+    stat: "10 years in aerospace",
+    image: IMAGES.arjun,
+    icon: HardHat,
+    size: "small",
+    className: "bottom-[6%] -left-6 w-36 sm:w-40 -rotate-3 opacity-90",
+  },
+  {
+    label: "ATHLETE",
+    stat: "12 years professional",
+    image: IMAGES.karan,
+    icon: Activity,
+    size: "small",
+    className: "top-[2%] left-[26%] w-32 sm:w-36 rotate-2 opacity-80",
   },
   {
     label: "VC",
     stat: "20+ years in venture capital",
     image: IMAGES.rahul,
     icon: TrendingUp,
-    className: "bottom-[10%] right-[4%] w-48 sm:w-56 rotate-2",
+    size: "small",
+    className: "bottom-[2%] right-[24%] w-32 sm:w-36 rotate-3 opacity-80",
   },
 ];
 
-const TRUST = ["Verified professionals", "Founders", "Scientists", "Doctors", "Athletes", "Artists", "Leaders", "Experts"];
+const TRUST = ["Verified professionals", "Founders", "Scientists", "Doctors", "Athletes", "Artists", "Leaders"];
 
-function FloatingCard({ label, stat, image, icon: Icon, className, delay }) {
+const IMG_HEIGHT = { dominant: "h-52 sm:h-56", medium: "h-40 sm:h-44", small: "h-28 sm:h-32" };
+
+function FloatingCard({ label, stat, image, icon: Icon, className, delay, size, live, quote, cta }) {
   const reduce = useReducedMotion();
   return (
     <motion.div
@@ -69,15 +83,31 @@ function FloatingCard({ label, stat, image, icon: Icon, className, delay }) {
       transition={{ duration: 0.8, delay }}
       className={`pointer-events-none absolute hidden overflow-hidden rounded-2xl border border-white/15 bg-white/5 shadow-2xl backdrop-blur-sm lg:block ${className}`}
     >
-      <div className="relative h-40 w-full sm:h-44">
+      <div className={`relative w-full ${IMG_HEIGHT[size] || IMG_HEIGHT.medium}`}>
         <img src={image} alt="" loading="lazy" className="h-full w-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-transparent" />
+
         <div className="absolute left-3 top-3 flex h-8 w-8 items-center justify-center rounded-lg border border-white/20 bg-black/40 backdrop-blur">
           <Icon className="h-4 w-4 text-white" />
         </div>
+
+        {live && (
+          <div className="absolute right-3 top-3 flex items-center gap-1.5 rounded-full bg-black/50 px-2 py-1 backdrop-blur">
+            {live.when.startsWith("LIVE") && <LiveDot />}
+            <span className="font-accent text-[0.6rem] font-bold tracking-wide text-white">{live.when}</span>
+          </div>
+        )}
+
         <div className="absolute bottom-3 left-3 right-3">
           <p className="font-accent text-xs font-bold tracking-wide text-blue-400">{label}</p>
           <p className="mt-0.5 text-sm leading-snug text-white">{stat}</p>
+          {quote && <p className="mt-1.5 text-[0.8rem] italic leading-snug text-white/75">&ldquo;{quote}&rdquo;</p>}
+          {live?.curious && <p className="mt-1.5 text-[0.65rem] text-white/60">{live.curious}</p>}
+          {cta && (
+            <span className="mt-1.5 inline-flex items-center gap-1 text-[0.7rem] font-semibold text-blue-300">
+              {cta} <ArrowRight className="h-3 w-3" />
+            </span>
+          )}
         </div>
       </div>
     </motion.div>
@@ -95,7 +125,7 @@ export default function Hero() {
       <div className="noise opacity-[0.05]" />
 
       {/* Orbit ring behind logo */}
-      <div className="pointer-events-none absolute left-1/2 top-[26%] hidden h-[280px] w-[720px] -translate-x-1/2 -translate-y-1/2 rounded-[50%] border border-white/10 sm:block" />
+      <div className="pointer-events-none absolute left-1/2 top-[24%] hidden h-[240px] w-[640px] -translate-x-1/2 -translate-y-1/2 rounded-[50%] border border-white/10 sm:block" />
 
       {/* Floating profile cards */}
       {CARDS.map((c, i) => (
@@ -113,11 +143,12 @@ export default function Hero() {
           The people who know. Now within reach.
         </motion.p>
 
+        {/* Brand — deliberately smaller than the headline so it reads as a mark, not the message */}
         <motion.h1
-          initial={reduce ? false : { opacity: 0, y: 14 }}
+          initial={reduce ? false : { opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.1 }}
-          className="mt-6 font-serif text-6xl font-medium tracking-wide text-transparent sm:text-7xl lg:text-8xl"
+          className="mt-5 font-serif text-4xl font-medium tracking-wide text-transparent sm:text-5xl lg:text-6xl"
           style={{
             backgroundImage: "linear-gradient(180deg, #FFFFFF 0%, #C9CDD9 100%)",
             WebkitBackgroundClip: "text",
@@ -127,11 +158,12 @@ export default function Hero() {
           EXPÉRIA
         </motion.h1>
 
+        {/* Headline — primary visual weight */}
         <motion.h2
           initial={reduce ? false : { opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.25 }}
-          className="mt-8 font-serif text-3xl leading-[1.15] text-white sm:text-4xl lg:text-5xl"
+          className="mt-8 font-serif text-4xl leading-[1.12] text-white sm:text-5xl lg:text-6xl"
         >
           Don't Just Learn It.
           <br />
