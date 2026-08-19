@@ -14,7 +14,9 @@ import {
 import { IMAGES } from "@/data/mockData";
 import { LiveDot } from "@/components/atoms";
 
-// Size tiers create visual depth instead of a uniform grid of cards.
+// Positions are percentages *within the safe zone* (see the wrapper in Hero,
+// which already sits clear of the fixed header and the bottom trust strip) —
+// not percentages of the full section — so cards can never collide with either.
 const CARDS = [
   {
     label: "FOUNDER",
@@ -24,7 +26,7 @@ const CARDS = [
     size: "dominant",
     live: { when: "LIVE SESSION" },
     quote: "What nobody tells you before starting.",
-    className: "top-[18%] left-[1%] w-64 sm:w-72 -rotate-2",
+    className: "top-[22%] left-[2%] w-60 xl:w-64 -rotate-2",
   },
   {
     label: "SCIENTIST",
@@ -34,7 +36,7 @@ const CARDS = [
     size: "medium",
     live: { when: "LIVE TOMORROW · 7:00 PM", curious: "1,842 curious people" },
     cta: "Ask a question",
-    className: "top-[3%] right-[6%] w-52 sm:w-60 rotate-3",
+    className: "top-[4%] right-[3%] w-48 xl:w-56 rotate-3",
   },
   {
     label: "DOCTOR",
@@ -42,7 +44,7 @@ const CARDS = [
     image: IMAGES.anjali,
     icon: Stethoscope,
     size: "medium",
-    className: "bottom-[26%] right-[1%] w-48 sm:w-56 -rotate-2",
+    className: "bottom-[6%] right-[6%] w-44 xl:w-52 -rotate-2",
   },
   {
     label: "ENGINEER",
@@ -50,7 +52,7 @@ const CARDS = [
     image: IMAGES.arjun,
     icon: HardHat,
     size: "small",
-    className: "bottom-[6%] -left-6 w-36 sm:w-40 -rotate-3 opacity-90",
+    className: "bottom-[2%] left-[6%] w-32 xl:w-36 -rotate-3 opacity-90",
   },
   {
     label: "ATHLETE",
@@ -58,7 +60,7 @@ const CARDS = [
     image: IMAGES.karan,
     icon: Activity,
     size: "small",
-    className: "top-[2%] left-[26%] w-32 sm:w-36 rotate-2 opacity-80",
+    className: "top-[2%] left-[16%] w-28 xl:w-32 rotate-2 opacity-80",
   },
   {
     label: "VC",
@@ -66,7 +68,7 @@ const CARDS = [
     image: IMAGES.rahul,
     icon: TrendingUp,
     size: "small",
-    className: "bottom-[2%] right-[24%] w-32 sm:w-36 rotate-3 opacity-80",
+    className: "top-[46%] right-[18%] w-28 xl:w-32 rotate-3 opacity-80",
   },
 ];
 
@@ -127,10 +129,13 @@ export default function Hero() {
       {/* Orbit ring behind logo */}
       <div className="pointer-events-none absolute left-1/2 top-[24%] hidden h-[240px] w-[640px] -translate-x-1/2 -translate-y-1/2 rounded-[50%] border border-white/10 sm:block" />
 
-      {/* Floating profile cards */}
-      {CARDS.map((c, i) => (
-        <FloatingCard key={c.label} {...c} delay={0.3 + i * 0.08} />
-      ))}
+      {/* Safe zone: starts below the fixed header, ends above the trust strip.
+          All card positions are percentages of THIS box, not the full section. */}
+      <div className="pointer-events-none absolute inset-x-0 top-24 bottom-28 hidden lg:block">
+        {CARDS.map((c, i) => (
+          <FloatingCard key={c.label} {...c} delay={0.3 + i * 0.08} />
+        ))}
+      </div>
 
       {/* Content */}
       <div className="relative mx-auto flex min-h-[100svh] max-w-3xl flex-col items-center justify-center px-6 py-24 text-center">
