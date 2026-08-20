@@ -7,7 +7,7 @@ import { FIELDS } from "@/data/mockData";
 export default function FieldExplorer() {
   const featured = FIELDS.slice(0, 8);
   return (
-    <section className="bg-surface py-20 sm:py-28 lg:py-32">
+    <section className="bg-surface py-12 sm:py-20 lg:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
           <Reveal>
