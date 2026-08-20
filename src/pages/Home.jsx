@@ -184,7 +184,7 @@ function VerificationBadge({ label = "Verified experience" }) {
 
 function SectionLabel({ children, action }) {
   return (
-    <div className="mb-6 flex items-end justify-between gap-4">
+    <div className="mb-3 flex items-end justify-between gap-4">
       <p className="font-accent text-[0.68rem] font-semibold uppercase tracking-[0.25em] text-violet-300/75">
         {children}
       </p>
@@ -280,7 +280,7 @@ export default function Home() {
         </div>
 
         <header className="relative z-30 border-b border-white/[0.08] bg-[#05060b]/75 backdrop-blur-xl">
-          <nav className="mx-auto flex h-[76px] max-w-[1440px] items-center justify-between px-6 lg:px-10" aria-label="Main navigation">
+          <nav className="mx-auto flex h-[58px] max-w-[1440px] items-center justify-between px-6 lg:px-10" aria-label="Main navigation">
             <Link to="/" className="font-serif text-[1.55rem] tracking-[0.23em] text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-300">
               EXP<span className="text-violet-300">É</span>RIA
             </Link>
@@ -325,24 +325,16 @@ export default function Home() {
           )}
         </header>
 
-        <section className="relative mx-auto max-w-[1440px] px-6 pb-6 pt-6 lg:px-10 lg:pb-8 lg:pt-8">
+        <section className="relative mx-auto max-w-[1440px] px-6 pb-4 pt-4 lg:px-10 lg:pb-5 lg:pt-5">
           <div className="mx-auto max-w-[1050px] text-center">
-            <motion.p {...heroAnimation(0)} className="font-accent text-[0.62rem] font-semibold uppercase tracking-[0.35em] text-violet-300/75">
-              Real experience. Live access.
-            </motion.p>
-
-            <motion.h1 {...heroAnimation(0.08)} className="mt-3 font-serif text-[2rem] leading-[1.04] tracking-[-0.02em] text-white sm:text-4xl sm:leading-[1] sm:tracking-[-0.03em] lg:text-[3.4rem]">
+            <motion.h1 {...heroAnimation(0.08)} className="font-serif text-[1.9rem] leading-[1.06] tracking-[-0.02em] text-white sm:text-4xl sm:leading-[1.02] sm:tracking-[-0.03em] lg:text-[3.1rem]">
               Don’t Just Learn It.
               <br />
               Ask Someone Who’s{" "}
               <span className="bg-gradient-to-r from-violet-200 via-violet-400 to-indigo-300 bg-clip-text text-transparent">Done It.</span>
             </motion.h1>
 
-            <motion.p {...heroAnimation(0.16)} className="mx-auto mt-3 hidden max-w-2xl text-sm leading-relaxed text-white/55 sm:block sm:text-base">
-              Find the people who have actually built, achieved, discovered, solved, and experienced what you are curious about.
-            </motion.p>
-
-            <motion.form {...heroAnimation(0.24)} onSubmit={handleSearch} className="mx-auto mt-4 max-w-[640px]">
+            <motion.form {...heroAnimation(0.24)} onSubmit={handleSearch} className="mx-auto mt-3 max-w-[640px]">
               <label htmlFor="experia-search" className="sr-only">What are you curious about?</label>
               <div className="flex items-center gap-3 rounded-full border border-violet-200/30 bg-white/[0.055] p-1.5 pl-5 shadow-[0_18px_70px_rgba(76,29,149,0.16)] backdrop-blur-xl transition focus-within:border-violet-300/70 focus-within:bg-white/[0.08]">
                 <Search className="h-4 w-4 shrink-0 text-white/45" />
@@ -361,7 +353,7 @@ export default function Home() {
               </div>
             </motion.form>
 
-            <motion.div {...heroAnimation(0.3)} className="mt-3 flex flex-wrap items-center justify-center gap-x-3 gap-y-1.5 font-accent text-[0.7rem] text-white/42 sm:text-xs">
+            <motion.div {...heroAnimation(0.3)} className="mt-2.5 flex flex-wrap items-center justify-center gap-x-3 gap-y-1.5 font-accent text-[0.7rem] text-white/42 sm:text-xs">
               {DISCOVERY_TAGS.map((tag, index) => (
                 <Link key={tag} to={`/explore?topic=${tag.toLowerCase()}`} className="transition hover:text-violet-200">
                   {tag}
@@ -371,11 +363,11 @@ export default function Home() {
             </motion.div>
           </div>
 
-          <FadeUp className="mx-auto mt-5 max-w-[1160px] lg:mt-6">
-            <article className="group relative overflow-hidden rounded-[1.5rem] border border-violet-200/25 bg-[#0b0c16]/85 shadow-[0_30px_120px_rgba(0,0,0,0.42)] backdrop-blur-xl">
+          <FadeUp className="mx-auto mt-3 max-w-[1160px] lg:mt-4">
+            <article className="group relative overflow-hidden rounded-[1.3rem] border border-violet-200/25 bg-[#0b0c16]/85 shadow-[0_30px_120px_rgba(0,0,0,0.42)] backdrop-blur-xl">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_40%,rgba(124,58,237,0.18),transparent_40%)]" />
-              <div className="relative grid min-h-[220px] lg:grid-cols-[0.8fr_1.2fr] lg:min-h-[260px]">
-                <div className="relative min-h-[160px] overflow-hidden lg:min-h-full">
+              <div className="relative grid min-h-[170px] lg:grid-cols-[0.8fr_1.2fr] lg:min-h-[195px]">
+                <div className="relative min-h-[130px] overflow-hidden lg:min-h-full">
                   <img src={LIVE_CONVERSATION.image} alt={`${LIVE_CONVERSATION.name}, ${LIVE_CONVERSATION.role}`} className="absolute inset-0 h-full w-full object-cover object-top transition duration-700 group-hover:scale-[1.025]" />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#080910] via-[#080910]/15 to-transparent" />
                   <div className="absolute inset-y-0 right-0 hidden w-1/2 bg-gradient-to-l from-[#0b0c16] to-transparent lg:block" />
@@ -385,30 +377,30 @@ export default function Home() {
                   </div>
                 </div>
 
-                <div className="relative flex flex-col justify-center px-5 py-4 sm:px-8 lg:px-10 lg:py-6">
-                  <div className="flex items-center gap-3 font-accent text-[0.7rem] text-white/55">
+                <div className="relative flex flex-col justify-center px-5 py-3 sm:px-7 lg:px-8 lg:py-4">
+                  <div className="flex items-center gap-3 font-accent text-[0.68rem] text-white/55">
                     <span className="inline-flex items-center gap-2 text-red-200"><span className="h-1.5 w-1.5 rounded-full bg-red-400" />LIVE NOW</span>
                     <span className="h-1 w-1 rounded-full bg-white/20" />
                     <span className="inline-flex items-center gap-1.5"><UsersRound className="h-3 w-3" />{LIVE_CONVERSATION.watching}</span>
                   </div>
 
-                  <h2 className="mt-2 max-w-xl font-serif text-xl leading-[1.08] tracking-[-0.02em] text-white sm:text-2xl lg:text-[1.9rem]">
+                  <h2 className="mt-1.5 max-w-xl font-serif text-lg leading-[1.1] tracking-[-0.02em] text-white sm:text-xl lg:text-[1.55rem]">
                     {LIVE_CONVERSATION.title}
                   </h2>
 
-                  <div className="mt-2 flex items-center gap-2">
+                  <div className="mt-1.5 flex items-center gap-2">
                     <p className="font-accent text-sm font-semibold text-white/90">{LIVE_CONVERSATION.name}</p>
                     <VerificationBadge />
                   </div>
                   <p className="mt-0.5 font-accent text-xs text-violet-200/75">{LIVE_CONVERSATION.role} · {LIVE_CONVERSATION.credibility}</p>
 
-                  <p className="mt-2 hidden max-w-lg text-sm leading-relaxed text-white/58 sm:block">{LIVE_CONVERSATION.description}</p>
+                  <p className="mt-1.5 hidden max-w-lg text-xs leading-relaxed text-white/58 sm:block">{LIVE_CONVERSATION.description}</p>
 
-                  <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1.5 border-t border-white/[0.1] pt-3 font-accent text-xs text-violet-200/80">
+                  <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1.5 border-t border-white/[0.1] pt-2 font-accent text-xs text-violet-200/80">
                     <span className="inline-flex items-center gap-1.5"><MessageCircle className="h-3.5 w-3.5" />{LIVE_CONVERSATION.questions}</span>
                   </div>
 
-                  <PrimaryButton to="/live" className="mt-3 w-fit px-5 py-2.5 text-xs">
+                  <PrimaryButton to="/live" className="mt-2 w-fit px-4 py-2 text-xs">
                     Enter the conversation
                   </PrimaryButton>
                 </div>
@@ -418,7 +410,7 @@ export default function Home() {
         </section>
       </div>
 
-      <section className="relative border-t border-white/[0.08] bg-[#06070d] px-6 pb-8 pt-5 lg:px-10 lg:pb-10 lg:pt-6">
+      <section className="relative border-t border-white/[0.08] bg-[#06070d] px-6 pb-6 pt-3 lg:px-10 lg:pb-8 lg:pt-4">
         <div className="mx-auto max-w-[1360px]">
           <SectionLabel action={<Link to="/live" className="inline-flex items-center gap-1 font-accent text-xs text-white/50 transition hover:text-white">View all <ChevronRight className="h-4 w-4" /></Link>}>
             Upcoming live conversations
