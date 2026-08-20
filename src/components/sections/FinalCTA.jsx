@@ -6,7 +6,7 @@ import { Overline } from "@/components/atoms";
 export default function FinalCTA() {
   const reduce = useReducedMotion();
   return (
-    <section className="mx-auto max-w-7xl px-4 py-24 sm:px-6 sm:py-32 lg:px-8 lg:py-40">
+    <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-24 lg:px-8 lg:py-32">
       <div className="mx-auto max-w-4xl text-center">
         <Overline>Ask someone who's done it</Overline>
         <motion.h2
