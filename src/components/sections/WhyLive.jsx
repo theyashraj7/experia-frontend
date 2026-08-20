@@ -10,7 +10,7 @@ export default function WhyLive() {
   const expert = EXPERTS[0];
   const stageStudents = [EXPERTS[1], EXPERTS[2], EXPERTS[3], EXPERTS[4]];
   return (
-    <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-28 lg:px-8 lg:py-32">
+    <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-20 lg:px-8 lg:py-28">
       <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16">
         {/* Left: copy + interactions */}
         <div>
