@@ -5,7 +5,7 @@ import { HOW_IT_WORKS } from "@/data/mockData";
 
 export default function HowItWorks() {
   return (
-    <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-28 lg:px-8 lg:py-32">
+    <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-20 lg:px-8 lg:py-28">
       <Reveal>
         <SectionHeading
           overline="How Expéria works"
