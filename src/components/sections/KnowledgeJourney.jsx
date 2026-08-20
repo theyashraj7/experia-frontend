@@ -7,7 +7,7 @@ import { LEARNER } from "@/data/mockData";
 
 export default function KnowledgeJourney() {
   return (
-    <section className="border-y border-border bg-surface py-20 sm:py-28 lg:py-32">
+    <section className="border-y border-border bg-surface py-12 sm:py-20 lg:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1fr_1.3fr] lg:items-center lg:gap-16">
           <Reveal>
