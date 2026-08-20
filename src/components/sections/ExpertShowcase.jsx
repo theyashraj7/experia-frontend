@@ -7,7 +7,7 @@ import { EXPERTS } from "@/data/mockData";
 export default function ExpertShowcase() {
   const items = EXPERTS.slice(0, 4);
   return (
-    <section className="border-y border-border bg-surface py-20 sm:py-28 lg:py-32">
+    <section className="border-y border-border bg-surface py-12 sm:py-20 lg:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
           <Reveal>
