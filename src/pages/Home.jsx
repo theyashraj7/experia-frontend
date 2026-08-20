@@ -343,7 +343,7 @@ export default function Home() {
               Real experience. Live access.
             </motion.p>
 
-            <motion.h1 {...heroAnimation(0.08)} className="mt-6 font-serif text-[3.3rem] leading-[0.98] tracking-[-0.04em] text-white sm:text-6xl lg:text-[6.4rem]">
+            <motion.h1 {...heroAnimation(0.08)} className="mt-6 font-serif text-[2.5rem] leading-[1.02] tracking-[-0.02em] text-white sm:text-6xl sm:leading-[0.98] sm:tracking-[-0.04em] lg:text-[6.4rem]">
               Don’t Just Learn It.
               <br />
               Ask Someone Who’s{" "}
