@@ -29,7 +29,7 @@ export default function LiveRoomPreview({
     setChatValue("");
   };
   return (
-    <section className={standalone ? "" : "relative overflow-hidden bg-[#0D0E15] py-20 text-white sm:py-28 lg:py-32"}>
+    <section className={standalone ? "" : "relative overflow-hidden bg-[#0D0E15] py-12 text-white sm:py-20 lg:py-28"}>
       {!standalone && <div className="noise opacity-[0.05]" />}
       <div className={standalone ? "" : "relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"}>
         {!standalone && (
