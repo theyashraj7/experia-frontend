@@ -7,7 +7,7 @@ import { IMAGES, EXPERTS } from "@/data/mockData";
 export default function FeaturedStory() {
   const rahul = EXPERTS[0];
   return (
-    <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-28 lg:px-8 lg:py-36">
+    <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-20 lg:px-8 lg:py-28">
       <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
         <Reveal>
           <Overline>A story you use, but never see</Overline>
