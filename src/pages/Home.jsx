@@ -208,43 +208,35 @@ function PrimaryButton({ children, to = "/explore", className = "" }) {
 function ConversationCard({ conversation, index }) {
   return (
     <FadeUp delay={index * 0.06} className="h-full">
-      <article className="group relative flex h-full min-h-[190px] flex-col overflow-hidden rounded-[1.1rem] border border-white/[0.11] bg-white/[0.035] p-2.5 transition duration-300 hover:-translate-y-1 hover:border-violet-300/35 hover:bg-white/[0.055] hover:shadow-[0_24px_70px_rgba(0,0,0,0.28)]">
-        <div className="relative flex items-start gap-3">
-          <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-full border border-white/[0.1]">
-            <img
-              src={conversation.image}
-              alt={`${conversation.name}, ${conversation.role}`}
-              loading="lazy"
-              className="h-full w-full object-cover object-top grayscale-[0.1]"
-            />
-          </div>
-          <div className="min-w-0 flex-1">
-            <div className="flex items-center gap-1.5 font-accent text-[0.62rem] text-violet-200/70">
-              <CalendarDays className="h-3 w-3" />
-              {conversation.date}
-              <span className="h-1 w-1 rounded-full bg-white/25" />
-              <Clock3 className="h-3 w-3" />
-              {conversation.time}
-            </div>
-            <h3 className="mt-1 truncate font-serif text-base leading-tight text-white transition-colors group-hover:text-violet-100">
-              {conversation.topic}
-            </h3>
-          </div>
+      <article className="group relative flex h-full min-h-[190px] overflow-hidden rounded-2xl border border-white/[0.11] bg-white/[0.035] transition duration-300 hover:-translate-y-1 hover:border-violet-300/35 hover:bg-white/[0.055] hover:shadow-[0_24px_70px_rgba(0,0,0,0.28)]">
+        <div className="relative w-[38%] shrink-0 overflow-hidden">
+          <img
+            src={conversation.image}
+            alt={`${conversation.name}, ${conversation.role}`}
+            loading="lazy"
+            className="absolute inset-0 h-full w-full object-cover object-top transition duration-500 group-hover:scale-105"
+          />
         </div>
 
-        <div className="relative mt-2 flex flex-1 flex-col">
+        <div className="relative flex min-w-0 flex-1 flex-col justify-center gap-1.5 px-4 py-3">
+          <div className="flex items-center gap-1.5 font-accent text-[0.68rem] text-violet-300">
+            <CalendarDays className="h-3.5 w-3.5" />
+            {conversation.date} · {conversation.time}
+          </div>
+          <h3 className="truncate font-serif text-lg leading-tight text-white transition-colors group-hover:text-violet-100">
+            {conversation.topic}
+          </h3>
           <div className="flex items-center gap-1.5">
-            <p className="truncate font-accent text-xs font-medium text-white/85">{conversation.name}</p>
+            <p className="truncate font-accent text-sm font-medium text-white/85">{conversation.name}</p>
             <VerificationBadge />
           </div>
-          <p className="mt-0.5 truncate text-[0.7rem] text-white/47">{conversation.role} · {conversation.credibility}</p>
+          <p className="truncate text-xs text-white/47">{conversation.role} · {conversation.credibility}</p>
 
           <Link
             to="/live"
-            className="mt-auto inline-flex items-center justify-center gap-1.5 rounded-full border border-violet-300/30 px-3 py-2 font-accent text-[0.7rem] font-semibold text-violet-100 transition hover:border-violet-200/60 hover:bg-violet-300/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-300"
+            className="mt-1.5 inline-flex items-center justify-center rounded-full border border-violet-300/40 px-3 py-2 font-accent text-[0.7rem] font-semibold text-violet-100 transition hover:border-violet-200/60 hover:bg-violet-300/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-300"
           >
             Reserve your seat
-            <ArrowUpRight className="h-3.5 w-3.5" />
           </Link>
         </div>
       </article>
@@ -269,27 +261,30 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen overflow-hidden bg-[#05060b] text-white selection:bg-violet-400/30 selection:text-white">
-      <div className="relative isolate">
-        <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-          <div className="absolute left-1/2 top-[-24rem] h-[58rem] w-[72rem] -translate-x-1/2 rounded-full bg-violet-600/[0.10] blur-[140px]" />
-          <div className="absolute right-[-18rem] top-[30rem] h-[38rem] w-[38rem] rounded-full bg-indigo-500/[0.10] blur-[130px]" />
-          <div className="absolute left-[-22rem] top-[48rem] h-[32rem] w-[32rem] rounded-full bg-fuchsia-500/[0.055] blur-[130px]" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_25%,transparent_0%,rgba(5,6,11,0.35)_48%,#05060b_90%)]" />
-          <div className="absolute inset-0 opacity-[0.035] [background-image:linear-gradient(rgba(255,255,255,0.6)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.6)_1px,transparent_1px)] [background-size:72px_72px]" />
-        </div>
+    <main className="min-h-screen overflow-hidden bg-black text-white selection:bg-violet-400/30 selection:text-white">
+      <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden bg-black">
+        <div className="absolute left-1/2 top-[-24rem] h-[58rem] w-[72rem] -translate-x-1/2 rounded-full bg-violet-600/[0.10] blur-[140px]" />
+        <div className="absolute right-[-18rem] top-[30rem] h-[38rem] w-[38rem] rounded-full bg-indigo-500/[0.10] blur-[130px]" />
+        <div className="absolute left-[-22rem] top-[48rem] h-[32rem] w-[32rem] rounded-full bg-fuchsia-500/[0.055] blur-[130px]" />
+        <svg className="absolute left-0 top-[26%] h-[420px] w-[620px] opacity-60" viewBox="0 0 620 420" fill="none">
+          <defs>
+            <linearGradient id="streak1" x1="0" y1="0" x2="620" y2="420" gradientUnits="userSpaceOnUse">
+              <stop offset="0" stopColor="#a78bfa" stopOpacity="0" />
+              <stop offset="0.5" stopColor="#a78bfa" stopOpacity="0.7" />
+              <stop offset="1" stopColor="#a78bfa" stopOpacity="0" />
+            </linearGradient>
+          </defs>
+          <path d="M0 60 Q 220 120 320 260 T 560 400" stroke="url(#streak1)" strokeWidth="1.5" />
+          <path d="M40 0 Q 200 160 300 220 T 500 340" stroke="url(#streak1)" strokeWidth="1" />
+        </svg>
+      </div>
 
-        <header className="relative z-30 border-b border-white/[0.08] bg-[#05060b]/75 backdrop-blur-xl">
+      <div className="relative isolate">
+        <header className="fixed inset-x-0 top-0 z-30 border-b border-white/[0.08] bg-black/80 backdrop-blur-xl">
           <nav className="mx-auto flex h-[58px] max-w-[1440px] items-center justify-between px-6 lg:px-10" aria-label="Main navigation">
             <Link to="/" className="font-serif text-[1.55rem] tracking-[0.23em] text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-300">
               EXP<span className="text-violet-300">É</span>RIA
             </Link>
-
-            <div className="hidden items-center gap-9 font-accent text-sm text-white/60 md:flex">
-              <Link to="/live" className="transition hover:text-white">Live</Link>
-              <Link to="/explore" className="transition hover:text-white">Explore</Link>
-              <Link to="/experts" className="transition hover:text-white">Experts</Link>
-            </div>
 
             <div className="hidden items-center gap-5 md:flex">
               <button aria-label="Search EXPERIA" className="rounded-full border border-white/15 p-2.5 text-white/75 transition hover:border-violet-300/50 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-300">
@@ -313,10 +308,7 @@ export default function Home() {
           {isMenuOpen && (
             <div className="border-t border-white/[0.08] px-6 py-5 md:hidden">
               <div className="flex flex-col gap-4 font-accent text-sm text-white/70">
-                <Link to="/live" onClick={() => setIsMenuOpen(false)}>Live</Link>
-                <Link to="/explore" onClick={() => setIsMenuOpen(false)}>Explore</Link>
-                <Link to="/experts" onClick={() => setIsMenuOpen(false)}>Experts</Link>
-                <div className="flex gap-3 border-t border-white/[0.08] pt-4">
+                <div className="flex gap-3">
                   <Link to="/login" className="rounded-full border border-white/15 px-4 py-2">Log in</Link>
                   <Link to="/signup" className="rounded-full bg-violet-500 px-4 py-2 font-semibold text-white">Sign up</Link>
                 </div>
@@ -325,30 +317,34 @@ export default function Home() {
           )}
         </header>
 
-        <section className="relative mx-auto max-w-[1440px] px-6 pb-4 pt-4 lg:px-10 lg:pb-5 lg:pt-5">
+        <section className="relative mx-auto max-w-[1440px] px-6 pb-4 pt-[74px] lg:px-10 lg:pb-5 lg:pt-[82px]">
           <div className="mx-auto max-w-[1050px] text-center">
-            <motion.h1 {...heroAnimation(0.08)} className="font-serif text-[1.9rem] leading-[1.06] tracking-[-0.02em] text-white sm:text-4xl sm:leading-[1.02] sm:tracking-[-0.03em] lg:text-[3.1rem]">
+            <motion.p {...heroAnimation(0)} className="font-accent text-[0.62rem] font-semibold uppercase tracking-[0.35em] text-violet-300/80">
+              Real experience. Live access.
+            </motion.p>
+
+            <motion.h1 {...heroAnimation(0.08)} className="mt-3 font-serif text-[1.9rem] leading-[1.06] tracking-[-0.02em] text-white sm:text-4xl sm:leading-[1.02] sm:tracking-[-0.03em] lg:text-[3.1rem]">
               Don’t Just Learn It.
               <br />
               Ask Someone Who’s{" "}
               <span className="bg-gradient-to-r from-violet-200 via-violet-400 to-indigo-300 bg-clip-text text-transparent">Done It.</span>
             </motion.h1>
 
-            <motion.form {...heroAnimation(0.24)} onSubmit={handleSearch} className="mx-auto mt-3 max-w-[640px]">
+            <motion.form {...heroAnimation(0.24)} onSubmit={handleSearch} className="mx-auto mt-3 max-w-[512px]">
               <label htmlFor="experia-search" className="sr-only">What are you curious about?</label>
-              <div className="flex items-center gap-3 rounded-full border border-violet-200/30 bg-white/[0.055] p-1.5 pl-5 shadow-[0_18px_70px_rgba(76,29,149,0.16)] backdrop-blur-xl transition focus-within:border-violet-300/70 focus-within:bg-white/[0.08]">
-                <Search className="h-4 w-4 shrink-0 text-white/45" />
+              <div className="flex items-center gap-2 rounded-full border border-violet-200/30 bg-white/[0.055] p-1.5 pl-4 shadow-[0_18px_70px_rgba(76,29,149,0.16)] backdrop-blur-xl transition focus-within:border-violet-300/70 focus-within:bg-white/[0.08]">
+                <Search className="h-3.5 w-3.5 shrink-0 text-white/45" />
                 <input
                   id="experia-search"
                   type="search"
                   value={query}
                   onChange={(event) => setQuery(event.target.value)}
                   placeholder="What are you curious about?"
-                  className="min-w-0 flex-1 bg-transparent py-1.5 font-accent text-sm text-white outline-none placeholder:text-white/38"
+                  className="min-w-0 flex-1 bg-transparent py-1 font-accent text-xs text-white outline-none placeholder:text-white/38"
                 />
-                <button type="submit" className="inline-flex shrink-0 items-center gap-2 rounded-full bg-white px-4 py-2 font-accent text-xs font-semibold text-[#12131d] transition hover:bg-violet-100 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-300">
+                <button type="submit" className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-white px-3 py-1.5 font-accent text-[0.7rem] font-semibold text-[#12131d] transition hover:bg-violet-100 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-300">
                   Explore
-                  <ArrowRight className="h-3.5 w-3.5" />
+                  <ArrowRight className="h-3 w-3" />
                 </button>
               </div>
             </motion.form>
@@ -366,41 +362,37 @@ export default function Home() {
           <FadeUp className="mx-auto mt-3 max-w-[1160px] lg:mt-4">
             <article className="group relative overflow-hidden rounded-[1.3rem] border border-violet-200/25 bg-[#0b0c16]/85 shadow-[0_30px_120px_rgba(0,0,0,0.42)] backdrop-blur-xl">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_40%,rgba(124,58,237,0.18),transparent_40%)]" />
-              <div className="relative grid min-h-[170px] lg:grid-cols-[0.8fr_1.2fr] lg:min-h-[195px]">
-                <div className="relative min-h-[130px] overflow-hidden lg:min-h-full">
+              <div className="relative grid min-h-[200px] lg:grid-cols-[0.8fr_1.2fr] lg:min-h-[230px]">
+                <div className="relative min-h-[150px] overflow-hidden lg:min-h-full">
                   <img src={LIVE_CONVERSATION.image} alt={`${LIVE_CONVERSATION.name}, ${LIVE_CONVERSATION.role}`} className="absolute inset-0 h-full w-full object-cover object-top transition duration-700 group-hover:scale-[1.025]" />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#080910] via-[#080910]/15 to-transparent" />
                   <div className="absolute inset-y-0 right-0 hidden w-1/2 bg-gradient-to-l from-[#0b0c16] to-transparent lg:block" />
-                  <div className="absolute left-4 top-4 flex items-center gap-2 rounded-full border border-red-300/25 bg-black/45 px-2.5 py-1 font-accent text-[0.65rem] font-semibold text-red-200 backdrop-blur-md">
-                    <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-red-400 shadow-[0_0_12px_rgba(248,113,113,0.95)]" />
-                    LIVE NOW
-                  </div>
                 </div>
 
-                <div className="relative flex flex-col justify-center px-5 py-3 sm:px-7 lg:px-8 lg:py-4">
+                <div className="relative flex flex-col justify-center px-5 py-4 pb-14 sm:px-7 lg:px-8 lg:py-5 lg:pb-16">
                   <div className="flex items-center gap-3 font-accent text-[0.68rem] text-white/55">
-                    <span className="inline-flex items-center gap-2 text-red-200"><span className="h-1.5 w-1.5 rounded-full bg-red-400" />LIVE NOW</span>
+                    <span className="inline-flex items-center gap-2 text-red-200"><span className="h-1.5 w-1.5 animate-pulse rounded-full bg-red-400" />LIVE NOW</span>
                     <span className="h-1 w-1 rounded-full bg-white/20" />
                     <span className="inline-flex items-center gap-1.5"><UsersRound className="h-3 w-3" />{LIVE_CONVERSATION.watching}</span>
                   </div>
 
-                  <h2 className="mt-1.5 max-w-xl font-serif text-lg leading-[1.1] tracking-[-0.02em] text-white sm:text-xl lg:text-[1.55rem]">
-                    {LIVE_CONVERSATION.title}
+                  <h2 className="mt-2 max-w-xl font-serif text-2xl leading-[1.06] tracking-[-0.02em] text-white sm:text-3xl lg:text-[2.3rem]">
+                    {LIVE_CONVERSATION.title}?
                   </h2>
 
-                  <div className="mt-1.5 flex items-center gap-2">
+                  <div className="mt-2 flex items-center gap-2">
                     <p className="font-accent text-sm font-semibold text-white/90">{LIVE_CONVERSATION.name}</p>
                     <VerificationBadge />
                   </div>
                   <p className="mt-0.5 font-accent text-xs text-violet-200/75">{LIVE_CONVERSATION.role} · {LIVE_CONVERSATION.credibility}</p>
 
-                  <p className="mt-1.5 hidden max-w-lg text-xs leading-relaxed text-white/58 sm:block">{LIVE_CONVERSATION.description}</p>
+                  <p className="mt-2 hidden max-w-lg text-xs leading-relaxed text-white/58 sm:block">{LIVE_CONVERSATION.description}</p>
 
-                  <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1.5 border-t border-white/[0.1] pt-2 font-accent text-xs text-violet-200/80">
-                    <span className="inline-flex items-center gap-1.5"><MessageCircle className="h-3.5 w-3.5" />{LIVE_CONVERSATION.questions}</span>
+                  <div className="mt-2.5 flex items-center gap-1.5 font-accent text-xs text-violet-200/80">
+                    <MessageCircle className="h-3.5 w-3.5" />{LIVE_CONVERSATION.questions}
                   </div>
 
-                  <PrimaryButton to="/live" className="mt-2 w-fit px-4 py-2 text-xs">
+                  <PrimaryButton to="/live" className="absolute bottom-4 right-5 px-4 py-2 text-xs sm:bottom-5 sm:right-7 lg:bottom-5 lg:right-8">
                     Enter the conversation
                   </PrimaryButton>
                 </div>
@@ -410,7 +402,7 @@ export default function Home() {
         </section>
       </div>
 
-      <section className="relative border-t border-white/[0.08] bg-[#06070d] px-6 pb-6 pt-3 lg:px-10 lg:pb-8 lg:pt-4">
+      <section className="relative px-6 pb-6 pt-3 lg:px-10 lg:pb-8 lg:pt-4">
         <div className="mx-auto max-w-[1360px]">
           <SectionLabel action={<Link to="/live" className="inline-flex items-center gap-1 font-accent text-xs text-white/50 transition hover:text-white">View all <ChevronRight className="h-4 w-4" /></Link>}>
             Upcoming live conversations
@@ -472,7 +464,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="experts" className="border-y border-white/[0.08] bg-[#070810] px-6 py-20 lg:px-10 lg:py-28">
+      <section id="experts" className="px-6 py-20 lg:px-10 lg:py-28">
         <div className="mx-auto max-w-[1360px]">
           <FadeUp>
             <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
@@ -543,7 +535,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="border-y border-white/[0.08] bg-[#070810] px-6 py-16 lg:px-10">
+      <section className="px-6 py-16 lg:px-10">
         <div className="mx-auto grid max-w-[1200px] gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {[
             [ShieldCheck, "Verified experience", "Real-world background, not anonymous advice."],
