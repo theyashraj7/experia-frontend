@@ -5,7 +5,7 @@ import { CURIOSITY_BRIDGE, IMAGES } from "@/data/mockData";
 
 export default function CuriosityBridge() {
   return (
-    <section className="relative overflow-hidden bg-[#0D0E15] py-20 text-white sm:py-28 lg:py-36">
+    <section className="relative overflow-hidden bg-[#0D0E15] py-12 text-white sm:py-20 lg:py-28">
       <div className="absolute inset-0 opacity-20">
         <img src={IMAGES.bridge} alt="" className="h-full w-full object-cover" loading="lazy" />
         <div className="absolute inset-0 bg-gradient-to-b from-[#0D0E15] via-[#0D0E15]/85 to-[#0D0E15]" />
