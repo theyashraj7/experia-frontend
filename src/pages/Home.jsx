@@ -437,8 +437,8 @@ export default function Home() {
           </div>
 
           <FadeUp className="relative mx-auto mt-9 max-w-[900px] lg:mt-11">
-  <div className="pointer-events-none absolute -inset-4 -z-10 rounded-[32px] bg-violet-600/25 blur-3xl sm:-inset-6 sm:blur-[60px]" />
-  <article className="group relative z-10 overflow-hidden rounded-2xl border border-violet-300/35 bg-[#0b0c16]/85 shadow-[0_30px_90px_-20px_rgba(0,0,0,0.65),0_50px_140px_rgba(88,28,207,0.32)]">
+  
+  <article className="group relative z-10 overflow-hidden rounded-2xl border border-white/[0.12] bg-[#0b0c16]/85 shadow-[0_20px_50px_rgba(0,0,0,0.45)]">
               <div className="relative grid min-h-[200px] lg:grid-cols-[0.8fr_1.2fr] lg:min-h-[230px]">
                 <div className="relative min-h-[150px] overflow-hidden lg:min-h-full">
                   <img src={LIVE_CONVERSATION.image} alt={`${LIVE_CONVERSATION.name}, ${LIVE_CONVERSATION.role}`} className="absolute inset-0 h-full w-full object-cover object-top transition duration-700 group-hover:scale-[1.025]" />
