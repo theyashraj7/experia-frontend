@@ -357,7 +357,7 @@ export default function Home() {
       </div>
 
       <div className="relative isolate">
-        <header className="fixed inset-x-0 top-0 z-30 border-b border-white/[0.08] bg-black">
+        <header className={`fixed inset-x-0 top-0 z-30 transition-colors duration-300 ${isScrolled ? "border-b border-white/[0.08] bg-black" : "border-b border-transparent bg-transparent"}`}>
           <nav className="mx-auto flex h-[58px] max-w-[1440px] items-center justify-between px-6 lg:px-10" aria-label="Main navigation">
             <Link to="/" className="font-serif text-[1.55rem] tracking-[0.23em] text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-300">
               EXP<span className="text-violet-300">É</span>RIA
@@ -430,16 +430,13 @@ export default function Home() {
               {DISCOVERY_TAGS.map((tag, index) => (
                 <Link key={tag} to={`/explore?topic=${tag.toLowerCase()}`} className="transition hover:text-violet-200">
                   {tag}
-                  <span className="ml-3 text-violet-300/50">·</span>
+                  {index < DISCOVERY_TAGS.length - 1 && <span className="ml-3 text-violet-300/50">·</span>}
                 </Link>
               ))}
-              <Link to="/explore" className="inline-flex items-center gap-1 text-violet-300 transition hover:text-violet-200">
-                <span className="text-sm leading-none">+</span> More topics
-              </Link>
             </motion.div>
           </div>
 
-          <FadeUp className="mx-auto mt-11 max-w-[900px] lg:mt-14">
+          <FadeUp className="mx-auto mt-7 max-w-[900px] lg:mt-9">
                         <article className="group relative overflow-hidden rounded-[28px] border border-white/[0.14] bg-[#0b0c16]/85 shadow-[0_40px_120px_-20px_rgba(0,0,0,0.65),0_60px_170px_rgba(88,28,207,0.38),0_0_90px_rgba(76,29,149,0.22)]">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_40%,rgba(124,58,237,0.18),transparent_40%)]" />
               <div className="relative grid min-h-[200px] lg:grid-cols-[0.8fr_1.2fr] lg:min-h-[230px]">
@@ -482,7 +479,12 @@ export default function Home() {
         </section>
       </div>
 
-      <section className="relative px-6 pb-14 pt-6 lg:px-10 lg:pb-16 lg:pt-8">
+      <section className="relative px-6 py-14 lg:px-10 lg:py-16">
+        <div className="mx-auto max-w-[1200px] text-center">
+          <h2 className="font-serif text-2xl text-white sm:text-3xl">
+            Why <span className="text-violet-300">EXPÉRIA</span>?
+          </h2>
+        </div>
         <div className="mx-auto mt-8 grid max-w-[1200px] gap-4 sm:grid-cols-3">
           {WHY_EXPERIA.map(({ icon: Icon, title, description }, index) => (
             <FadeUp key={title} delay={index * 0.06} className="h-full">
