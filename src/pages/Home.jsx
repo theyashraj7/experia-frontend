@@ -5,20 +5,28 @@ import {
   ArrowRight,
   ArrowUpRight,
   BadgeCheck,
+  Briefcase,
   CalendarDays,
   Check,
+  ChevronDown,
   ChevronRight,
   Clock3,
+  Code2,
   Compass,
   Factory,
   FlaskConical,
+  Heart,
   Landmark,
   Menu,
   MessageCircle,
+  MessagesSquare,
+  Plane,
   Search,
   ShieldCheck,
   Sparkles,
   Stethoscope,
+  TrendingUp,
+  UserRound,
   UsersRound,
   X,
 } from "lucide-react";
@@ -154,6 +162,68 @@ const HOW_IT_WORKS = [
   },
 ];
 
+const WHY_EXPERIA = [
+  {
+    icon: UsersRound,
+    title: "Learn from experience",
+    description: "Not theory from a textbook. Hear how things actually work from someone who has lived it.",
+  },
+  {
+    icon: MessagesSquare,
+    title: "Ask real questions",
+    description: "You don't just watch. Ask the questions you actually care about.",
+  },
+  {
+    icon: UserRound,
+    title: "Meet the people behind the experience",
+    description: "Discover experts by their experience, industry, and stories.",
+  },
+];
+
+const TRENDING_QUESTIONS = [
+  {
+    icon: Plane,
+    question: "What does a commercial pilot actually do during an emergency?",
+    curious: "12.4K people curious",
+    tag: "Aviation",
+  },
+  {
+    icon: TrendingUp,
+    question: "How does a VC decide whether to invest in a startup?",
+    curious: "8.7K people curious",
+    tag: "Business",
+  },
+  {
+    icon: Heart,
+    question: "What really happens inside an emergency room?",
+    curious: "6.3K people curious",
+    tag: "Medicine",
+  },
+  {
+    icon: Sparkles,
+    question: "What does it actually take to build a company from zero?",
+    curious: "4.8K people curious",
+    tag: "Startups",
+  },
+];
+
+const EXPLORE_EXPERIENCE = [
+  { icon: Plane, title: "Aviation", description: "Pilots, engineers, airline leaders" },
+  { icon: Briefcase, title: "Business", description: "Founders, CEOs, operators" },
+  { icon: Landmark, title: "Finance", description: "Investors, analysts, traders, CFOs" },
+  { icon: Heart, title: "Medicine", description: "Doctors, surgeons, healthcare pros" },
+  { icon: Code2, title: "Technology", description: "Engineers, PMs, tech leaders" },
+  { icon: Factory, title: "Manufacturing", description: "Engineers, plant heads, industry experts" },
+];
+
+const FAQ_ITEMS = [
+  { q: "What is EXPERIA?", a: "EXPERIA connects you with real people who have lived the experience you're curious about, through live conversations." },
+  { q: "Are conversations live?", a: "Yes, conversations happen live at a scheduled time so you can ask questions directly." },
+  { q: "Can I become an expert?", a: "Yes — anyone with real, lived experience in their field can apply to host a conversation." },
+  { q: "How are experts verified?", a: "Every expert is reviewed for real-world credentials and experience before they can host a conversation." },
+  { q: "Can I suggest someone as an expert?", a: "Yes, you can refer someone whose experience you think others would learn from." },
+  { q: "What happens after I join?", a: "You'll get a link to the live room where you can watch, ask questions, and interact in real time." },
+];
 function FadeUp({ children, delay = 0, className = "" }) {
   const reduce = useReducedMotion();
 
@@ -249,6 +319,7 @@ export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [isScrolled, setIsScrolled] = useState(false);
+  const [openFaq, setOpenFaq] = useState(null);
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 8);
@@ -343,15 +414,15 @@ export default function Home() {
         <section className="relative mx-auto max-w-[1440px] px-6 pb-4 pt-[74px] lg:px-10 lg:pb-5 lg:pt-[82px]">
           <div className="mx-auto max-w-[1050px] text-center">
             <motion.h1 {...heroAnimation(0.08)} className="font-serif text-[1.9rem] leading-[1.06] tracking-[-0.02em] text-white sm:text-4xl sm:leading-[1.02] sm:tracking-[-0.03em] lg:text-[3.1rem]">
-              You Don’t Need Another Course.
+              Don't Just Learn It.
               <br />
-              Ask Someone Who’s{" "}
+              Ask Someone Who's{" "}
               <span className="bg-gradient-to-r from-violet-200 via-violet-400 to-indigo-300 bg-clip-text text-transparent">Done It.</span>
             </motion.h1>
 
-            <motion.form {...heroAnimation(0.24)} onSubmit={handleSearch} className="mx-auto mt-6 lg:mt-7 max-w-[512px]">
+            <motion.form {...heroAnimation(0.24)} onSubmit={handleSearch} className="mx-auto mt-3 max-w-[512px]">
               <label htmlFor="experia-search" className="sr-only">What are you curious about?</label>
-             <div className="glare-border flex items-center gap-2 rounded-full border border-violet-400/60 bg-white/[0.055] p-1.5 pl-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_0_0_1px_rgba(167,139,250,0.15),0_18px_70px_rgba(76,29,149,0.25)] transition focus-within:border-violet-300 focus-within:bg-white/[0.08]">
+              <div className="flex items-center gap-2 rounded-xl border border-violet-400/60 bg-white/[0.055] p-1.5 pl-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_0_0_1px_rgba(167,139,250,0.15),0_18px_70px_rgba(76,29,149,0.25)] transition focus-within:border-violet-300 focus-within:bg-white/[0.08]">
                 <Search className="h-3.5 w-3.5 shrink-0 text-white/45" />
                 <input
                   id="experia-search"
@@ -378,8 +449,8 @@ export default function Home() {
             </motion.div>
           </div>
 
-          <FadeUp className="mx-auto mt-7 max-w-[900px] lg:mt-9">
-                        <article className="group relative overflow-hidden rounded-[28px] border border-white/[0.14] bg-[#0b0c16]/85 shadow-[0_40px_120px_-20px_rgba(0,0,0,0.65),0_60px_170px_rgba(88,28,207,0.38),0_0_90px_rgba(76,29,149,0.22)]">
+          <FadeUp className="mx-auto mt-3 max-w-[900px] lg:mt-4">
+            <article className="group relative overflow-hidden rounded-2xl border border-violet-200/25 bg-[#0b0c16]/85 shadow-[0_30px_120px_rgba(0,0,0,0.42)]">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_40%,rgba(124,58,237,0.18),transparent_40%)]" />
               <div className="relative grid min-h-[200px] lg:grid-cols-[0.8fr_1.2fr] lg:min-h-[230px]">
                 <div className="relative min-h-[150px] overflow-hidden lg:min-h-full">
@@ -421,6 +492,25 @@ export default function Home() {
         </section>
       </div>
 
+      <section className="relative px-6 py-14 lg:px-10 lg:py-16">
+        <div className="mx-auto max-w-[1200px] text-center">
+          <h2 className="font-serif text-2xl text-white sm:text-3xl">
+            Why <span className="text-violet-300">EXPÉRIA</span>?
+          </h2>
+        </div>
+        <div className="mx-auto mt-8 grid max-w-[1200px] gap-4 sm:grid-cols-3">
+          {WHY_EXPERIA.map(({ icon: Icon, title, description }, index) => (
+            <FadeUp key={title} delay={index * 0.06} className="h-full">
+              <div className="h-full rounded-xl border border-white/[0.1] bg-white/[0.03] p-5">
+                <Icon className="h-5 w-5 text-violet-300" />
+                <h3 className="mt-4 font-accent text-sm font-semibold text-white/90">{title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-white/48">{description}</p>
+              </div>
+            </FadeUp>
+          ))}
+        </div>
+      </section>
+
       <section className="relative px-6 pb-6 pt-3 lg:px-10 lg:pb-8 lg:pt-4">
         <div className="mx-auto max-w-[1360px]">
           <SectionLabel action={<Link to="/live" className="inline-flex items-center gap-1 font-accent text-xs text-white/50 transition hover:text-white">View all <ChevronRight className="h-4 w-4" /></Link>}>
@@ -434,96 +524,44 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="relative px-6 py-20 lg:px-10 lg:py-28">
-        <div className="mx-auto grid max-w-[1200px] gap-14 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
-          <FadeUp>
-            <p className="font-accent text-[0.68rem] font-semibold uppercase tracking-[0.25em] text-violet-300/75">The EXPERIA difference</p>
-            <h2 className="mt-5 max-w-md font-serif text-4xl leading-[1.06] tracking-[-0.025em] text-white sm:text-5xl">
-              Got a question?
-              <br />
-              <span className="text-white/45">Find the person who lived the answer.</span>
-            </h2>
-            <p className="mt-6 max-w-md text-base leading-relaxed text-white/52">
-              EXPERIA matches curiosity with real-world experience, then gives you a room where questions are part of the experience—not an afterthought.
-            </p>
-            <PrimaryButton to="/explore" className="mt-8">Explore by question</PrimaryButton>
-          </FadeUp>
-
-          <FadeUp delay={0.08}>
-            <div className="relative rounded-[1.8rem] border border-white/[0.1] bg-white/[0.035] p-6 shadow-[0_22px_80px_rgba(0,0,0,0.22)] sm:p-8">
-              <div className="absolute left-1/2 top-1/2 h-40 w-40 -translate-x-1/2 -translate-y-1/2 rounded-full bg-violet-600/15 blur-3xl" />
-              <div className="relative">
-                <p className="font-accent text-[0.66rem] font-semibold uppercase tracking-[0.22em] text-white/40">Your question</p>
-                <div className="mt-3 rounded-2xl border border-violet-300/25 bg-[#0a0b13] px-5 py-4 font-serif text-xl leading-snug text-white/90 sm:text-2xl">
-                  “How do I raise my first startup round?”
+      <section className="relative px-6 py-14 lg:px-10 lg:py-16">
+        <div className="mx-auto max-w-[1360px]">
+          <SectionLabel action={<Link to="/questions" className="inline-flex items-center gap-1 font-accent text-xs text-white/50 transition hover:text-white">View all questions <ChevronRight className="h-4 w-4" /></Link>}>
+            Trending questions
+          </SectionLabel>
+          <p className="-mt-1 mb-6 max-w-md text-sm text-white/45">What people are most curious about right now.</p>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {TRENDING_QUESTIONS.map(({ icon: Icon, question, curious, tag }, index) => (
+              <FadeUp key={question} delay={index * 0.06} className="h-full">
+                <div className="flex h-full flex-col rounded-xl border border-white/[0.1] bg-white/[0.03] p-5">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-violet-500/15 text-violet-300">
+                    <Icon className="h-4 w-4" />
+                  </div>
+                  <p className="mt-4 flex-1 font-serif text-lg leading-snug text-white">{question}</p>
+                  <p className="mt-4 text-xs text-white/45">{curious}</p>
+                  <span className="mt-2 inline-flex w-fit items-center rounded-lg border border-white/[0.12] px-2.5 py-1 font-accent text-[0.65rem] text-white/55">{tag}</span>
+                  <Link to="/questions" className="mt-4 inline-flex items-center gap-1 font-accent text-xs font-semibold text-violet-300 transition hover:text-violet-200">
+                    Explore question <ArrowRight className="h-3.5 w-3.5" />
+                  </Link>
                 </div>
-
-                <div className="flex items-center gap-3 py-5">
-                  <span className="h-px flex-1 bg-gradient-to-r from-transparent via-violet-300/40 to-transparent" />
-                  <span className="rounded-full border border-violet-300/25 bg-violet-300/10 px-3 py-1 font-accent text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-violet-200">EXPERIA</span>
-                  <span className="h-px flex-1 bg-gradient-to-r from-transparent via-violet-300/40 to-transparent" />
-                </div>
-
-                <div className="grid gap-3 sm:grid-cols-3">
-                  {[LIVE_CONVERSATION, UPCOMING_CONVERSATIONS[1], { ...UPCOMING_CONVERSATIONS[0], name: "Kavya Iyer", role: "Angel Investor", credibility: "50+ investments", image: IMAGES.neha }].map((expert, index) => (
-                    <div key={`${expert.name}-${index}`} className="rounded-2xl border border-white/[0.09] bg-black/20 p-3 transition hover:border-violet-300/35 hover:bg-white/[0.045]">
-                      <img src={expert.image} alt="" loading="lazy" className="h-24 w-full rounded-xl object-cover object-top" />
-                      <div className="mt-3 flex items-center gap-1.5">
-                        <p className="truncate font-accent text-xs font-semibold text-white/85">{expert.name}</p>
-                        <VerificationBadge />
-                      </div>
-                      <p className="mt-1 truncate text-[0.68rem] text-white/45">{expert.role}</p>
-                      <p className="mt-2 text-[0.68rem] leading-relaxed text-violet-200/65">{expert.credibility}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </FadeUp>
+              </FadeUp>
+            ))}
+          </div>
         </div>
       </section>
 
-      <section id="experts" className="px-6 py-20 lg:px-10 lg:py-28">
+      <section className="relative px-6 py-14 lg:px-10 lg:py-16">
         <div className="mx-auto max-w-[1360px]">
-          <FadeUp>
-            <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
-              <div>
-                <p className="font-accent text-[0.68rem] font-semibold uppercase tracking-[0.25em] text-violet-300/75">Expert discovery</p>
-                <h2 className="mt-4 font-serif text-4xl leading-[1.06] tracking-[-0.025em] text-white sm:text-5xl">The people who know.<br /><span className="text-white/45">Now within reach.</span></h2>
-              </div>
-              <div className="flex w-full max-w-sm items-center gap-3 rounded-lg border border-white/15 bg-white/[0.035] px-4 py-3 focus-within:border-violet-300/60">
-                <Search className="h-4 w-4 text-white/40" />
-                <input aria-label="Search experts, topics or questions" placeholder="Search experts, topics or questions..." className="min-w-0 flex-1 bg-transparent font-accent text-xs text-white outline-none placeholder:text-white/35" />
-              </div>
-            </div>
-          </FadeUp>
-
-          <div className="mt-9 flex flex-wrap gap-2">
-            {CATEGORY_LINKS.map(({ label, icon: Icon }) => (
-              <Link key={label} to={`/experts?category=${label.toLowerCase()}`} className="inline-flex items-center gap-2 rounded-lg border border-white/[0.11] px-4 py-2.5 font-accent text-xs text-white/60 transition hover:border-violet-300/45 hover:bg-violet-300/10 hover:text-violet-100">
-                <Icon className="h-3.5 w-3.5" />
-                {label}
-              </Link>
-            ))}
-          </div>
-
-          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {EXPERTS.map((expert, index) => (
-              <FadeUp key={expert.name} delay={index * 0.05}>
-                <Link to="/experts" className="group block overflow-hidden rounded-[1.35rem] border border-white/[0.1] bg-white/[0.03] p-3 transition duration-300 hover:-translate-y-1 hover:border-violet-300/35 hover:bg-white/[0.055]">
-                  <div className="relative overflow-hidden rounded-[1rem]">
-                    <img src={expert.image} alt={`${expert.name}, ${expert.role}`} loading="lazy" className="h-64 w-full object-cover object-top transition duration-500 group-hover:scale-[1.03]" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#090a12] via-transparent to-transparent" />
-                    <span className="absolute left-3 top-3 rounded-full border border-white/15 bg-black/40 px-2.5 py-1 font-accent text-[0.62rem] font-semibold tracking-[0.14em] text-white/75 backdrop-blur">{expert.category}</span>
-                  </div>
-                  <div className="px-1.5 pb-2 pt-5">
-                    <div className="flex items-center gap-2">
-                      <h3 className="font-serif text-2xl text-white">{expert.name}</h3>
-                      <VerificationBadge />
-                    </div>
-                    <p className="mt-1 font-accent text-xs text-violet-200/70">{expert.role}</p>
-                    <p className="mt-3 text-sm leading-relaxed text-white/48">{expert.detail}</p>
-                  </div>
+          <SectionLabel action={<Link to="/explore" className="inline-flex items-center gap-1 font-accent text-xs text-white/50 transition hover:text-white">Explore all topics <ChevronRight className="h-4 w-4" /></Link>}>
+            Explore by experience
+          </SectionLabel>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
+            {EXPLORE_EXPERIENCE.map(({ icon: Icon, title, description }, index) => (
+              <FadeUp key={title} delay={index * 0.05} className="h-full">
+                <Link to={`/experts?category=${title.toLowerCase()}`} className="group flex h-full flex-col rounded-xl border border-white/[0.1] bg-white/[0.03] p-5 transition hover:border-violet-300/40 hover:bg-white/[0.05]">
+                  <Icon className="h-5 w-5 text-violet-300" />
+                  <h3 className="mt-4 font-accent text-sm font-semibold text-white/90">{title}</h3>
+                  <p className="mt-1.5 text-xs leading-relaxed text-white/45">{description}</p>
                 </Link>
               </FadeUp>
             ))}
@@ -531,57 +569,90 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="relative px-6 py-20 lg:px-10 lg:py-28">
-        <div className="mx-auto max-w-[1200px]">
-          <FadeUp className="max-w-xl">
-            <p className="font-accent text-[0.68rem] font-semibold uppercase tracking-[0.25em] text-violet-300/75">How EXPERIA works</p>
-            <h2 className="mt-4 font-serif text-4xl leading-[1.06] tracking-[-0.025em] text-white sm:text-5xl">One question.<br /><span className="text-white/45">One real conversation.</span></h2>
-          </FadeUp>
+      <section className="relative px-6 py-14 lg:px-10 lg:py-16">
+        <div className="mx-auto max-w-[1000px] text-center">
+          <h2 className="font-serif text-2xl text-white sm:text-3xl">
+            How <span className="text-violet-300">EXPÉRIA</span> works
+          </h2>
+        </div>
+        <div className="mx-auto mt-10 grid max-w-[1100px] grid-cols-2 gap-x-4 gap-y-8 lg:grid-cols-4">
+          {HOW_IT_WORKS.map((step, index) => (
+            <FadeUp key={step.number} delay={index * 0.06} className="text-center">
+              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full border border-violet-300/30 bg-violet-500/10 font-accent text-sm font-bold text-violet-300">
+                {index + 1}
+              </div>
+              <h3 className="mt-3 font-accent text-sm font-semibold text-white/90">{step.title}</h3>
+              <p className="mt-1.5 text-xs leading-relaxed text-white/45">{step.description}</p>
+            </FadeUp>
+          ))}
+        </div>
+      </section>
 
-          <div className="mt-12 grid gap-px overflow-hidden rounded-[1.5rem] border border-white/[0.1] bg-white/[0.1] md:grid-cols-4">
-            {HOW_IT_WORKS.map((step, index) => (
-              <FadeUp key={step.number} delay={index * 0.05} className="h-full">
-                <div className="flex h-full min-h-[220px] flex-col bg-[#080910] p-6 lg:p-7">
-                  <p className="font-accent text-sm font-semibold text-violet-300/70">{step.number}</p>
-                  <div className="mt-auto">
-                    <h3 className="font-serif text-2xl leading-tight text-white">{step.title}</h3>
-                    <p className="mt-3 text-sm leading-relaxed text-white/48">{step.description}</p>
-                  </div>
+      <section className="relative overflow-hidden px-6 py-16 lg:px-10 lg:py-20">
+        <div className="mx-auto max-w-[1360px]">
+          <div className="relative overflow-hidden rounded-2xl border border-violet-300/25 bg-white/[0.03]">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_30%,rgba(124,58,237,0.18),transparent_50%)]" />
+            <div className="relative grid gap-8 p-8 lg:grid-cols-2 lg:items-center lg:p-12">
+              <FadeUp>
+                <h2 className="font-serif text-3xl leading-[1.1] text-white sm:text-4xl">
+                  You've spent years learning it.
+                  <br />
+                  Someone is curious about it.
+                </h2>
+                <p className="mt-4 max-w-md text-sm leading-relaxed text-white/55">
+                  Share your experience. Inspire the next generation. Make a real impact.
+                </p>
+                <div className="mt-6 flex flex-wrap items-center gap-4">
+                  <Link to="/become-an-expert" className="inline-flex items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-violet-500 to-indigo-500 px-6 py-3 font-accent text-sm font-semibold text-white shadow-[0_12px_32px_rgba(109,78,255,0.26)] transition hover:-translate-y-0.5">
+                    Become an expert <ArrowRight className="h-4 w-4" />
+                  </Link>
+                  <Link to="/how-it-works" className="font-accent text-sm text-white/60 underline underline-offset-4 transition hover:text-white">Learn more</Link>
                 </div>
               </FadeUp>
-            ))}
+              <FadeUp delay={0.1} className="relative h-48 overflow-hidden rounded-xl lg:h-full lg:min-h-[220px]">
+                <img src={IMAGES.karan} alt="" loading="lazy" className="h-full w-full object-cover" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+              </FadeUp>
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="px-6 py-16 lg:px-10">
-        <div className="mx-auto grid max-w-[1200px] gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {[
-            [ShieldCheck, "Verified experience", "Real-world background, not anonymous advice."],
-            [MessageCircle, "Live conversations", "Ask questions directly and learn from the room."],
-            [UsersRound, "Human access", "Meet people who have actually lived the answer."],
-            [Check, "Built for curiosity", "A focused way to go deeper than a search result."],
-          ].map(([Icon, title, description], index) => (
-            <FadeUp key={title} delay={index * 0.05}>
-              <div className="rounded-2xl border border-white/[0.08] bg-white/[0.025] p-5">
-                <Icon className="h-5 w-5 text-violet-300" />
-                <h3 className="mt-5 font-accent text-sm font-semibold text-white/90">{title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-white/45">{description}</p>
-              </div>
-            </FadeUp>
-          ))}
+      <section className="relative px-6 py-14 lg:px-10 lg:py-16">
+        <div className="mx-auto max-w-[1200px]">
+          <SectionLabel action={<Link to="/faq" className="inline-flex items-center gap-1 font-accent text-xs text-white/50 transition hover:text-white">View all FAQs <ChevronRight className="h-4 w-4" /></Link>}>
+            Frequently asked questions
+          </SectionLabel>
+          <div className="grid gap-3 sm:grid-cols-2">
+            {FAQ_ITEMS.map((item, index) => {
+              const isOpen = openFaq === index;
+              return (
+                <div key={item.q} className="rounded-xl border border-white/[0.1] bg-white/[0.03]">
+                  <button
+                    type="button"
+                    onClick={() => setOpenFaq(isOpen ? null : index)}
+                    aria-expanded={isOpen}
+                    className="flex w-full items-center justify-between gap-4 px-4 py-3.5 text-left font-accent text-sm text-white/85"
+                  >
+                    {item.q}
+                    <ChevronDown className={`h-4 w-4 shrink-0 text-white/45 transition-transform ${isOpen ? "rotate-180" : ""}`} />
+                  </button>
+                  {isOpen && (
+                    <p className="border-t border-white/[0.08] px-4 py-3.5 text-sm leading-relaxed text-white/55">{item.a}</p>
+                  )}
+                </div>
+              );
+            })}
+          </div>
         </div>
       </section>
 
       <section className="relative overflow-hidden px-6 py-24 text-center lg:px-10 lg:py-36">
         <div className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[30rem] w-[48rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-violet-600/[0.12] blur-[130px]" />
         <FadeUp className="mx-auto max-w-3xl">
-          <p className="font-accent text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-violet-300/75">Your next answer is closer than you think</p>
-          <h2 className="mt-6 font-serif text-5xl leading-[0.98] tracking-[-0.04em] text-white sm:text-7xl">Somewhere, someone has already done what you’re trying to do.</h2>
-          <p className="mx-auto mt-7 max-w-xl text-base leading-relaxed text-white/50 sm:text-lg">Find them. Ask them. Learn from them.</p>
+          <h2 className="font-serif text-4xl leading-[1.15] tracking-[-0.02em] text-white sm:text-5xl">Somewhere, someone has already lived the experience you're looking for. Ask them.</h2>
           <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <PrimaryButton to="/explore" className="px-7">Explore EXPERIA</PrimaryButton>
-            <Link to="/become-an-expert" className="inline-flex items-center justify-center gap-2 rounded-lg border border-white/15 px-6 py-3 font-accent text-sm font-semibold text-white/75 transition hover:border-white/35 hover:bg-white/[0.06] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-300">Become an expert <ArrowUpRight className="h-4 w-4" /></Link>
           </div>
         </FadeUp>
       </section>
