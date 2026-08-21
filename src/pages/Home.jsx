@@ -300,7 +300,7 @@ export default function Home() {
   const reduce = useReducedMotion();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [query, setQuery] = useState("");
-      const [isScrolled, setIsScrolled] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const [openFaq, setOpenFaq] = useState(null);
 
   useEffect(() => {
@@ -327,11 +327,11 @@ export default function Home() {
   };
 
   return (
-           <main className="min-h-screen overflow-hidden bg-black text-white selection:bg-violet-400/30 selection:text-white">
+    <main className="min-h-screen overflow-hidden bg-black text-white selection:bg-violet-400/30 selection:text-white">
       <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden bg-black">
-        <div className="absolute left-1/2 top-[-24rem] h-[58rem] w-[72rem] -translate-x-1/2 rounded-full bg-violet-600/[0.10] blur-[140px]" />
-        <div className="absolute right-[-18rem] top-[30rem] h-[38rem] w-[38rem] rounded-full bg-indigo-500/[0.10] blur-[130px]" />
-        <div className="absolute left-[-22rem] top-[48rem] h-[32rem] w-[32rem] rounded-full bg-fuchsia-500/[0.055] blur-[130px]" />
+        <div className="absolute left-1/2 top-[-24rem] h-[58rem] w-[72rem] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(124,58,237,0.14),transparent_70%)]" />
+        <div className="absolute right-[-18rem] top-[30rem] h-[38rem] w-[38rem] rounded-full bg-[radial-gradient(circle,rgba(99,102,241,0.14),transparent_70%)]" />
+        <div className="absolute left-[-22rem] top-[48rem] h-[32rem] w-[32rem] rounded-full bg-[radial-gradient(circle,rgba(217,70,239,0.08),transparent_70%)]" />
         <svg className="absolute left-0 top-[22%] h-[460px] w-[680px] opacity-70" viewBox="0 0 620 420" fill="none">
           <defs>
             <linearGradient id="streak1" x1="0" y1="0" x2="620" y2="420" gradientUnits="userSpaceOnUse">
@@ -357,7 +357,10 @@ export default function Home() {
       </div>
 
       <div className="relative">
-        <header className={`fixed inset-x-0 top-0 z-30 backdrop-blur-md transition-colors duration-500 ${isScrolled ? "border-b border-white/[0.08] bg-black/90" : "border-b border-transparent bg-black/25"}`}>
+        <header
+          className={`fixed inset-x-0 top-0 z-30 transition-colors duration-500 ${isScrolled ? "border-b border-white/[0.08] bg-black/95" : "border-b border-transparent bg-black/50"}`}
+          style={{ transform: "translateZ(0)", willChange: "transform" }}
+        >
           <nav className="mx-auto flex h-[58px] max-w-[1440px] items-center justify-between px-6 lg:px-10" aria-label="Main navigation">
             <Link to="/" className="font-serif text-[1.55rem] tracking-[0.23em] text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-300">
               EXP<span className="text-violet-300">É</span>RIA
@@ -437,8 +440,8 @@ export default function Home() {
           </div>
 
           <FadeUp className="relative mx-auto mt-9 max-w-[900px] lg:mt-11">
-  <div className="pointer-events-none absolute -inset-4 -z-10 rounded-[32px] bg-violet-600/25 blur-3xl sm:-inset-6 sm:blur-[60px]" />
-  <article className="group relative z-10 overflow-hidden rounded-2xl border border-violet-300/35 bg-[#0b0c16]/85 shadow-[0_30px_90px_-20px_rgba(0,0,0,0.65),0_50px_140px_rgba(88,28,207,0.32)]">
+            <div className="pointer-events-none absolute -inset-6 -z-10 rounded-[36px] bg-[radial-gradient(circle,rgba(124,58,237,0.4),transparent_72%)] sm:-inset-8" />
+            <article className="group relative z-10 overflow-hidden rounded-2xl border border-violet-300/35 bg-[#0b0c16]/85 shadow-[0_30px_90px_-20px_rgba(0,0,0,0.65),0_50px_140px_rgba(88,28,207,0.32)]">
               <div className="relative grid min-h-[200px] lg:grid-cols-[0.8fr_1.2fr] lg:min-h-[230px]">
                 <div className="relative min-h-[150px] overflow-hidden lg:min-h-full">
                   <img src={LIVE_CONVERSATION.image} alt={`${LIVE_CONVERSATION.name}, ${LIVE_CONVERSATION.role}`} className="absolute inset-0 h-full w-full object-cover object-top transition duration-700 group-hover:scale-[1.025]" />
@@ -479,7 +482,7 @@ export default function Home() {
         </section>
       </div>
 
-      <section className="relative px-6 py-14 lg:px-10 lg:py-16">
+      <section className="relative px-6 pb-14 pt-6 lg:px-10 lg:pb-16 lg:pt-8">
         <div className="mx-auto max-w-[1200px] text-center">
           <h2 className="font-serif text-2xl text-white sm:text-3xl">
             Why <span className="text-violet-300">EXPÉRIA</span>?
@@ -649,7 +652,7 @@ export default function Home() {
       </section>
 
       <section className="relative overflow-hidden px-6 py-24 text-center lg:px-10 lg:py-36">
-        <div className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[30rem] w-[48rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-violet-600/[0.12] blur-[130px]" />
+        <div className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[30rem] w-[48rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(124,58,237,0.2),transparent_70%)]" />
         <FadeUp className="mx-auto max-w-3xl">
           <h2 className="font-serif text-4xl leading-[1.15] text-white sm:text-5xl">Somewhere, someone has already lived the experience you're looking for. Ask them.</h2>
           <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
