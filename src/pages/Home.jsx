@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion, useReducedMotion } from "framer-motion";
 import {
@@ -300,41 +300,14 @@ export default function Home() {
   const reduce = useReducedMotion();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [query, setQuery] = useState("");
-    const [isScrolled, setIsScrolled] = useState(false);
+      const [isScrolled, setIsScrolled] = useState(false);
   const [openFaq, setOpenFaq] = useState(null);
-  const [edgeStretch, setEdgeStretch] = useState(0);
-  const stretchResetRef = useRef(null);
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 24);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  useEffect(() => {
-    const onWheel = (event) => {
-      const doc = document.documentElement;
-      const atTop = window.scrollY <= 0;
-      const atBottom = Math.ceil(window.scrollY + window.innerHeight) >= doc.scrollHeight;
-
-      if (atTop && event.deltaY < 0) {
-        setEdgeStretch((prev) => Math.max(prev - 0.12, -1));
-      } else if (atBottom && event.deltaY > 0) {
-        setEdgeStretch((prev) => Math.min(prev + 0.12, 1));
-      } else {
-        setEdgeStretch(0);
-      }
-
-      clearTimeout(stretchResetRef.current);
-      stretchResetRef.current = setTimeout(() => setEdgeStretch(0), 200);
-    };
-
-    window.addEventListener("wheel", onWheel, { passive: true });
-    return () => {
-      window.removeEventListener("wheel", onWheel);
-      clearTimeout(stretchResetRef.current);
-    };
   }, []);
 
   const heroAnimation = (delay) => ({
@@ -354,16 +327,7 @@ export default function Home() {
   };
 
   return (
-        <main
-      className="min-h-screen overflow-hidden bg-black text-white selection:bg-violet-400/30 selection:text-white"
-      style={{
-        transform: edgeStretch !== 0
-          ? `scaleY(${1 + Math.abs(edgeStretch) * 0.018}) translateY(${edgeStretch < 0 ? Math.abs(edgeStretch) * 10 : -Math.abs(edgeStretch) * 10}px)`
-          : "scaleY(1) translateY(0px)",
-        transformOrigin: edgeStretch < 0 ? "top" : "bottom",
-        transition: edgeStretch === 0 ? "transform 320ms cubic-bezier(0.22,1,0.36,1)" : "transform 80ms linear",
-      }}
-    >
+           <main className="min-h-screen overflow-hidden bg-black text-white selection:bg-violet-400/30 selection:text-white">
       <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden bg-black">
         <div className="absolute left-1/2 top-[-24rem] h-[58rem] w-[72rem] -translate-x-1/2 rounded-full bg-violet-600/[0.10] blur-[140px]" />
         <div className="absolute right-[-18rem] top-[30rem] h-[38rem] w-[38rem] rounded-full bg-indigo-500/[0.10] blur-[130px]" />
