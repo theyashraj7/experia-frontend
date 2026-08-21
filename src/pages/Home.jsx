@@ -436,9 +436,9 @@ export default function Home() {
             </motion.div>
           </div>
 
-          <FadeUp className="mx-auto mt-7 max-w-[900px] lg:mt-9">
-                        <article className="group relative overflow-hidden rounded-[28px] border border-white/[0.14] bg-[#0b0c16]/85 shadow-[0_40px_120px_-20px_rgba(0,0,0,0.65),0_60px_170px_rgba(88,28,207,0.38),0_0_90px_rgba(76,29,149,0.22)]">
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_40%,rgba(124,58,237,0.18),transparent_40%)]" />
+          <FadeUp className="relative mx-auto mt-7 max-w-[900px] lg:mt-9">
+  <div className="pointer-events-none absolute -inset-4 -z-10 rounded-[32px] bg-violet-600/25 blur-3xl sm:-inset-6 sm:blur-[60px]" />
+  <article className="group relative z-10 overflow-hidden rounded-2xl border border-violet-300/35 bg-[#0b0c16]/85 shadow-[0_30px_90px_-20px_rgba(0,0,0,0.65),0_50px_140px_rgba(88,28,207,0.32)]">
               <div className="relative grid min-h-[200px] lg:grid-cols-[0.8fr_1.2fr] lg:min-h-[230px]">
                 <div className="relative min-h-[150px] overflow-hidden lg:min-h-full">
                   <img src={LIVE_CONVERSATION.image} alt={`${LIVE_CONVERSATION.name}, ${LIVE_CONVERSATION.role}`} className="absolute inset-0 h-full w-full object-cover object-top transition duration-700 group-hover:scale-[1.025]" />
