@@ -349,7 +349,7 @@ export default function Home() {
               <span className="bg-gradient-to-r from-violet-200 via-violet-400 to-indigo-300 bg-clip-text text-transparent">Done It.</span>
             </motion.h1>
 
-            <motion.form {...heroAnimation(0.24)} onSubmit={handleSearch} className="mx-auto mt-3 max-w-[512px]">
+            <motion.form {...heroAnimation(0.24)} onSubmit={handleSearch} className="mx-auto mt-10 lg:mt-14 max-w-[512px]">
               <label htmlFor="experia-search" className="sr-only">What are you curious about?</label>
              <div className="flex items-center gap-2 rounded-xl border border-violet-400/60 bg-white/[0.055] p-1.5 pl-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_0_0_1px_rgba(167,139,250,0.15),0_18px_70px_rgba(76,29,149,0.25)] transition focus-within:border-violet-300 focus-within:bg-white/[0.08]">
                 <Search className="h-3.5 w-3.5 shrink-0 text-white/45" />
@@ -378,7 +378,7 @@ export default function Home() {
             </motion.div>
           </div>
 
-          <FadeUp className="mx-auto mt-3 max-w-[900px] lg:mt-4">
+          <FadeUp className="mx-auto mt-10 max-w-[900px] lg:mt-14">
             <article className="group relative overflow-hidden rounded-2xl border border-violet-200/25 bg-[#0b0c16]/85 shadow-[0_30px_120px_rgba(0,0,0,0.42)]">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_40%,rgba(124,58,237,0.18),transparent_40%)]" />
               <div className="relative grid min-h-[200px] lg:grid-cols-[0.8fr_1.2fr] lg:min-h-[230px]">
