@@ -437,6 +437,7 @@ export default function Home() {
           </div>
 
           <FadeUp className="relative mx-auto mt-9 max-w-[900px] lg:mt-11">
+            <div className="pointer-events-none absolute -inset-6 -z-10 rounded-[32px] bg-violet-600/20 blur-3xl" />
   
   <article className="group relative z-10 overflow-hidden rounded-2xl border border-white/[0.12] bg-[#0b0c16]/85 shadow-[0_20px_50px_rgba(0,0,0,0.45)]">
               <div className="relative grid min-h-[200px] lg:grid-cols-[0.8fr_1.2fr] lg:min-h-[230px]">
