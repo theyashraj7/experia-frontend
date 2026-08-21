@@ -343,7 +343,7 @@ export default function Home() {
         <section className="relative mx-auto max-w-[1440px] px-6 pb-4 pt-[74px] lg:px-10 lg:pb-5 lg:pt-[82px]">
           <div className="mx-auto max-w-[1050px] text-center">
             <motion.h1 {...heroAnimation(0.08)} className="font-serif text-[1.9rem] leading-[1.06] tracking-[-0.02em] text-white sm:text-4xl sm:leading-[1.02] sm:tracking-[-0.03em] lg:text-[3.1rem]">
-              Don't Just Learn It.
+              You Don’t Need Another Course.
               <br />
               Ask Someone Who’s{" "}
               <span className="bg-gradient-to-r from-violet-200 via-violet-400 to-indigo-300 bg-clip-text text-transparent">Done It.</span>
