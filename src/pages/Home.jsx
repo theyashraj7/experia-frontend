@@ -300,7 +300,7 @@ export default function Home() {
   const reduce = useReducedMotion();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [query, setQuery] = useState("");
-      const [isScrolled, setIsScrolled] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const [openFaq, setOpenFaq] = useState(null);
 
   useEffect(() => {
@@ -327,7 +327,7 @@ export default function Home() {
   };
 
   return (
-           <main className="min-h-screen overflow-hidden bg-black text-white selection:bg-violet-400/30 selection:text-white">
+    <main className="min-h-screen overflow-hidden bg-black text-white selection:bg-violet-400/30 selection:text-white">
       <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden bg-black">
         <div className="absolute left-1/2 top-[-24rem] h-[58rem] w-[72rem] -translate-x-1/2 rounded-full bg-violet-600/[0.10] blur-[140px]" />
         <div className="absolute right-[-18rem] top-[30rem] h-[38rem] w-[38rem] rounded-full bg-indigo-500/[0.10] blur-[130px]" />
@@ -437,8 +437,8 @@ export default function Home() {
           </div>
 
           <FadeUp className="relative mx-auto mt-9 max-w-[900px] lg:mt-11">
-  <div className="pointer-events-none absolute -inset-4 -z-10 rounded-[32px] bg-violet-600/25 blur-3xl sm:-inset-6 sm:blur-[60px]" />
-  <article className="group relative z-10 overflow-hidden rounded-2xl border border-violet-300/35 bg-[#0b0c16]/85 shadow-[0_30px_90px_-20px_rgba(0,0,0,0.65),0_50px_140px_rgba(88,28,207,0.32)]">
+            <div className="pointer-events-none absolute -inset-4 -z-10 rounded-[32px] bg-violet-600/25 blur-3xl sm:-inset-6 sm:blur-[60px]" />
+            <article className="group relative z-10 overflow-hidden rounded-2xl border border-violet-300/35 bg-[#0b0c16]/85 shadow-[0_30px_90px_-20px_rgba(0,0,0,0.65),0_50px_140px_rgba(88,28,207,0.32)]">
               <div className="relative grid min-h-[200px] lg:grid-cols-[0.8fr_1.2fr] lg:min-h-[230px]">
                 <div className="relative min-h-[150px] overflow-hidden lg:min-h-full">
                   <img src={LIVE_CONVERSATION.image} alt={`${LIVE_CONVERSATION.name}, ${LIVE_CONVERSATION.role}`} className="absolute inset-0 h-full w-full object-cover object-top transition duration-700 group-hover:scale-[1.025]" />
@@ -479,7 +479,7 @@ export default function Home() {
         </section>
       </div>
 
-      <section className="relative px-6 py-14 lg:px-10 lg:py-16">
+      <section className="relative px-6 pb-14 pt-6 lg:px-10 lg:pb-16 lg:pt-8">
         <div className="mx-auto max-w-[1200px] text-center">
           <h2 className="font-serif text-2xl text-white sm:text-3xl">
             Why <span className="text-violet-300">EXPÉRIA</span>?
