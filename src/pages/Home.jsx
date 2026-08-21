@@ -436,7 +436,7 @@ export default function Home() {
             </motion.div>
           </div>
 
-          <FadeUp className="relative mx-auto mt-7 max-w-[900px] lg:mt-9">
+          <FadeUp className="relative mx-auto mt-9 max-w-[900px] lg:mt-11">
   <div className="pointer-events-none absolute -inset-4 -z-10 rounded-[32px] bg-violet-600/25 blur-3xl sm:-inset-6 sm:blur-[60px]" />
   <article className="group relative z-10 overflow-hidden rounded-2xl border border-violet-300/35 bg-[#0b0c16]/85 shadow-[0_30px_90px_-20px_rgba(0,0,0,0.65),0_50px_140px_rgba(88,28,207,0.32)]">
               <div className="relative grid min-h-[200px] lg:grid-cols-[0.8fr_1.2fr] lg:min-h-[230px]">
