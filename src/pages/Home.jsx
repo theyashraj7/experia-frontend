@@ -351,7 +351,7 @@ export default function Home() {
 
             <motion.form {...heroAnimation(0.24)} onSubmit={handleSearch} className="mx-auto mt-6 lg:mt-7 max-w-[512px]">
               <label htmlFor="experia-search" className="sr-only">What are you curious about?</label>
-             <div className="flex items-center gap-2 rounded-xl border border-violet-400/60 bg-white/[0.055] p-1.5 pl-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_0_0_1px_rgba(167,139,250,0.15),0_18px_70px_rgba(76,29,149,0.25)] transition focus-within:border-violet-300 focus-within:bg-white/[0.08]">
+             <div className="glare-border flex items-center gap-2 rounded-full border border-violet-400/60 bg-white/[0.055] p-1.5 pl-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_0_0_1px_rgba(167,139,250,0.15),0_18px_70px_rgba(76,29,149,0.25)] transition focus-within:border-violet-300 focus-within:bg-white/[0.08]">
                 <Search className="h-3.5 w-3.5 shrink-0 text-white/45" />
                 <input
                   id="experia-search"
@@ -379,7 +379,7 @@ export default function Home() {
           </div>
 
           <FadeUp className="mx-auto mt-7 max-w-[900px] lg:mt-9">
-            <article className="group relative overflow-hidden rounded-2xl border border-violet-200/25 bg-[#0b0c16]/85 shadow-[0_30px_120px_rgba(0,0,0,0.42)]">
+            <article className="glare-border group relative overflow-hidden rounded-[28px] border border-white/[0.14] bg-[#0b0c16]/85 shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_20px_60px_-15px_rgba(0,0,0,0.7),0_45px_130px_rgba(88,28,207,0.35),0_0_0_1px_rgba(0,0,0,0.4)]">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_40%,rgba(124,58,237,0.18),transparent_40%)]" />
               <div className="relative grid min-h-[200px] lg:grid-cols-[0.8fr_1.2fr] lg:min-h-[230px]">
                 <div className="relative min-h-[150px] overflow-hidden lg:min-h-full">
