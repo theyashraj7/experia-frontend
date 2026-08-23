@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import "@/App.css";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { ThemeProvider } from "@/context/ThemeContext";
-import SmoothScroll from "@/components/SmoothScroll";
 import { Toaster } from "@/components/ui/sonner";
 
 import Home from "@/pages/Home";
@@ -29,20 +28,18 @@ function App() {
       <div className="App">
         <BrowserRouter>
           <ScrollToTop />
-          <SmoothScroll>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/live" element={<LivePage />} />
-              <Route path="/experts" element={<ExpertsPage />} />
-              <Route path="/experts/:slug" element={<ExpertDetail />} />
-              <Route path="/topics" element={<TopicsPage />} />
-              <Route path="/topic/:slug" element={<TopicDetail />} />
-              <Route path="/questions" element={<QuestionsPage />} />
-              <Route path="/conversations/:slug" element={<ConversationDetail />} />
-              <Route path="/learning" element={<LearningPage />} />
-              <Route path="*" element={<Home />} />
-            </Routes>
-          </SmoothScroll>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/live" element={<LivePage />} />
+            <Route path="/experts" element={<ExpertsPage />} />
+            <Route path="/experts/:slug" element={<ExpertDetail />} />
+            <Route path="/topics" element={<TopicsPage />} />
+            <Route path="/topic/:slug" element={<TopicDetail />} />
+            <Route path="/questions" element={<QuestionsPage />} />
+            <Route path="/conversations/:slug" element={<ConversationDetail />} />
+            <Route path="/learning" element={<LearningPage />} />
+            <Route path="*" element={<Home />} />
+          </Routes>
           <Toaster position="bottom-right" />
         </BrowserRouter>
       </div>
