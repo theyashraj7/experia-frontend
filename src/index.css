@@ -120,6 +120,24 @@
         75%, 100% { transform: scale(2.4); opacity: 0; }
     }
     .safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
+
+    .live-card-glow {
+        animation: live-card-pulse 3.6s ease-in-out infinite;
+    }
+    @keyframes live-card-pulse {
+        0%, 100% {
+            box-shadow:
+                0 0 0 1px rgba(167, 139, 250, 0.32),
+                0 25px 70px -25px rgba(0, 0, 0, 0.65),
+                0 0 45px rgba(124, 58, 237, 0.22);
+        }
+        50% {
+            box-shadow:
+                0 0 0 1px rgba(196, 181, 253, 0.55),
+                0 25px 70px -25px rgba(0, 0, 0, 0.65),
+                0 0 70px rgba(124, 58, 237, 0.4);
+        }
+    }
 }
 
 @media (prefers-reduced-motion: reduce) {
