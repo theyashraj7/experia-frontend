@@ -300,9 +300,8 @@ export default function Home() {
   const reduce = useReducedMotion();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [query, setQuery] = useState("");
-    const [isScrolled, setIsScrolled] = useState(false);
+      const [isScrolled, setIsScrolled] = useState(false);
   const [openFaq, setOpenFaq] = useState(null);
-  const [introStage, setIntroStage] = useState("idle");
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 8);
@@ -310,31 +309,6 @@ export default function Home() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-
-  useEffect(() => {
-    const alreadySeen = sessionStorage.getItem("experia_intro_seen");
-    if (alreadySeen || reduce) {
-      setIntroStage("done");
-      return;
-    }
-
-    document.body.style.overflow = "hidden";
-    const timers = [
-      setTimeout(() => setIntroStage("line1"), 150),
-      setTimeout(() => setIntroStage("line2"), 1350),
-      setTimeout(() => setIntroStage("exit"), 2750),
-      setTimeout(() => {
-        setIntroStage("done");
-        sessionStorage.setItem("experia_intro_seen", "1");
-        document.body.style.overflow = "";
-      }, 3650),
-    ];
-
-    return () => {
-      timers.forEach(clearTimeout);
-      document.body.style.overflow = "";
-    };
-  }, [reduce]);
 
   const heroAnimation = (delay) => ({
     initial: reduce ? false : { opacity: 0, y: 16 },
@@ -353,66 +327,7 @@ export default function Home() {
   };
 
   return (
-        <main
-      className="min-h-screen overflow-hidden bg-black text-white selection:bg-violet-400/30 selection:text-white"
-      style={{
-        filter: introStage === "idle" || introStage === "line1" || introStage === "line2" ? "brightness(0.05)" : "brightness(1)",
-        transition: "filter 1200ms ease-out",
-      }}
-    >
-      {introStage !== "done" && (
-        <div
-          className={`fixed inset-0 z-[100] flex items-center justify-center bg-black transition-opacity duration-700 ${introStage === "exit" ? "opacity-0" : "opacity-100"}`}
-        >
-          <div
-            className={`px-6 text-center transition-all duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${introStage === "exit" ? "-translate-y-[38vh] scale-[0.34]" : "scale-100"}`}
-          >
-            {(introStage === "line1" || introStage === "line2" || introStage === "exit") && (
-              <div className="relative">
-                <motion.div
-                  key="flash1"
-                  initial={{ opacity: 0.55, scale: 0.4 }}
-                  animate={{ opacity: 0, scale: 1.8 }}
-                  transition={{ duration: 0.5, ease: "easeOut" }}
-                  className="pointer-events-none absolute inset-0 flex items-center justify-center"
-                >
-                  <div className="h-32 w-32 rounded-full bg-violet-500/40 blur-2xl sm:h-48 sm:w-48" />
-                </motion.div>
-                <motion.h1
-                  initial={{ opacity: 0, scale: 2.4, filter: "blur(10px)" }}
-                  animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-                  transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-                  className="font-serif text-3xl leading-[1.05] tracking-[-0.02em] text-white sm:text-5xl lg:text-6xl"
-                >
-                  You Don't Need Another Course.
-                </motion.h1>
-              </div>
-            )}
-
-            {(introStage === "line2" || introStage === "exit") && (
-              <div className="relative mt-3">
-                <motion.div
-                  key="flash2"
-                  initial={{ opacity: 0.55, scale: 0.4 }}
-                  animate={{ opacity: 0, scale: 1.8 }}
-                  transition={{ duration: 0.5, ease: "easeOut" }}
-                  className="pointer-events-none absolute inset-0 flex items-center justify-center"
-                >
-                  <div className="h-32 w-32 rounded-full bg-violet-500/40 blur-2xl sm:h-48 sm:w-48" />
-                </motion.div>
-                <motion.h1
-                  initial={{ opacity: 0, scale: 2.4, filter: "blur(10px)" }}
-                  animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-                  transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-                  className="font-serif text-3xl leading-[1.05] tracking-[-0.02em] text-white sm:text-5xl lg:text-6xl"
-                >
-                  Ask Someone Who's <span className="text-violet-300">Done It.</span>
-                </motion.h1>
-              </div>
-            )}
-          </div>
-        </div>
-      )}
+            <main className="min-h-screen overflow-hidden bg-black text-white selection:bg-violet-400/30 selection:text-white">
       <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden bg-black">
         <div className="absolute left-1/2 top-[-24rem] h-[58rem] w-[72rem] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(124,58,237,0.22)_0%,transparent_65%)]" />
         <div className="absolute right-[-18rem] top-[30rem] h-[38rem] w-[38rem] rounded-full bg-[radial-gradient(circle,rgba(99,102,241,0.22)_0%,transparent_65%)]" />
