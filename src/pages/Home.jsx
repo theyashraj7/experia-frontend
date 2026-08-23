@@ -437,8 +437,10 @@ export default function Home() {
           </div>
 
           <FadeUp className="relative mx-auto mt-10 max-w-[900px] lg:mt-12">
-  <div className="pointer-events-none absolute -inset-24 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(124,58,237,0.35),rgba(124,58,237,0.1)_40%,transparent_70%)]" />
-  <article className="group relative overflow-hidden rounded-2xl border border-white/[0.12] bg-[#0b0c16] shadow-[0_20px_50px_rgba(0,0,0,0.45)]">
+  <div className="pointer-events-none absolute -inset-24 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(124,58,237,0.4),rgba(124,58,237,0.12)_45%,transparent_72%)]" />
+  <div className="pointer-events-none absolute -inset-3 rounded-[1.6rem] bg-[radial-gradient(ellipse_at_center,rgba(167,139,250,0.35),transparent_70%)]" />
+  <article className="live-card-glow group relative overflow-hidden rounded-2xl border border-violet-300/40 bg-gradient-to-br from-[#150b26] via-[#0c0d18] to-[#07080e] transition-transform duration-500 hover:-translate-y-1">
+    <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent" />
               <div className="relative grid min-h-[200px] lg:grid-cols-[0.8fr_1.2fr] lg:min-h-[230px]">
                 <div className="relative min-h-[150px] overflow-hidden lg:min-h-full">
                   <img src={LIVE_CONVERSATION.image} alt={`${LIVE_CONVERSATION.name}, ${LIVE_CONVERSATION.role}`} className="absolute inset-0 h-full w-full object-cover object-top transition duration-700 group-hover:scale-[1.025]" />
