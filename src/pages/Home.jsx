@@ -400,12 +400,25 @@ export default function Home() {
 
         <section className="relative mx-auto max-w-[1440px] px-6 pb-4 pt-[74px] lg:px-10 lg:pb-5 lg:pt-[82px]">
           <div className="mx-auto max-w-[1050px] text-center">
-            <motion.h1 {...heroAnimation(0.08)} className="font-serif text-[1.9rem] leading-[1.06] tracking-[-0.02em] text-white sm:text-4xl sm:leading-[1.02] sm:tracking-[-0.03em] lg:text-[3.1rem]">
-              You Don't Need Another Course.
-              <br />
-              Ask Someone Who's{" "}
-              <span className="bg-gradient-to-r from-violet-200 via-violet-400 to-indigo-300 bg-clip-text text-transparent">Done It.</span>
-            </motion.h1>
+                        <h1 className="font-serif text-[1.9rem] leading-[1.06] tracking-[-0.02em] text-white sm:text-4xl sm:leading-[1.02] sm:tracking-[-0.03em] lg:text-[3.1rem]">
+              <motion.span
+                initial={reduce ? false : { opacity: 0, scale: 1.5, filter: "blur(8px)" }}
+                animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                transition={{ duration: 0.5, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+                className="block"
+              >
+                You Don't Need Another Course.
+              </motion.span>
+              <motion.span
+                initial={reduce ? false : { opacity: 0, scale: 1.5, filter: "blur(8px)" }}
+                animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                transition={{ duration: 0.5, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
+                className="block"
+              >
+                Ask Someone Who's{" "}
+                <span className="bg-gradient-to-r from-violet-200 via-violet-400 to-indigo-300 bg-clip-text text-transparent">Done It.</span>
+              </motion.span>
+            </h1>
 
             <motion.form {...heroAnimation(0.24)} onSubmit={handleSearch} className="mx-auto mt-6 lg:mt-7 max-w-[512px]">
               <label htmlFor="experia-search" className="sr-only">What are you curious about?</label>
