@@ -106,36 +106,10 @@
     .snap-start { scroll-snap-align: start; }
                 .glare-border {
         position: relative;
-        isolation: isolate;
-    }
-        .glare-border::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        z-index: 1;
-        border-radius: inherit;
-        padding: 1.5px;
-        background: linear-gradient(
-            90deg,
-            rgba(167, 139, 250, 0) 0%,
-            rgba(196, 181, 253, 0.64) 46%,
-            rgba(221, 214, 254, 0.75) 50%,
-            rgba(196, 181, 253, 0.64) 54%,
-            rgba(167, 139, 250, 0) 100%
-        );
-        background-size: 300% 100%;
-        -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-        -webkit-mask-composite: xor;
-        mask-composite: exclude;
-        animation: shine-slide 3s linear infinite;
-        pointer-events: none;
-    }
-    @keyframes shine-slide {
-        0% { background-position: 0% 0; }
-        100% { background-position: 300% 0; }
     }
     .live-pulse::before {
         content: "";
+        will-change: transform, opacity;
         position: absolute;
         inset: 0;
         border-radius: 9999px;
