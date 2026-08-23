@@ -108,8 +108,8 @@ const UPCOMING_CONVERSATIONS = [
 const WHY_EXPERIA = [
   {
     icon: UsersRound,
-    title: "Learn from experience",
-    description: "Not theory from a textbook. Hear how things actually work from someone who has lived it.",
+    title: "Access, not information",
+    description: "Anyone can find information. EXPÉRIA gives you access to the person who actually lived it.",
   },
   {
     icon: MessageSquare,
@@ -118,8 +118,8 @@ const WHY_EXPERIA = [
   },
   {
     icon: UserRound,
-    title: "Meet the people behind the experience",
-    description: "Discover experts by their experience, industry, and stories — not just a title.",
+    title: "The decisions behind the outcome",
+    description: "Hear what actually happened — the mistakes, the doubts, the moments that don't make it into an article.",
   },
 ];
 
@@ -167,15 +167,14 @@ const HOW_IT_WORKS = [
 ];
 
 const FAQ_ITEMS = [
-  { q: "What is EXPERIA?", a: "EXPERIA connects you with real people who have lived the experience you're curious about, through live conversations." },
-  { q: "Are conversations live?", a: "Yes, conversations happen live at a scheduled time so you can ask questions directly." },
-  { q: "Can I become an expert?", a: "Yes — if you have real-world experience worth sharing, you can apply to host a conversation." },
-  { q: "How are experts verified?", a: "Every expert is reviewed for real-world credentials and experience before they can host a conversation." },
-  { q: "Can I suggest someone as an expert?", a: "Yes, you can nominate someone from their profile page or through our contact form." },
-  { q: "What happens after I join?", a: "You'll get a reminder before the session starts and can submit questions in advance or live." },
-  { q: "Can I ask questions in a conversation?", a: "Yes — every live conversation includes a question queue you can add to and upvote." },
-  { q: "Do I need an account to explore?", a: "You can browse experts and topics without an account, but you'll need one to join a live conversation." },
-  { q: "Are conversations free or paid?", a: "Most conversations are free to join; some specialized sessions may have a reserved-seat fee." },
+  { q: "What exactly happens in an EXPÉRIA conversation?", a: "You join a live session with someone who has actually done what you're curious about, hear their experience, and ask them questions directly." },
+  { q: "Can I ask the expert questions?", a: "Yes — every conversation includes a question queue. Your questions are part of the conversation, not an afterthought." },
+  { q: "Who are the people I can hear from?", a: "Founders, pilots, doctors, investors, engineers, and other people with real, lived experience in their field." },
+  { q: "How does EXPÉRIA verify experts?", a: "Every expert's identity and relevant background are reviewed before they can host a conversation." },
+  { q: "Is EXPÉRIA a course platform?", a: "No. EXPÉRIA isn't about structured lessons — it's about direct access to people and their real experience." },
+  { q: "Why is there a reservation fee?", a: "A small reservation keeps conversations meaningful — it's a commitment to genuinely be part of the room, not the product itself." },
+  { q: "What happens if a conversation is cancelled?", a: "You'll be notified immediately and your reservation will be refunded or moved to another session." },
+  { q: "Do I need prior knowledge?", a: "No. Come with your curiosity — that's the only requirement." },
 ];
 
 const FOOTER_LINKS = {
@@ -363,16 +362,18 @@ export default function Home() {
               EXP<span className="text-violet-300">É</span>RIA
             </Link>
 
-            <p className="hidden font-accent text-[0.62rem] font-semibold uppercase tracking-[0.3em] text-violet-300/80 md:block">
-              Real experience. Live access.
-            </p>
+            <div className="hidden items-center gap-7 font-accent text-sm text-white/60 md:flex">
+              <Link to="/how-it-works" className="transition hover:text-white">How EXPÉRIA Works</Link>
+              <Link to="/become-an-expert" className="transition hover:text-white">For Experts</Link>
+              <Link to="/about" className="transition hover:text-white">About</Link>
+            </div>
 
             <div className="hidden items-center gap-5 md:flex">
               <button aria-label="Search EXPERIA" className="rounded-lg border border-white/15 p-2.5 text-white/75 transition hover:border-violet-300/50 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-300">
                 <Search className="h-4 w-4" />
               </button>
               <Link to="/login" className="font-accent text-sm text-white/65 transition hover:text-white">Log in</Link>
-              <Link to="/signup" className="rounded-lg bg-violet-500 px-5 py-2.5 font-accent text-sm font-semibold text-white shadow-[0_8px_24px_rgba(124,58,237,0.28)] transition hover:bg-violet-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-300">Sign up</Link>
+              <Link to="/signup" className="rounded-lg bg-violet-500 px-5 py-2.5 font-accent text-sm font-semibold text-white shadow-[0_8px_24px_rgba(124,58,237,0.28)] transition hover:bg-violet-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-300">Enter EXPÉRIA</Link>
             </div>
 
             <button
@@ -389,9 +390,12 @@ export default function Home() {
           {isMenuOpen && (
             <div className="border-t border-white/[0.08] bg-black px-6 py-5 md:hidden">
               <div className="flex flex-col gap-4 font-accent text-sm text-white/70">
-                <div className="flex gap-3">
+                <Link to="/how-it-works" onClick={() => setIsMenuOpen(false)}>How EXPÉRIA Works</Link>
+                <Link to="/become-an-expert" onClick={() => setIsMenuOpen(false)}>For Experts</Link>
+                <Link to="/about" onClick={() => setIsMenuOpen(false)}>About</Link>
+                <div className="flex gap-3 border-t border-white/[0.08] pt-4">
                   <Link to="/login" className="rounded-lg border border-white/15 px-4 py-2">Log in</Link>
-                 <Link to="/signup" className="rounded-lg bg-violet-500 px-4 py-2 font-semibold text-white">Sign up</Link>
+                 <Link to="/signup" className="rounded-lg bg-violet-500 px-4 py-2 font-semibold text-white">Enter EXPÉRIA</Link>
                 </div>
               </div>
             </div>
@@ -400,25 +404,16 @@ export default function Home() {
 
         <section className="relative mx-auto max-w-[1440px] px-6 pb-4 pt-[74px] lg:px-10 lg:pb-5 lg:pt-[82px]">
           <div className="mx-auto max-w-[1050px] text-center">
-            <h1 className="font-serif text-[1.9rem] leading-[1.06] tracking-[-0.02em] text-white sm:text-4xl sm:leading-[1.02] sm:tracking-[-0.03em] lg:text-[3.1rem]">
-              <motion.span
-                initial={reduce ? false : { opacity: 0, scale: 1.5, filter: "blur(8px)" }}
-                animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-                transition={{ duration: 0.5, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-                className="block"
-              >
-                You Don't Need Another Course.
-              </motion.span>
-              <motion.span
-                initial={reduce ? false : { opacity: 0, scale: 1.5, filter: "blur(8px)" }}
-                animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-                transition={{ duration: 0.5, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
-                className="block"
-              >
-                Ask Someone Who's{" "}
-                <span className="bg-gradient-to-r from-violet-200 via-violet-400 to-indigo-300 bg-clip-text text-transparent">Done It.</span>
-              </motion.span>
-            </h1>
+            <motion.h1 {...heroAnimation(0.08)} className="font-serif text-[1.9rem] leading-[1.06] tracking-[-0.02em] text-white sm:text-4xl sm:leading-[1.02] sm:tracking-[-0.03em] lg:text-[3.1rem]">
+              Don't Just Learn It.
+              <br />
+              Ask Someone Who's{" "}
+              <span className="bg-gradient-to-r from-violet-200 via-violet-400 to-indigo-300 bg-clip-text text-transparent">Done It.</span>
+            </motion.h1>
+
+            <motion.p {...heroAnimation(0.16)} className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-white/55 sm:text-base">
+              Get closer to the people who've actually done it. Hear their stories. Ask your questions.
+            </motion.p>
 
             <motion.form {...heroAnimation(0.24)} onSubmit={handleSearch} className="mx-auto mt-6 lg:mt-7 max-w-[512px]">
               <label htmlFor="experia-search" className="sr-only">What are you curious about?</label>
@@ -450,10 +445,8 @@ export default function Home() {
           </div>
 
           <FadeUp className="relative mx-auto mt-10 max-w-[900px] lg:mt-12">
-  <div className="pointer-events-none absolute -inset-24 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(124,58,237,0.4),rgba(124,58,237,0.12)_45%,transparent_72%)]" />
-  <div className="pointer-events-none absolute -inset-3 rounded-[1.6rem] bg-[radial-gradient(ellipse_at_center,rgba(167,139,250,0.35),transparent_70%)]" />
-  <article className="live-card-glow group relative overflow-hidden rounded-2xl border border-violet-300/40 bg-gradient-to-br from-[#150b26] via-[#0c0d18] to-[#07080e] transition-transform duration-500 hover:-translate-y-1">
-    <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent" />
+  <div className="pointer-events-none absolute -inset-24 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(124,58,237,0.35),rgba(124,58,237,0.1)_40%,transparent_70%)]" />
+  <article className="group relative overflow-hidden rounded-2xl border border-white/[0.12] bg-[#0b0c16] shadow-[0_20px_50px_rgba(0,0,0,0.45)]">
               <div className="relative grid min-h-[200px] lg:grid-cols-[0.8fr_1.2fr] lg:min-h-[230px]">
                 <div className="relative min-h-[150px] overflow-hidden lg:min-h-full">
                   <img src={LIVE_CONVERSATION.image} alt={`${LIVE_CONVERSATION.name}, ${LIVE_CONVERSATION.role}`} className="absolute inset-0 h-full w-full object-cover object-top transition duration-700 group-hover:scale-[1.025]" />
@@ -496,9 +489,14 @@ export default function Home() {
 
       <section className="relative px-6 py-14 lg:px-10 lg:py-16">
         <div className="mx-auto max-w-[1200px] text-center">
-          <h2 className="font-serif text-2xl text-white sm:text-3xl">
-            Why <span className="text-violet-300">EXPÉRIA</span>?
+          <h2 className="font-serif text-2xl leading-snug text-white sm:text-3xl">
+            You can watch almost anything online.
+            <br className="hidden sm:block" />
+            <span className="text-white/50">But you can't easily talk to the person who actually did it.</span>
           </h2>
+          <p className="mx-auto mt-4 max-w-lg text-sm text-white/45">
+            YouTube gives you information. Courses give you structure. <span className="text-violet-300">EXPÉRIA</span> gives you access to the experience itself.
+          </p>
         </div>
         <div className="mx-auto mt-8 grid max-w-[1200px] gap-4 sm:grid-cols-3">
           {WHY_EXPERIA.map(({ icon: Icon, title, description }, index) => (
@@ -604,6 +602,17 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="relative px-6 py-8 lg:px-10">
+        <div className="mx-auto max-w-[1000px] rounded-xl border border-white/[0.08] bg-white/[0.02] px-6 py-6 text-center sm:px-10">
+          <p className="font-accent text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-violet-300/70">Who gets on EXPÉRIA?</p>
+          <div className="mt-4 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 font-accent text-xs text-white/55 sm:text-sm">
+            <span className="inline-flex items-center gap-2"><ShieldCheck className="h-4 w-4 text-violet-300" />Identity verified</span>
+            <span className="inline-flex items-center gap-2"><BadgeCheck className="h-4 w-4 text-violet-300" />Background verified where applicable</span>
+            <span className="inline-flex items-center gap-2"><UserRound className="h-4 w-4 text-violet-300" />Real, contextualized experience</span>
+          </div>
+        </div>
+      </section>
+
       <section className="relative overflow-hidden px-6 py-16 lg:px-10 lg:py-20">
         <div className="mx-auto max-w-[1360px]">
           <div className="relative overflow-hidden rounded-2xl border border-violet-300/30 bg-gradient-to-br from-violet-700/50 via-[#241246] to-indigo-900/40">
@@ -666,9 +675,9 @@ export default function Home() {
       <section className="relative overflow-hidden px-6 py-24 text-center lg:px-10 lg:py-36">
         <div className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[30rem] w-[48rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(124,58,237,0.2)_0%,transparent_65%)]" />
         <FadeUp className="mx-auto max-w-3xl">
-          <h2 className="font-serif text-4xl leading-[1.15] text-white sm:text-5xl">Somewhere, someone has already lived the experience you're looking for. Ask them.</h2>
+          <h2 className="font-serif text-4xl leading-[1.15] text-white sm:text-5xl">Get closer to the people who've done it.</h2>
           <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <PrimaryButton to="/explore" className="px-7">Explore EXPERIA</PrimaryButton>
+            <PrimaryButton to="/explore" className="px-7">Enter EXPÉRIA</PrimaryButton>
           </div>
         </FadeUp>
       </section>
