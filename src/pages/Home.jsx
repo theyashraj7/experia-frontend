@@ -3,19 +3,16 @@ import { Link } from "react-router-dom";
 import { motion, useReducedMotion } from "framer-motion";
 import {
   ArrowRight,
-  ArrowUpRight,
   BadgeCheck,
   Briefcase,
   CalendarClock,
   CalendarDays,
-  Check,
   ChevronDown,
   ChevronRight,
-  Clock3,
   Code2,
-  Compass,
   Factory,
   FlaskConical,
+  Gamepad2,
   Heart,
   Instagram,
   Landmark,
@@ -23,15 +20,20 @@ import {
   Menu,
   MessageCircle,
   MessageSquare,
+  Music,
+  Palette,
   Plane,
+  Scale,
   Search,
   ShieldCheck,
   Sparkles,
   Stethoscope,
-  TrendingUp,
+  Trophy,
   Twitter,
+  TrendingUp,
   UserRound,
   UsersRound,
+  UtensilsCrossed,
   X,
   Youtube,
 } from "lucide-react";
@@ -43,12 +45,17 @@ import { IMAGES } from "@/data/mockData";
  * The live metrics and expert credentials below are prototype data. In the
  * production app, replace these values with API-backed data from your live
  * conversation and expert-verification services.
+ *
+ * The "Upcoming conversations", "Questions worth asking", and "Explore
+ * topics" strips are intentionally non-interactive (no links/taps) on this
+ * pre-login marketing page — they're informational previews only. Real
+ * browsing and reservation happens inside the logged-in product.
  */
 
 const DISCOVERY_TAGS = ["Aviation", "Finance", "Medicine", "Startups", "Manufacturing"];
 
 const LIVE_CONVERSATION = {
-  title: "How I Built My First Company",
+  title: "What Nobody Tells You About Building Your First Company",
   name: "Arjun Malhotra",
   role: "Founder & CEO, Pesto Tech",
   credibility: "10+ years building companies",
@@ -63,63 +70,73 @@ const UPCOMING_CONVERSATIONS = [
     date: "24 May",
     time: "7:00 PM IST",
     topic: "Life in the Cockpit",
-    description: "Decisions that matter when everything goes wrong.",
     name: "Capt. Rohit Verma",
     role: "Boeing 777 Captain",
     credibility: "20+ years · Commercial Aviation",
     image: IMAGES.karan,
-    accent: "from-sky-400/20 via-transparent to-transparent",
   },
   {
     date: "25 May",
     time: "8:00 PM IST",
     topic: "Inside Venture Capital",
-    description: "How investors decide what is worth backing.",
     name: "Rohan Mehta",
     role: "Partner, Northstar Ventures",
     credibility: "15+ years · Venture Capital",
     image: IMAGES.rahul,
-    accent: "from-violet-400/20 via-transparent to-transparent",
   },
   {
     date: "26 May",
     time: "7:30 PM IST",
     topic: "The Future of Medicine",
-    description: "What patients and young doctors should prepare for next.",
     name: "Dr. Ananya Iyer",
     role: "Physician & Researcher",
     credibility: "18+ years · Medicine",
     image: IMAGES.anjali,
-    accent: "from-rose-400/20 via-transparent to-transparent",
   },
   {
     date: "27 May",
     time: "8:00 PM IST",
     topic: "Building from Zero",
-    description: "The messy, practical reality of starting from nothing.",
     name: "Kunal Shah",
     role: "Founder, CRED",
     credibility: "12+ years · Serial Entrepreneur",
     image: IMAGES.vikram,
-    accent: "from-amber-300/20 via-transparent to-transparent",
-  },
-];
-
-const WHY_EXPERIA = [
-  {
-    icon: UsersRound,
-    title: "Access, not information",
-    description: "Anyone can find information. EXPÉRIA gives you access to the person who actually lived it.",
   },
   {
-    icon: MessageSquare,
-    title: "Ask real questions",
-    description: "You don't just watch. Ask the questions you actually care about, live.",
+    date: "28 May",
+    time: "6:30 PM IST",
+    topic: "What Michelin Inspectors Actually Notice",
+    name: "Chef Meera Nair",
+    role: "Executive Chef, Ananta",
+    credibility: "16+ years · Culinary Arts",
+    image: IMAGES.neha,
   },
   {
-    icon: UserRound,
-    title: "The decisions behind the outcome",
-    description: "Hear what actually happened — the mistakes, the doubts, the moments that don't make it into an article.",
+    date: "29 May",
+    time: "7:00 PM IST",
+    topic: "Designing Buildings That Outlive Us",
+    name: "Aditya Rao",
+    role: "Principal Architect, Studio Line",
+    credibility: "14+ years · Architecture",
+    image: IMAGES.arjun,
+  },
+  {
+    date: "30 May",
+    time: "8:30 PM IST",
+    topic: "Inside a Formula 1 Pit Crew",
+    name: "Vikram Oberoi",
+    role: "Race Engineer",
+    credibility: "11+ years · Motorsport",
+    image: IMAGES.karan,
+  },
+  {
+    date: "31 May",
+    time: "7:00 PM IST",
+    topic: "What It Takes to Publish Real Research",
+    name: "Dr. Priya Nambiar",
+    role: "Research Scientist, ISRO",
+    credibility: "13+ years · Aerospace Research",
+    image: IMAGES.anjali,
   },
 ];
 
@@ -148,22 +165,61 @@ const TRENDING_QUESTIONS = [
     curious: "4.8K people curious",
     tag: "Startups",
   },
+  {
+    icon: Scale,
+    question: "How do lawyers decide whether a case is worth taking?",
+    curious: "3.9K people curious",
+    tag: "Law",
+  },
+  {
+    icon: Palette,
+    question: "How does a designer know when something is actually finished?",
+    curious: "3.1K people curious",
+    tag: "Design",
+  },
+  {
+    icon: Trophy,
+    question: "What separates a good athlete from a great one?",
+    curious: "5.6K people curious",
+    tag: "Sports",
+  },
+  {
+    icon: FlaskConical,
+    question: "What does a scientist do after an experiment fails?",
+    curious: "2.7K people curious",
+    tag: "Science",
+  },
 ];
 
-const EXPLORE_EXPERIENCE = [
-  { icon: Plane, title: "Aviation", description: "Pilots, engineers, airline leaders" },
-  { icon: Briefcase, title: "Business", description: "Founders, CEOs, operators" },
-  { icon: Landmark, title: "Finance", description: "Investors, analysts, traders, CFOs" },
-  { icon: Heart, title: "Medicine", description: "Doctors, surgeons, healthcare pros" },
-  { icon: Code2, title: "Technology", description: "Engineers, PMs, tech leaders" },
-  { icon: Factory, title: "Manufacturing", description: "Engineers, plant heads, industry experts" },
+const EXPLORE_TOPICS = [
+  { icon: Plane, label: "Aviation" },
+  { icon: Briefcase, label: "Business" },
+  { icon: Landmark, label: "Finance" },
+  { icon: Heart, label: "Medicine" },
+  { icon: Code2, label: "Technology" },
+  { icon: Factory, label: "Manufacturing" },
+  { icon: Scale, label: "Law" },
+  { icon: Palette, label: "Design" },
+  { icon: Trophy, label: "Sports" },
+  { icon: FlaskConical, label: "Science" },
+  { icon: Music, label: "Music" },
+  { icon: UtensilsCrossed, label: "Culinary Arts" },
+  { icon: Gamepad2, label: "Game Design" },
+  { icon: Stethoscope, label: "Surgery" },
+];
+
+const WHY_EXPERIA = [
+  { emphasis: "Learn from experience.", muted: "Not just information." },
+  { emphasis: "Ask what you actually want to know.", muted: "Not just watch." },
+  { emphasis: "Hear how people really think.", muted: "Not just what they achieved." },
+  { emphasis: "Get closer to people you normally couldn't reach.", muted: "That's the actual value." },
 ];
 
 const HOW_IT_WORKS = [
-  { icon: Search, number: "1", title: "Find", description: "Find something you're curious about." },
-  { icon: UserRound, number: "2", title: "Discover", description: "Find someone who has actually done it." },
-  { icon: CalendarClock, number: "3", title: "Join", description: "Join the live conversation at the scheduled time." },
-  { icon: MessageSquare, number: "4", title: "Ask", description: "Ask your questions. Get real answers." },
+  { icon: Search, number: "1", title: "Find someone worth hearing from", description: "Find something — or someone — you're curious about." },
+  { icon: UserRound, number: "2", title: "Reserve access", description: "A small commitment to reserve your place in the conversation." },
+  { icon: CalendarClock, number: "3", title: "Enter the live conversation", description: "Join at the scheduled time." },
+  { icon: MessageSquare, number: "4", title: "Listen. Ask. Learn.", description: "Hear their experience. Ask your questions. Get real answers." },
 ];
 
 const FAQ_ITEMS = [
@@ -178,23 +234,24 @@ const FAQ_ITEMS = [
 ];
 
 const FOOTER_LINKS = {
-  Platform: [
-    { label: "Explore", to: "/explore" },
-    { label: "Live", to: "/live" },
-    { label: "Experts", to: "/experts" },
-    { label: "How it works", to: "/how-it-works" },
+  Explore: [
+    { label: "Conversations", to: "/live" },
+    { label: "Questions", to: "/questions" },
+    { label: "Topics", to: "/topics" },
+  ],
+  "For Experts": [
+    { label: "Become an EXPÉRIA expert", to: "/become-an-expert" },
+    { label: "Expert guidelines", to: "/expert-guidelines" },
   ],
   Company: [
-    { label: "About us", to: "/about" },
-    { label: "Become an expert", to: "/become-an-expert" },
-    { label: "Careers", to: "/careers" },
-    { label: "Contact us", to: "/contact" },
+    { label: "About", to: "/about" },
+    { label: "Mission", to: "/mission" },
+    { label: "Contact", to: "/contact" },
   ],
-  Support: [
-    { label: "Help center", to: "/help" },
-    { label: "FAQ", to: "/faq" },
-    { label: "Privacy policy", to: "/privacy" },
-    { label: "Terms of service", to: "/terms" },
+  Trust: [
+    { label: "Safety", to: "/safety" },
+    { label: "Privacy", to: "/privacy" },
+    { label: "Terms", to: "/terms" },
   ],
 };
 
@@ -218,6 +275,32 @@ function FadeUp({ children, delay = 0, className = "" }) {
     >
       {children}
     </motion.div>
+  );
+}
+
+// Slow, continuous, non-interactive auto-scrolling strip. Used for the
+// informational previews that shouldn't be tappable before login.
+function Marquee({ items, renderItem, keyFn, duration = 45, reverse = false }) {
+  const reduce = useReducedMotion();
+  const doubled = reduce ? items : [...items, ...items];
+
+  return (
+    <div
+      className="relative w-full overflow-hidden"
+      style={{ maskImage: "linear-gradient(90deg, transparent, black 6%, black 94%, transparent)", WebkitMaskImage: "linear-gradient(90deg, transparent, black 6%, black 94%, transparent)" }}
+    >
+      <motion.div
+        className="flex w-max gap-4 pb-1"
+        animate={reduce ? undefined : { x: reverse ? ["-50%", "0%"] : ["0%", "-50%"] }}
+        transition={reduce ? undefined : { duration, ease: "linear", repeat: Infinity }}
+      >
+        {doubled.map((item, i) => (
+          <div key={keyFn(item, i)} className="shrink-0">
+            {renderItem(item)}
+          </div>
+        ))}
+      </motion.div>
+    </div>
   );
 }
 
@@ -256,42 +339,61 @@ function PrimaryButton({ children, to = "/explore", className = "" }) {
   );
 }
 
-function ConversationCard({ conversation, index }) {
+// Non-interactive: no link, no click destination. Purely an informational
+// preview card for the marquee — real reservation happens after login.
+function ConversationPreviewCard({ conversation }) {
   return (
-    <FadeUp delay={index * 0.06} className="h-full">
-      <article className="group relative flex h-full min-h-[190px] overflow-hidden rounded-2xl border border-white/[0.11] bg-white/[0.035] transition duration-300 hover:-translate-y-1 hover:border-violet-300/35 hover:bg-white/[0.055] hover:shadow-[0_24px_70px_rgba(0,0,0,0.28)]">
-        <div className="relative w-[38%] shrink-0 overflow-hidden">
-          <img
-            src={conversation.image}
-            alt={`${conversation.name}, ${conversation.role}`}
-            loading="lazy"
-            className="absolute inset-0 h-full w-full object-cover object-top transition duration-500 group-hover:scale-105"
-          />
+    <article className="flex h-full w-[280px] overflow-hidden rounded-2xl border border-white/[0.11] bg-white/[0.035] sm:w-[320px]">
+      <div className="relative w-[38%] shrink-0 overflow-hidden">
+        <img
+          src={conversation.image}
+          alt=""
+          loading="lazy"
+          className="absolute inset-0 h-full w-full object-cover object-top"
+        />
+      </div>
+      <div className="flex min-w-0 flex-1 flex-col justify-center gap-1.5 px-4 py-3">
+        <div className="flex items-center gap-1.5 font-accent text-[0.68rem] text-violet-300">
+          <CalendarDays className="h-3.5 w-3.5" />
+          {conversation.date} · {conversation.time}
         </div>
-
-        <div className="relative flex min-w-0 flex-1 flex-col justify-center gap-1.5 px-4 py-3">
-          <div className="flex items-center gap-1.5 font-accent text-[0.68rem] text-violet-300">
-            <CalendarDays className="h-3.5 w-3.5" />
-            {conversation.date} · {conversation.time}
-          </div>
-          <h3 className="truncate font-serif text-lg leading-tight text-white transition-colors group-hover:text-violet-100">
-            {conversation.topic}
-          </h3>
-          <div className="flex items-center gap-1.5">
-            <p className="truncate font-accent text-sm font-medium text-white/85">{conversation.name}</p>
-            <VerificationBadge />
-          </div>
-          <p className="truncate text-xs text-white/47">{conversation.role} · {conversation.credibility}</p>
-
-          <Link
-            to="/live"
-            className="mt-1.5 inline-flex items-center justify-center rounded-lg border border-violet-300/40 px-3 py-2 font-accent text-[0.7rem] font-semibold text-violet-100 transition hover:border-violet-200/60 hover:bg-violet-300/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-300"
-          >
-            Reserve your seat
-          </Link>
+        <h3 className="truncate font-serif text-lg leading-tight text-white">{conversation.topic}</h3>
+        <div className="flex items-center gap-1.5">
+          <p className="truncate font-accent text-sm font-medium text-white/85">{conversation.name}</p>
+          <VerificationBadge />
         </div>
-      </article>
-    </FadeUp>
+        <p className="truncate text-xs text-white/47">{conversation.role} · {conversation.credibility}</p>
+        <span className="mt-1.5 inline-flex w-fit items-center justify-center rounded-lg border border-violet-300/40 px-3 py-2 font-accent text-[0.7rem] font-semibold text-violet-100/80">
+          Reserve access
+        </span>
+      </div>
+    </article>
+  );
+}
+
+// Non-interactive preview card for the Questions marquee.
+function QuestionPreviewCard({ item }) {
+  const Icon = item.icon;
+  return (
+    <div className="flex h-full w-[280px] flex-col rounded-xl border border-white/[0.1] bg-white/[0.03] p-5 sm:w-[300px]">
+      <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-violet-500/15 text-violet-300">
+        <Icon className="h-4 w-4" />
+      </div>
+      <p className="mt-4 flex-1 font-serif text-lg leading-snug text-white">{item.question}</p>
+      <p className="mt-4 text-xs text-white/45">{item.curious}</p>
+      <span className="mt-2 inline-flex w-fit items-center rounded-lg border border-white/[0.12] px-2.5 py-1 font-accent text-[0.65rem] text-white/55">{item.tag}</span>
+    </div>
+  );
+}
+
+// Non-interactive pill for the Topics marquee.
+function TopicPill({ item }) {
+  const Icon = item.icon;
+  return (
+    <div className="flex items-center gap-2.5 rounded-lg border border-white/[0.1] bg-white/[0.03] px-4 py-2.5 font-accent text-xs text-white/60">
+      <Icon className="h-3.5 w-3.5 text-violet-300" />
+      {item.label}
+    </div>
   );
 }
 
@@ -355,6 +457,7 @@ export default function Home() {
         </svg>
       </div>
 
+      {/* 01 — NAVBAR */}
       <div className="relative">
         <header className={`fixed inset-x-0 top-0 z-30 transition-colors duration-300 ${isScrolled ? "border-b border-white/[0.08] bg-black" : "border-b border-transparent bg-transparent"}`}>
           <nav className="mx-auto flex h-[58px] max-w-[1440px] items-center justify-between px-6 lg:px-10" aria-label="Main navigation">
@@ -363,13 +466,14 @@ export default function Home() {
             </Link>
 
             <div className="hidden items-center gap-7 font-accent text-sm text-white/60 md:flex">
-              <Link to="/how-it-works" className="transition hover:text-white">How EXPÉRIA Works</Link>
+              <a href="#why" className="transition hover:text-white">Why EXPÉRIA</a>
+              <Link to="/how-it-works" className="transition hover:text-white">How it works</Link>
               <Link to="/become-an-expert" className="transition hover:text-white">For Experts</Link>
               <Link to="/about" className="transition hover:text-white">About</Link>
             </div>
 
             <div className="hidden items-center gap-5 md:flex">
-              <button aria-label="Search EXPERIA" className="rounded-lg border border-white/15 p-2.5 text-white/75 transition hover:border-violet-300/50 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-300">
+              <button aria-label="Search EXPÉRIA" className="rounded-lg border border-white/15 p-2.5 text-white/75 transition hover:border-violet-300/50 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-300">
                 <Search className="h-4 w-4" />
               </button>
               <Link to="/login" className="font-accent text-sm text-white/65 transition hover:text-white">Log in</Link>
@@ -390,7 +494,8 @@ export default function Home() {
           {isMenuOpen && (
             <div className="border-t border-white/[0.08] bg-black px-6 py-5 md:hidden">
               <div className="flex flex-col gap-4 font-accent text-sm text-white/70">
-                <Link to="/how-it-works" onClick={() => setIsMenuOpen(false)}>How EXPÉRIA Works</Link>
+                <a href="#why" onClick={() => setIsMenuOpen(false)}>Why EXPÉRIA</a>
+                <Link to="/how-it-works" onClick={() => setIsMenuOpen(false)}>How it works</Link>
                 <Link to="/become-an-expert" onClick={() => setIsMenuOpen(false)}>For Experts</Link>
                 <Link to="/about" onClick={() => setIsMenuOpen(false)}>About</Link>
                 <div className="flex gap-3 border-t border-white/[0.08] pt-4">
@@ -402,6 +507,7 @@ export default function Home() {
           )}
         </header>
 
+        {/* 02 — HERO */}
         <section className="relative mx-auto max-w-[1440px] px-6 pb-4 pt-[74px] lg:px-10 lg:pb-5 lg:pt-[82px]">
           <div className="mx-auto max-w-[1050px] text-center">
             <motion.h1 {...heroAnimation(0.08)} className="font-serif text-[1.9rem] leading-[1.06] tracking-[-0.02em] text-white sm:text-4xl sm:leading-[1.02] sm:tracking-[-0.03em] lg:text-[3.1rem]">
@@ -412,7 +518,7 @@ export default function Home() {
             </motion.h1>
 
             <motion.p {...heroAnimation(0.16)} className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-white/55 sm:text-base">
-              Get closer to the people who've actually done it. Hear their stories. Ask your questions.
+              Get access to people who've actually lived the experience — not just people who've studied it.
             </motion.p>
 
             <motion.form {...heroAnimation(0.24)} onSubmit={handleSearch} className="mx-auto mt-6 lg:mt-7 max-w-[512px]">
@@ -434,6 +540,7 @@ export default function Home() {
               </div>
             </motion.form>
 
+            {/* 03 — TOPIC CURIOSITY */}
             <motion.div {...heroAnimation(0.3)} className="mt-2.5 flex flex-wrap items-center justify-center gap-x-3 gap-y-1.5 font-accent text-[0.7rem] text-white/42 sm:text-xs">
               {DISCOVERY_TAGS.map((tag, index) => (
                 <Link key={tag} to={`/explore?topic=${tag.toLowerCase()}`} className="transition hover:text-violet-200">
@@ -444,6 +551,7 @@ export default function Home() {
             </motion.div>
           </div>
 
+          {/* 04 — LIVE NOW */}
           <FadeUp className="relative mx-auto mt-10 max-w-[900px] lg:mt-12">
   <div className="pointer-events-none absolute -inset-24 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(124,58,237,0.35),rgba(124,58,237,0.1)_40%,transparent_70%)]" />
   <article className="group relative overflow-hidden rounded-2xl border border-white/[0.12] bg-[#0b0c16] shadow-[0_20px_50px_rgba(0,0,0,0.45)]">
@@ -461,8 +569,8 @@ export default function Home() {
                     <span className="inline-flex items-center gap-1.5 font-semibold text-white/85"><UsersRound className="h-3.5 w-3.5" />{LIVE_CONVERSATION.watching}</span>
                   </div>
 
-                  <h2 className="mt-2 max-w-xl font-serif text-2xl leading-[1.06] tracking-[-0.02em] text-white sm:text-3xl lg:text-[2.3rem]">
-                    {LIVE_CONVERSATION.title}?
+                  <h2 className="mt-2 max-w-xl font-serif text-xl leading-[1.1] tracking-[-0.015em] text-white sm:text-2xl lg:text-[1.85rem]">
+                    {LIVE_CONVERSATION.title}
                   </h2>
 
                   <div className="mt-2 flex items-center gap-2">
@@ -487,88 +595,65 @@ export default function Home() {
         </section>
       </div>
 
-      <section className="relative px-6 py-14 lg:px-10 lg:py-16">
-        <div className="mx-auto max-w-[1200px] text-center">
+      {/* 05 — ACCESS GAP */}
+      <section className="relative px-6 py-16 lg:px-10 lg:py-20">
+        <div className="mx-auto max-w-[900px] text-center">
           <h2 className="font-serif text-2xl leading-snug text-white sm:text-3xl">
-            You can watch almost anything online.
+            You can watch them. You can follow them. You can read about them.
             <br className="hidden sm:block" />
-            <span className="text-white/50">But you can't easily talk to the person who actually did it.</span>
+            <span className="text-violet-300">But can you ask them?</span>
           </h2>
-          <p className="mx-auto mt-4 max-w-lg text-sm text-white/45">
-            YouTube gives you information. Courses give you structure. <span className="text-violet-300">EXPÉRIA</span> gives you access to the experience itself.
+          <p className="mx-auto mt-5 max-w-lg text-sm leading-relaxed text-white/50 sm:text-base">
+            EXPÉRIA exists to close that gap. Some people are worth hearing from — the difficult part has always been access.
+            You don't always need another course. Sometimes you need to hear how someone ahead of you thinks.
           </p>
-        </div>
-        <div className="mx-auto mt-8 grid max-w-[1200px] gap-4 sm:grid-cols-3">
-          {WHY_EXPERIA.map(({ icon: Icon, title, description }, index) => (
-            <FadeUp key={title} delay={index * 0.06} className="h-full">
-              <div className="h-full rounded-xl border border-white/[0.1] bg-white/[0.03] p-5">
-                <Icon className="h-5 w-5 text-violet-300" />
-                <h3 className="mt-4 font-accent text-sm font-semibold text-white/90">{title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-white/48">{description}</p>
-              </div>
-            </FadeUp>
-          ))}
         </div>
       </section>
 
-      <section className="relative px-6 pb-6 pt-3 lg:px-10 lg:pb-8 lg:pt-4">
-        <div className="mx-auto max-w-[1360px]">
+      {/* 06 — QUESTIONS PEOPLE WANT ANSWERED (auto-sliding preview, not tappable) */}
+      <section className="relative py-14 lg:py-16">
+        <div className="mx-auto max-w-[1360px] px-6 lg:px-10">
+          <SectionLabel action={<Link to="/questions" className="inline-flex items-center gap-1 font-accent text-xs text-white/50 transition hover:text-white">View all questions <ChevronRight className="h-4 w-4" /></Link>}>
+            Questions worth asking
+          </SectionLabel>
+          <p className="-mt-4 mb-6 max-w-md text-sm text-white/45">Hear the answer from someone who's actually done it.</p>
+        </div>
+        <Marquee items={TRENDING_QUESTIONS} keyFn={(item, i) => `${item.question}-${i}`} renderItem={(item) => <QuestionPreviewCard item={item} />} duration={50} />
+      </section>
+
+      {/* 07 — PEOPLE WHO'VE DONE IT (auto-sliding preview, not tappable) */}
+      <section className="relative py-14 lg:py-16">
+        <div className="mx-auto max-w-[1360px] px-6 lg:px-10">
           <SectionLabel action={<Link to="/live" className="inline-flex items-center gap-1 font-accent text-xs text-white/50 transition hover:text-white">View all <ChevronRight className="h-4 w-4" /></Link>}>
             Upcoming live conversations
           </SectionLabel>
-          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-            {UPCOMING_CONVERSATIONS.map((conversation, index) => (
-              <ConversationCard key={conversation.topic} conversation={conversation} index={index} />
-            ))}
-          </div>
         </div>
+        <Marquee items={UPCOMING_CONVERSATIONS} keyFn={(c) => c.topic} renderItem={(c) => <ConversationPreviewCard conversation={c} />} duration={60} reverse />
       </section>
 
-      <section className="relative px-6 py-14 lg:px-10 lg:py-16">
-        <div className="mx-auto max-w-[1360px]">
-          <SectionLabel action={<Link to="/questions" className="inline-flex items-center gap-1 font-accent text-xs text-white/50 transition hover:text-white">View all questions <ChevronRight className="h-4 w-4" /></Link>}>
-            Trending questions
-          </SectionLabel>
-          <p className="-mt-4 mb-6 max-w-md text-sm text-white/45">What people are most curious about right now.</p>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {TRENDING_QUESTIONS.map(({ icon: Icon, question, curious, tag }, index) => (
-              <FadeUp key={question} delay={index * 0.06} className="h-full">
-                <div className="flex h-full flex-col rounded-xl border border-white/[0.1] bg-white/[0.03] p-5">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-violet-500/15 text-violet-300">
-                    <Icon className="h-4 w-4" />
-                  </div>
-                  <p className="mt-4 flex-1 font-serif text-lg leading-snug text-white">{question}</p>
-                  <p className="mt-4 text-xs text-white/45">{curious}</p>
-                  <span className="mt-2 inline-flex w-fit items-center rounded-lg border border-white/[0.12] px-2.5 py-1 font-accent text-[0.65rem] text-white/55">{tag}</span>
-                  <Link to="/questions" className="mt-4 inline-flex items-center gap-1 font-accent text-xs font-semibold text-violet-300 transition hover:text-violet-200">
-                    Explore question <ArrowRight className="h-3.5 w-3.5" />
-                  </Link>
-                </div>
+      {/* EXPLORE TOPICS (auto-sliding preview, not tappable) */}
+      <section className="relative py-10 lg:py-12">
+        <div className="mx-auto max-w-[1360px] px-6 lg:px-10">
+          <SectionLabel>Explore topics</SectionLabel>
+        </div>
+        <Marquee items={EXPLORE_TOPICS} keyFn={(t) => t.label} renderItem={(t) => <TopicPill item={t} />} duration={38} />
+      </section>
+
+      {/* 08 — WHY EXPERIA */}
+      <section id="why" className="relative px-6 py-14 lg:px-10 lg:py-16">
+        <div className="mx-auto max-w-[720px]">
+          <div className="grid gap-6 sm:grid-cols-2">
+            {WHY_EXPERIA.map(({ emphasis, muted }) => (
+              <FadeUp key={emphasis}>
+                <p className="font-serif text-lg leading-snug text-white sm:text-xl">{emphasis}</p>
+                <p className="mt-1 text-sm text-white/40">{muted}</p>
               </FadeUp>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="relative px-6 py-14 lg:px-10 lg:py-16">
-        <div className="mx-auto max-w-[1360px]">
-          <SectionLabel action={<Link to="/explore" className="inline-flex items-center gap-1 font-accent text-xs text-white/50 transition hover:text-white">Explore all topics <ChevronRight className="h-4 w-4" /></Link>}>
-            Explore by experience
-          </SectionLabel>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
-            {EXPLORE_EXPERIENCE.map(({ icon: Icon, title, description }, index) => (
-              <FadeUp key={title} delay={index * 0.05} className="h-full">
-                <Link to={`/experts?category=${title.toLowerCase()}`} className="group flex h-full flex-col rounded-xl border border-white/[0.1] bg-white/[0.03] p-5 transition hover:border-violet-300/40 hover:bg-white/[0.05]">
-                  <Icon className="h-5 w-5 text-violet-300" />
-                  <h3 className="mt-4 font-accent text-sm font-semibold text-white/90">{title}</h3>
-                  <p className="mt-1.5 text-xs leading-relaxed text-white/45">{description}</p>
-                </Link>
-              </FadeUp>
-            ))}
-          </div>
-        </div>
-      </section>
-
+      {/* 09 — HOW IT WORKS */}
       <section className="relative px-6 py-14 lg:px-10 lg:py-16">
         <div className="mx-auto max-w-[1200px] text-center">
           <h2 className="font-serif text-2xl text-white sm:text-3xl">
@@ -602,9 +687,10 @@ export default function Home() {
         </div>
       </section>
 
+      {/* 10 — TRUST */}
       <section className="relative px-6 py-8 lg:px-10">
         <div className="mx-auto max-w-[1000px] rounded-xl border border-white/[0.08] bg-white/[0.02] px-6 py-6 text-center sm:px-10">
-          <p className="font-accent text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-violet-300/70">Who gets on EXPÉRIA?</p>
+          <p className="font-serif text-lg text-white">People worth listening to.</p>
           <div className="mt-4 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 font-accent text-xs text-white/55 sm:text-sm">
             <span className="inline-flex items-center gap-2"><ShieldCheck className="h-4 w-4 text-violet-300" />Identity verified</span>
             <span className="inline-flex items-center gap-2"><BadgeCheck className="h-4 w-4 text-violet-300" />Background verified where applicable</span>
@@ -613,36 +699,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="relative overflow-hidden px-6 py-16 lg:px-10 lg:py-20">
-        <div className="mx-auto max-w-[1360px]">
-          <div className="relative overflow-hidden rounded-2xl border border-violet-300/30 bg-gradient-to-br from-violet-700/50 via-[#241246] to-indigo-900/40">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_30%,rgba(196,181,253,0.25),transparent_55%)]" />
-            <div className="relative grid gap-8 p-8 lg:grid-cols-2 lg:items-center lg:p-12">
-              <FadeUp>
-                <h2 className="font-serif text-3xl leading-[1.1] text-white sm:text-4xl">
-                  You've spent years learning it.
-                  <br />
-                  Someone is curious about it.
-                </h2>
-                <p className="mt-4 max-w-md text-sm leading-relaxed text-white/70">
-                  Share your experience. Inspire the next generation. Make a real impact.
-                </p>
-                <div className="mt-6 flex flex-wrap items-center gap-4">
-                  <Link to="/become-an-expert" className="inline-flex items-center justify-center gap-2 rounded-lg bg-white px-6 py-3 font-accent text-sm font-semibold text-[#241246] shadow-[0_12px_32px_rgba(0,0,0,0.28)] transition hover:-translate-y-0.5 hover:bg-violet-50">
-                    Become an expert <ArrowRight className="h-4 w-4" />
-                  </Link>
-                  <Link to="/how-it-works" className="font-accent text-sm text-white/75 underline underline-offset-4 transition hover:text-white">Learn more</Link>
-                </div>
-              </FadeUp>
-              <FadeUp delay={0.1} className="relative h-48 overflow-hidden rounded-xl lg:h-full lg:min-h-[220px]">
-                <img src={IMAGES.karan} alt="" loading="lazy" className="h-full w-full object-cover" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-              </FadeUp>
-            </div>
-          </div>
-        </div>
-      </section>
-
+      {/* 11 — FAQ */}
       <section className="relative px-6 py-14 lg:px-10 lg:py-16">
         <div className="mx-auto max-w-[1200px]">
           <SectionLabel action={<Link to="/faq" className="inline-flex items-center gap-1 font-accent text-xs text-white/50 transition hover:text-white">View all FAQs <ChevronRight className="h-4 w-4" /></Link>}>
@@ -672,6 +729,7 @@ export default function Home() {
         </div>
       </section>
 
+      {/* 12 — FINAL CTA */}
       <section className="relative overflow-hidden px-6 py-24 text-center lg:px-10 lg:py-36">
         <div className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[30rem] w-[48rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(124,58,237,0.2)_0%,transparent_65%)]" />
         <FadeUp className="mx-auto max-w-3xl">
@@ -682,12 +740,13 @@ export default function Home() {
         </FadeUp>
       </section>
 
+      {/* 13 — FOOTER */}
       <footer className="border-t border-white/[0.08] px-6 py-12 lg:px-10">
         <div className="mx-auto max-w-[1360px]">
-          <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr_1fr_1.3fr]">
+          <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr_1fr]">
             <div>
               <Link to="/" className="font-serif text-lg tracking-[0.2em] text-white/85">EXP<span className="text-violet-300">É</span>RIA</Link>
-              <p className="mt-3 max-w-[220px] text-xs leading-relaxed text-white/40">Real people. Real experience. Real conversations.</p>
+              <p className="mt-3 max-w-[240px] text-xs leading-relaxed text-white/40">Real people. Real experience. Real access.</p>
               <div className="mt-5 flex items-center gap-3">
                 {SOCIAL_LINKS.map(({ icon: Icon, label, href }) => (
                   <a key={label} href={href} target="_blank" rel="noreferrer" aria-label={label} className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 text-white/50 transition hover:border-violet-300/40 hover:text-violet-200">
@@ -709,21 +768,11 @@ export default function Home() {
                 </ul>
               </div>
             ))}
-
-            <div>
-              <p className="font-accent text-xs font-semibold uppercase tracking-[0.16em] text-white/40">Stay in the loop</p>
-              <p className="mt-4 text-sm text-white/50">Get updates about new conversations and experts.</p>
-              <form onSubmit={handleNewsletterSubmit} className="mt-4 flex items-center gap-2 rounded-lg border border-white/15 bg-white/[0.03] p-1.5 pl-3 focus-within:border-violet-300/60">
-                <input type="email" required aria-label="Email address" placeholder="Enter your email" className="min-w-0 flex-1 bg-transparent font-accent text-xs text-white outline-none placeholder:text-white/35" />
-                <button type="submit" aria-label="Subscribe" className="flex shrink-0 items-center justify-center rounded-md bg-violet-500 px-3 py-2 text-white transition hover:bg-violet-400">
-                  <ArrowRight className="h-3.5 w-3.5" />
-                </button>
-              </form>
-            </div>
           </div>
 
-          <div className="mt-10 border-t border-white/[0.08] pt-6 text-center font-accent text-xs text-white/30 sm:text-left">
-            ©️ {new Date().getFullYear()} EXPÉRIA. All rights reserved.
+          <div className="mt-10 space-y-2 border-t border-white/[0.08] pt-6 text-center font-accent text-xs text-white/30 sm:text-left">
+            <p>Conversations on EXPÉRIA are educational and don't replace professional medical, legal, or financial advice.</p>
+            <p>©️ {new Date().getFullYear()} EXPÉRIA. All rights reserved.</p>
           </div>
         </div>
       </footer>
