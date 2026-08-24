@@ -1,799 +1,982 @@
-import { useState, useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   ArrowRight,
-  BadgeCheck,
-  Briefcase,
-  CalendarClock,
-  CalendarDays,
-  ChevronDown,
-  ChevronRight,
-  Code2,
-  Factory,
-  FlaskConical,
-  Gamepad2,
-  Heart,
-  Instagram,
-  Landmark,
-  Linkedin,
-  Menu,
-  MessageCircle,
-  MessageSquare,
-  Music,
-  Palette,
-  Plane,
-  Scale,
   Search,
-  ShieldCheck,
-  Sparkles,
-  Stethoscope,
-  Trophy,
-  Twitter,
-  TrendingUp,
   UserRound,
-  UsersRound,
-  UtensilsCrossed,
-  X,
-  Youtube,
+  CalendarClock,
+  MessageSquare,
+  CheckCircle2,
+  ShieldCheck,
+  Play,
+  Clock3,
+  Users,
+  ChevronRight,
+  Plane,
+  BriefcaseBusiness,
+  HeartPulse,
+  Rocket,
+  Scale,
+  Palette,
+  Trophy,
+  FlaskConical,
+  Factory,
+  Cpu,
+  Music2,
+  Utensils,
+  Gamepad2,
+  Stethoscope,
 } from "lucide-react";
-import { IMAGES } from "@/data/mockData";
 
-/**
- * EXPERIA final landing page
- *
- * The live metrics and expert credentials below are prototype data. In the
- * production app, replace these values with API-backed data from your live
- * conversation and expert-verification services.
- *
- * The "Upcoming conversations", "Questions worth asking", and "Explore
- * topics" strips are intentionally non-interactive (no links/taps) on this
- * pre-login marketing page — they're informational previews only. Real
- * browsing and reservation happens inside the logged-in product.
- */
+import { Button } from "@/components/ui/button";
 
-const DISCOVERY_TAGS = ["Aviation", "Finance", "Medicine", "Startups", "Manufacturing"];
+const heroAnimation = (delay = 0) => ({
+  initial: { opacity: 0, y: 18 },
+  animate: { opacity: 1, y: 0 },
+  transition: {
+    duration: 0.65,
+    delay,
+    ease: [0.22, 1, 0.36, 1],
+  },
+});
 
-const LIVE_CONVERSATION = {
-  title: "What Nobody Tells You About Building Your First Company",
-  name: "Arjun Malhotra",
-  role: "Founder & CEO, Pesto Tech",
-  credibility: "10+ years building companies",
-  description: "Building global SaaS products from India — and what founders often get wrong.",
-  watching: "1,247 watching",
-  questions: "23 questions being discussed",
-  image: IMAGES.arjun,
-};
+const FadeUp = ({ children, className = "" }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 24 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, margin: "-80px" }}
+    transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+    className={className}
+  >
+    {children}
+  </motion.div>
+);
 
-const UPCOMING_CONVERSATIONS = [
-  {
-    date: "24 May",
-    time: "7:00 PM IST",
-    topic: "Life in the Cockpit",
-    name: "Capt. Rohit Verma",
-    role: "Boeing 777 Captain",
-    credibility: "20+ years · Commercial Aviation",
-    image: IMAGES.karan,
-  },
-  {
-    date: "25 May",
-    time: "8:00 PM IST",
-    topic: "Inside Venture Capital",
-    name: "Rohan Mehta",
-    role: "Partner, Northstar Ventures",
-    credibility: "15+ years · Venture Capital",
-    image: IMAGES.rahul,
-  },
-  {
-    date: "26 May",
-    time: "7:30 PM IST",
-    topic: "The Future of Medicine",
-    name: "Dr. Ananya Iyer",
-    role: "Physician & Researcher",
-    credibility: "18+ years · Medicine",
-    image: IMAGES.anjali,
-  },
-  {
-    date: "27 May",
-    time: "8:00 PM IST",
-    topic: "Building from Zero",
-    name: "Kunal Shah",
-    role: "Founder, CRED",
-    credibility: "12+ years · Serial Entrepreneur",
-    image: IMAGES.vikram,
-  },
-  {
-    date: "28 May",
-    time: "6:30 PM IST",
-    topic: "What Michelin Inspectors Actually Notice",
-    name: "Chef Meera Nair",
-    role: "Executive Chef, Ananta",
-    credibility: "16+ years · Culinary Arts",
-    image: IMAGES.neha,
-  },
-  {
-    date: "29 May",
-    time: "7:00 PM IST",
-    topic: "Designing Buildings That Outlive Us",
-    name: "Aditya Rao",
-    role: "Principal Architect, Studio Line",
-    credibility: "14+ years · Architecture",
-    image: IMAGES.arjun,
-  },
-  {
-    date: "30 May",
-    time: "8:30 PM IST",
-    topic: "Inside a Formula 1 Pit Crew",
-    name: "Vikram Oberoi",
-    role: "Race Engineer",
-    credibility: "11+ years · Motorsport",
-    image: IMAGES.karan,
-  },
-  {
-    date: "31 May",
-    time: "7:00 PM IST",
-    topic: "What It Takes to Publish Real Research",
-    name: "Dr. Priya Nambiar",
-    role: "Research Scientist, ISRO",
-    credibility: "13+ years · Aerospace Research",
-    image: IMAGES.anjali,
-  },
-];
+const PrimaryButton = ({ children, to = "/explore", className = "" }) => (
+  <Link to={to}>
+    <Button
+      className={`rounded-xl bg-white px-5 py-2.5 font-accent text-sm font-semibold text-[#12131d] transition hover:bg-violet-100 ${className}`}
+    >
+      {children}
+      <ArrowRight className="ml-2 h-4 w-4" />
+    </Button>
+  </Link>
+);
 
-const TRENDING_QUESTIONS = [
+const SectionLabel = ({ children }) => (
+  <p className="font-accent text-[0.68rem] font-semibold uppercase tracking-[0.25em] text-violet-300/75">
+    {children}
+  </p>
+);
+
+const QUESTION_CARDS = [
   {
     icon: Plane,
-    question: "What does a commercial pilot actually do during an emergency?",
-    curious: "12.4K people curious",
+    question:
+      "What goes through a pilot's mind when an emergency happens at 35,000 feet?",
     tag: "Aviation",
   },
   {
-    icon: TrendingUp,
-    question: "How does a VC decide whether to invest in a startup?",
-    curious: "8.7K people curious",
+    icon: BriefcaseBusiness,
+    question:
+      "What makes a VC lose interest in a startup in the first 10 minutes?",
     tag: "Business",
   },
   {
-    icon: Heart,
-    question: "What really happens inside an emergency room?",
-    curious: "6.3K people curious",
+    icon: HeartPulse,
+    question:
+      "What does an experienced doctor notice that a textbook never teaches you?",
     tag: "Medicine",
   },
   {
-    icon: Sparkles,
-    question: "What does it actually take to build a company from zero?",
-    curious: "4.8K people curious",
+    icon: Rocket,
+    question:
+      "What does nobody tell you before you build your first company?",
     tag: "Startups",
   },
   {
     icon: Scale,
-    question: "How do lawyers decide whether a case is worth taking?",
-    curious: "3.9K people curious",
+    question:
+      "How does an experienced lawyer know when a case isn't worth taking?",
     tag: "Law",
   },
   {
     icon: Palette,
-    question: "How does a designer know when something is actually finished?",
-    curious: "3.1K people curious",
+    question:
+      "How does a great designer know when something isn't good enough?",
     tag: "Design",
   },
   {
     icon: Trophy,
-    question: "What separates a good athlete from a great one?",
-    curious: "5.6K people curious",
+    question:
+      "What actually separates elite athletes from everyone else?",
     tag: "Sports",
   },
   {
     icon: FlaskConical,
-    question: "What does a scientist do after an experiment fails?",
-    curious: "2.7K people curious",
+    question:
+      "What does a scientist do when an experiment keeps failing?",
     tag: "Science",
   },
 ];
 
-const EXPLORE_TOPICS = [
-  { icon: Plane, label: "Aviation" },
-  { icon: Briefcase, label: "Business" },
-  { icon: Landmark, label: "Finance" },
-  { icon: Heart, label: "Medicine" },
-  { icon: Code2, label: "Technology" },
-  { icon: Factory, label: "Manufacturing" },
-  { icon: Scale, label: "Law" },
-  { icon: Palette, label: "Design" },
-  { icon: Trophy, label: "Sports" },
-  { icon: FlaskConical, label: "Science" },
-  { icon: Music, label: "Music" },
-  { icon: UtensilsCrossed, label: "Culinary Arts" },
-  { icon: Gamepad2, label: "Game Design" },
-  { icon: Stethoscope, label: "Surgery" },
+const UPCOMING_CONVERSATIONS = [
+  {
+    topic: "Life in the Cockpit",
+    description:
+      "What actually happens inside a pilot's mind when things go wrong at 35,000 feet?",
+    name: "Capt. Rohit Verma",
+    role: "Boeing 777 Captain",
+    credibility: "20+ years · Commercial Aviation",
+    date: "Upcoming",
+    time: "7:00 PM IST",
+    image:
+      "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=900&q=85",
+  },
+  {
+    topic: "Inside Venture Capital",
+    description:
+      "What makes an investor say yes — and what makes them quietly pass?",
+    name: "Rohan Mehta",
+    role: "Venture Capital Partner",
+    credibility: "15+ years · Venture Capital",
+    date: "Upcoming",
+    time: "8:00 PM IST",
+    image:
+      "https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=900&q=85",
+  },
+  {
+    topic: "The Future of Medicine",
+    description:
+      "What does an experienced doctor notice that patients rarely see?",
+    name: "Dr. Ananya Iyer",
+    role: "Physician & Researcher",
+    credibility: "18+ years · Medicine",
+    date: "Upcoming",
+    time: "7:30 PM IST",
+    image:
+      "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=900&q=85",
+  },
+  {
+    topic: "Building from Zero",
+    description:
+      "What does nobody tell you before you build your first company?",
+    name: "Kunal Shah",
+    role: "Founder",
+    credibility: "12+ years · Entrepreneurship",
+    date: "Upcoming",
+    time: "8:00 PM IST",
+    image:
+      "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=900&q=85",
+  },
 ];
 
-const WHY_EXPERIA = [
-  { emphasis: "Learn from experience.", muted: "Not just information." },
-  { emphasis: "Ask what you actually want to know.", muted: "Not just watch." },
-  { emphasis: "Hear how people really think.", muted: "Not just what they achieved." },
-  { emphasis: "Get closer to people you normally couldn't reach.", muted: "That's the actual value." },
+const TOPICS = [
+  { name: "Aviation", icon: Plane },
+  { name: "Business", icon: BriefcaseBusiness },
+  { name: "Finance", icon: BriefcaseBusiness },
+  { name: "Medicine", icon: HeartPulse },
+  { name: "Technology", icon: Cpu },
+  { name: "Manufacturing", icon: Factory },
+  { name: "Law", icon: Scale },
+  { name: "Design", icon: Palette },
+  { name: "Sports", icon: Trophy },
+  { name: "Science", icon: FlaskConical },
+  { name: "Music", icon: Music2 },
+  { name: "Culinary Arts", icon: Utensils },
+  { name: "Game Design", icon: Gamepad2 },
+  { name: "Surgery", icon: Stethoscope },
 ];
 
 const HOW_IT_WORKS = [
-  { icon: Search, number: "1", title: "Find someone worth hearing from", description: "Find something — or someone — you're curious about." },
-  { icon: UserRound, number: "2", title: "Reserve access", description: "A small commitment to reserve your place in the conversation." },
-  { icon: CalendarClock, number: "3", title: "Enter the live conversation", description: "Join at the scheduled time." },
-  { icon: MessageSquare, number: "4", title: "Listen. Ask. Learn.", description: "Hear their experience. Ask your questions. Get real answers." },
+  {
+    icon: Search,
+    number: "1",
+    title: "Find your question",
+    description:
+      "Start with something you've genuinely been wondering about.",
+  },
+  {
+    icon: UserRound,
+    number: "2",
+    title: "Find someone who's lived it",
+    description:
+      "Discover someone with real experience in that world.",
+  },
+  {
+    icon: CalendarClock,
+    number: "3",
+    title: "Reserve your seat",
+    description: "Save your place in the conversation.",
+  },
+  {
+    icon: MessageSquare,
+    number: "4",
+    title: "Ask",
+    description:
+      "Listen to their experience. Ask what you actually want to know.",
+  },
 ];
 
-const FAQ_ITEMS = [
-  { q: "What exactly happens in an EXPÉRIA conversation?", a: "You join a live session with someone who has actually done what you're curious about, hear their experience, and ask them questions directly." },
-  { q: "Can I ask the expert questions?", a: "Yes — every conversation includes a question queue. Your questions are part of the conversation, not an afterthought." },
-  { q: "Who are the people I can hear from?", a: "Founders, pilots, doctors, investors, engineers, and other people with real, lived experience in their field." },
-  { q: "How does EXPÉRIA verify experts?", a: "Every expert's identity and relevant background are reviewed before they can host a conversation." },
-  { q: "Is EXPÉRIA a course platform?", a: "No. EXPÉRIA isn't about structured lessons — it's about direct access to people and their real experience." },
-  { q: "Why is there a reservation fee?", a: "A small reservation keeps conversations meaningful — it's a commitment to genuinely be part of the room, not the product itself." },
-  { q: "What happens if a conversation is cancelled?", a: "You'll be notified immediately and your reservation will be refunded or moved to another session." },
-  { q: "Do I need prior knowledge?", a: "No. Come with your curiosity — that's the only requirement." },
+const FAQS = [
+  {
+    question: "What exactly happens in an EXPÉRIA conversation?",
+    answer:
+      "EXPÉRIA conversations are live sessions where you can hear directly from people with real-world experience and ask questions during the conversation.",
+  },
+  {
+    question: "Can I ask the expert questions?",
+    answer:
+      "Yes. Asking is the point. Questions from participants help shape the conversation.",
+  },
+  {
+    question: "Who are the people I can hear from?",
+    answer:
+      "Professionals, founders, researchers, practitioners and other experienced people who can share relevant first-hand experience.",
+  },
+  {
+    question: "How does EXPÉRIA verify experts?",
+    answer:
+      "We review identity and relevant professional or experience information where applicable before experts are presented on the platform.",
+  },
+  {
+    question:
+      "What makes EXPÉRIA different from watching an expert on YouTube?",
+    answer:
+      "YouTube lets you watch someone else's conversation. EXPÉRIA lets you enter one, listen directly and ask your own question.",
+  },
+  {
+    question: "Is EXPÉRIA a course platform?",
+    answer:
+      "No. EXPÉRIA is built around live conversations and direct access to people with real-world experience.",
+  },
+  {
+    question: "Why is there a reservation fee?",
+    answer:
+      "The reservation helps us keep conversations intentional and seats meaningful while making access simple.",
+  },
+  {
+    question: "What happens if a conversation is cancelled?",
+    answer:
+      "If a conversation is cancelled, the reservation process will provide the applicable next step according to EXPÉRIA's cancellation policy.",
+  },
 ];
 
-const FOOTER_LINKS = {
-  Explore: [
-    { label: "Conversations", to: "/live" },
-    { label: "Questions", to: "/questions" },
-    { label: "Topics", to: "/topics" },
-  ],
-  "For Experts": [
-    { label: "Become an EXPÉRIA expert", to: "/become-an-expert" },
-    { label: "Expert guidelines", to: "/expert-guidelines" },
-  ],
-  Company: [
-    { label: "About", to: "/about" },
-    { label: "Mission", to: "/mission" },
-    { label: "Contact", to: "/contact" },
-  ],
-  Trust: [
-    { label: "Safety", to: "/safety" },
-    { label: "Privacy", to: "/privacy" },
-    { label: "Terms", to: "/terms" },
-  ],
-};
+const LiveConversationCard = () => (
+  <motion.div
+    whileHover={{ y: -4 }}
+    transition={{ duration: 0.25 }}
+    className="group relative overflow-hidden rounded-3xl border border-violet-300/15 bg-white/[0.045] p-4 shadow-2xl shadow-violet-950/20 backdrop-blur-xl sm:p-5"
+  >
+    <div className="relative overflow-hidden rounded-2xl">
+      <img
+        src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1200&q=85"
+        alt="Live conversation"
+        className="h-[240px] w-full object-cover transition duration-700 group-hover:scale-[1.03] sm:h-[320px]"
+      />
 
-const SOCIAL_LINKS = [
-  { icon: Instagram, label: "Instagram", href: "https://instagram.com" },
-  { icon: Linkedin, label: "LinkedIn", href: "https://linkedin.com" },
-  { icon: Twitter, label: "Twitter", href: "https://twitter.com" },
-  { icon: Youtube, label: "YouTube", href: "https://youtube.com" },
-];
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
 
-const TOPIC_GRADIENTS = [
-  "from-violet-600/35 via-indigo-600/15 to-transparent",
-  "from-fuchsia-600/30 via-violet-600/15 to-transparent",
-  "from-indigo-600/35 via-blue-600/10 to-transparent",
-  "from-rose-500/25 via-violet-600/15 to-transparent",
-  "from-blue-600/30 via-cyan-600/10 to-transparent",
-];
+      <div className="absolute left-4 top-4 flex items-center gap-2 rounded-full border border-white/15 bg-black/40 px-3 py-1.5 backdrop-blur-md">
+        <span className="h-2 w-2 animate-pulse rounded-full bg-red-400" />
+        <span className="font-accent text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-white">
+          Live now
+        </span>
+      </div>
 
-function FadeUp({ children, delay = 0, className = "" }) { 
-  const reduce = useReducedMotion();
+      <div className="absolute bottom-4 left-4 right-4">
+        <div className="mb-2 flex items-center gap-2 text-white/70">
+          <Users className="h-3.5 w-3.5" />
+          <span className="text-xs">Live conversation</span>
+        </div>
+
+        <h3 className="font-serif text-2xl leading-tight text-white sm:text-3xl">
+          Inside the Mind of a Founder
+        </h3>
+      </div>
+    </div>
+
+    <div className="px-1 pb-1 pt-5">
+      <p className="font-serif text-xl leading-snug text-white/90">
+        What actually happens when you're building a company from nothing?
+      </p>
+
+      <div className="mt-4 flex items-center justify-between gap-4">
+        <div>
+          <p className="font-accent text-sm font-medium text-white">
+            Arjun Malhotra
+          </p>
+          <p className="mt-1 text-xs text-white/45">
+            Founder & CEO · 10+ years building companies
+          </p>
+        </div>
+
+        <div className="hidden items-center gap-2 rounded-xl border border-white/10 bg-white/[0.035] px-3 py-2 sm:flex">
+          <MessageSquare className="h-3.5 w-3.5 text-violet-300" />
+          <span className="text-xs text-white/55">Questions being discussed</span>
+        </div>
+      </div>
+
+      <Link
+        to="/live"
+        className="mt-5 flex w-full items-center justify-center rounded-xl bg-white px-4 py-3 font-accent text-sm font-semibold text-[#12131d] transition hover:bg-violet-100"
+      >
+        Enter the conversation
+        <ArrowRight className="ml-2 h-4 w-4" />
+      </Link>
+    </div>
+  </motion.div>
+);
+
+const QuestionCard = ({ item, index }) => {
+  const Icon = item.icon;
 
   return (
     <motion.div
-      initial={reduce ? false : { opacity: 0, y: 18 }}
-      whileInView={reduce ? undefined : { opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.55, delay, ease: [0.23, 1, 0.32, 1] }}
-      className={className}
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{
+        duration: 0.55,
+        delay: Math.min(index * 0.05, 0.25),
+      }}
+      whileHover={{ y: -4 }}
+      className="group rounded-2xl border border-white/10 bg-white/[0.035] p-5 transition hover:border-violet-300/20 hover:bg-white/[0.055]"
     >
-      {children}
-    </motion.div>
-  );
-}
-
-// Slow, continuous, non-interactive auto-scrolling strip. Used for the
-// informational previews that shouldn't be tappable before login.
-function Marquee({ items, renderItem, keyFn, duration = 45, reverse = false }) {
-  const reduce = useReducedMotion();
-  const doubled = reduce ? items : [...items, ...items];
-
-  return (
-    <div
-      className="relative w-full overflow-hidden"
-      style={{ maskImage: "linear-gradient(90deg, transparent, black 6%, black 94%, transparent)", WebkitMaskImage: "linear-gradient(90deg, transparent, black 6%, black 94%, transparent)" }}
-    >
-      <motion.div
-        className="flex w-max gap-4 pb-1"
-        animate={reduce ? undefined : { x: reverse ? ["-50%", "0%"] : ["0%", "-50%"] }}
-        transition={reduce ? undefined : { duration, ease: "linear", repeat: Infinity }}
-      >
-        {doubled.map((item, i) => (
-          <div key={keyFn(item, i)} className="shrink-0">
-            {renderItem(item)}
-          </div>
-        ))}
-      </motion.div>
-    </div>
-  );
-}
-
-function VerificationBadge({ label = "Verified experience" }) {
-  return (
-    <span
-      title={label}
-      aria-label={label}
-      className="inline-flex items-center justify-center text-violet-300"
-    >
-      <BadgeCheck className="h-4 w-4 fill-violet-400/15" />
-    </span>
-  );
-}
-
-function SectionLabel({ children, action }) {
-  return (
-    <div className="mb-3 flex items-end justify-between gap-4">
-      <p className="font-accent text-[0.68rem] font-semibold uppercase tracking-[0.25em] text-violet-300/75">
-        {children}
-      </p>
-      {action}
-    </div>
-  );
-}
-
-function PrimaryButton({ children, to = "/explore", className = "" }) {
-  return (
-    <Link
-      to={to}
-      className={`group inline-flex items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-violet-500 to-indigo-500 px-5 py-3 font-accent text-sm font-semibold text-white shadow-[0_12px_32px_rgba(109,78,255,0.26)] transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_16px_38px_rgba(109,78,255,0.38)] active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-300 focus-visible:ring-offset-2 focus-visible:ring-offset-[#05060b] ${className}`}
-    >
-      {children}
-      <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
-    </Link>
-  );
-}
-
-// Non-interactive: no link, no click destination. Purely an informational
-// preview card for the marquee — real reservation happens after login.
-function ConversationPreviewCard({ conversation }) {
-  return (
-    <article className="flex h-full w-[300px] flex-col overflow-hidden rounded-2xl border border-white/[0.11] bg-white/[0.035] sm:w-[360px]">
-      <div className="relative h-44 w-full shrink-0 overflow-hidden sm:h-56">
-        <img
-          src={conversation.image}
-          alt=""
-          loading="lazy"
-          className="absolute inset-0 h-full w-full object-cover object-top"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0b0c16] via-[#0b0c16]/10 to-transparent" />
-        <div className="absolute left-3 top-3 flex items-center gap-1.5 rounded-lg bg-black/60 px-2.5 py-1.5 font-accent text-[0.7rem] text-violet-200">
-          <CalendarDays className="h-3.5 w-3.5" />
-          {conversation.date} · {conversation.time}
+      <div className="flex items-start justify-between gap-4">
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-violet-400/10 text-violet-200">
+          <Icon className="h-5 w-5" />
         </div>
-      </div>
-      <div className="flex flex-1 flex-col gap-1.5 px-5 py-4 sm:px-6 sm:py-5">
-        <h3 className="font-serif text-xl leading-tight text-white sm:text-2xl">{conversation.topic}</h3>
-        <div className="flex items-center gap-1.5">
-          <p className="truncate font-accent text-sm font-medium text-white/85">{conversation.name}</p>
-          <VerificationBadge />
-        </div>
-        <p className="text-xs text-white/47 sm:text-sm">{conversation.role} · {conversation.credibility}</p>
-      </div>
-      <div className="px-5 pb-5 sm:px-6 sm:pb-6">
-        <span className="flex w-full items-center justify-center rounded-xl border border-violet-300/45 bg-violet-500/10 px-4 py-3.5 font-accent text-sm font-semibold text-violet-100">
-          Reserve access
+
+        <span className="rounded-full border border-white/10 px-2.5 py-1 font-accent text-[0.62rem] font-medium uppercase tracking-wider text-white/40">
+          {item.tag}
         </span>
       </div>
-    </article>
-  );
-}
 
-// Non-interactive preview card for the Questions marquee.
-function QuestionPreviewCard({ item }) {
-  const Icon = item.icon;
-  return (
-    <div className="flex h-full w-[280px] flex-col rounded-xl border border-white/[0.1] bg-white/[0.03] p-5 sm:w-[300px]">
-      <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-violet-500/15 text-violet-300">
-        <Icon className="h-4 w-4" />
+      <h3 className="mt-5 font-serif text-xl leading-snug text-white/95">
+        {item.question}
+      </h3>
+
+      <Link
+        to={`/questions?topic=${encodeURIComponent(item.tag.toLowerCase())}`}
+        className="mt-5 inline-flex items-center font-accent text-xs font-semibold text-violet-200 transition group-hover:text-white"
+      >
+        Explore this question
+        <ArrowRight className="ml-1.5 h-3.5 w-3.5" />
+      </Link>
+    </motion.div>
+  );
+};
+
+const ConversationCard = ({ conversation }) => (
+  <motion.div
+    whileHover={{ y: -4 }}
+    transition={{ duration: 0.25 }}
+    className="group overflow-hidden rounded-2xl border border-white/10 bg-white/[0.035]"
+  >
+    <div className="relative overflow-hidden">
+      <img
+        src={conversation.image}
+        alt={conversation.topic}
+        className="h-52 w-full object-cover transition duration-700 group-hover:scale-[1.04]"
+      />
+
+      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+
+      <div className="absolute bottom-3 left-3 rounded-full border border-white/15 bg-black/35 px-3 py-1.5 backdrop-blur-md">
+        <span className="text-[0.68rem] text-white/80">
+          {conversation.date} · {conversation.time}
+        </span>
       </div>
-      <p className="mt-4 flex-1 font-serif text-lg leading-snug text-white">{item.question}</p>
-      <p className="mt-4 text-xs text-white/45">{item.curious}</p>
-      <span className="mt-2 inline-flex w-fit items-center rounded-lg border border-white/[0.12] px-2.5 py-1 font-accent text-[0.65rem] text-white/55">{item.tag}</span>
     </div>
-  );
-}
 
-// Non-interactive card for the Topics marquee — a topic-styled visual on
-// top (gradient + icon, standing in for topic imagery) with the name below.
-function TopicCard({ item }) {
-  const Icon = item.icon;
-  const gradient = TOPIC_GRADIENTS[item.label.length % TOPIC_GRADIENTS.length];
+    <div className="p-5">
+      <h3 className="font-serif text-xl leading-tight text-white transition group-hover:text-violet-100">
+        {conversation.topic}
+      </h3>
 
-  return (
-    <div className="flex w-[168px] flex-col overflow-hidden rounded-2xl border border-white/[0.1] bg-white/[0.03] sm:w-[196px]">
-      <div className={`relative flex h-28 items-center justify-center overflow-hidden bg-gradient-to-br ${gradient} sm:h-32`}>
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_28%,rgba(255,255,255,0.14),transparent_65%)]" />
-        <Icon className="relative h-9 w-9 text-white/90 sm:h-10 sm:w-10" strokeWidth={1.5} />
+      <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-white/55">
+        {conversation.description}
+      </p>
+
+      <div className="mt-4">
+        <p className="font-accent text-sm font-medium text-white">
+          {conversation.name}
+        </p>
+
+        <p className="mt-1 text-xs text-white/45">
+          {conversation.role} · {conversation.credibility}
+        </p>
       </div>
-      <div className="px-4 py-3.5 text-center">
-        <p className="font-accent text-sm font-semibold text-white/90">{item.label}</p>
-      </div>
+
+      <Link
+        to="/live"
+        className="mt-5 flex items-center justify-between rounded-xl border border-white/10 bg-white/[0.035] px-4 py-3 text-sm font-medium text-white transition hover:border-violet-300/20 hover:bg-violet-400/10"
+      >
+        <span>Reserve your seat</span>
+        <ArrowRight className="h-4 w-4 text-violet-200" />
+      </Link>
     </div>
-  );
-}
-export default function Home() {
-  const reduce = useReducedMotion();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [query, setQuery] = useState("");
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [openFaq, setOpenFaq] = useState(null);
+  </motion.div>
+);
 
-  useEffect(() => {
-    const onScroll = () => setIsScrolled(window.scrollY > 8);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  const heroAnimation = (delay) => ({
-    initial: reduce ? false : { opacity: 0, y: 16 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.7, delay, ease: [0.23, 1, 0.32, 1] },
-  });
-
+const Home = () => {
   const handleSearch = (event) => {
     event.preventDefault();
-    // Connect this handler to the Explore search route or API when available.
-  };
 
-  const handleNewsletterSubmit = (event) => {
-    event.preventDefault();
-    // Connect this handler to your email/newsletter service when available.
+    const form = new FormData(event.currentTarget);
+    const query = form.get("query");
+
+    if (query) {
+      window.location.href = `/explore?q=${encodeURIComponent(query)}`;
+    }
   };
 
   return (
-    <main className="min-h-screen overflow-hidden bg-black text-white selection:bg-violet-400/30 selection:text-white">
-      <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden bg-black">
-        <div className="absolute left-1/2 top-[-24rem] h-[58rem] w-[72rem] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(124,58,237,0.22)_0%,transparent_65%)]" />
-        <div className="absolute right-[-18rem] top-[30rem] h-[38rem] w-[38rem] rounded-full bg-[radial-gradient(circle,rgba(99,102,241,0.22)_0%,transparent_65%)]" />
-        <div className="absolute left-[-22rem] top-[48rem] h-[32rem] w-[32rem] rounded-full bg-[radial-gradient(circle,rgba(217,70,239,0.12)_0%,transparent_65%)]" />
-        <svg className="absolute left-0 top-[22%] h-[460px] w-[680px] opacity-70" viewBox="0 0 620 420" fill="none">
-          <defs>
-            <linearGradient id="streak1" x1="0" y1="0" x2="620" y2="420" gradientUnits="userSpaceOnUse">
-              <stop offset="0" stopColor="#c4b5fd" stopOpacity="0" />
-              <stop offset="0.5" stopColor="#c4b5fd" stopOpacity="0.85" />
-              <stop offset="1" stopColor="#c4b5fd" stopOpacity="0" />
-            </linearGradient>
-          </defs>
-          <path d="M0 60 Q 220 120 320 260 T 560 400" stroke="url(#streak1)" strokeWidth="1.5" />
-          <path d="M40 0 Q 200 160 300 220 T 500 340" stroke="url(#streak1)" strokeWidth="1" />
-          <path d="M0 160 Q 180 200 260 300 T 460 400" stroke="url(#streak1)" strokeWidth="0.75" />
-        </svg>
-        <svg className="absolute right-0 top-[8%] h-[400px] w-[560px] scale-x-[-1] opacity-50" viewBox="0 0 620 420" fill="none">
-          <defs>
-            <linearGradient id="streak2" x1="0" y1="0" x2="620" y2="420" gradientUnits="userSpaceOnUse">
-              <stop offset="0" stopColor="#818cf8" stopOpacity="0" />
-              <stop offset="0.5" stopColor="#818cf8" stopOpacity="0.7" />
-              <stop offset="1" stopColor="#818cf8" stopOpacity="0" />
-            </linearGradient>
-          </defs>
-          <path d="M0 40 Q 200 100 300 220 T 540 360" stroke="url(#streak2)" strokeWidth="1.25" />
-        </svg>
-      </div>
+    <main className="min-h-screen overflow-hidden bg-[#080910] text-white">
+      {/* HERO */}
+      <section className="relative px-6 pb-16 pt-14 sm:pb-20 lg:px-10 lg:pb-24 lg:pt-20">
+        <div className="pointer-events-none absolute left-1/2 top-[-180px] h-[500px] w-[700px] -translate-x-1/2 rounded-full bg-violet-600/10 blur-[130px]" />
 
-      {/* 01 — NAVBAR */}
-      <div className="relative">
-        <header className={`fixed inset-x-0 top-0 z-30 transition-colors duration-300 ${isScrolled ? "border-b border-white/[0.08] bg-black" : "border-b border-transparent bg-transparent"}`}>
-          <nav className="mx-auto flex h-[58px] max-w-[1440px] items-center justify-between px-6 lg:px-10" aria-label="Main navigation">
-            <Link to="/" className="font-serif text-[1.55rem] tracking-[0.23em] text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-300">
-              EXP<span className="text-violet-300">É</span>RIA
-            </Link>
+        <div className="relative mx-auto max-w-6xl text-center">
+          <motion.div {...heroAnimation(0)}>
+            <p className="font-accent text-xs font-semibold uppercase tracking-[0.32em] text-violet-300/75">
+              EXPÉRIA
+            </p>
+          </motion.div>
 
-            <div className="hidden items-center gap-7 font-accent text-sm text-white/60 md:flex">
-              <a href="#why" className="transition hover:text-white">Why EXPÉRIA</a>
-              <Link to="/how-it-works" className="transition hover:text-white">How it works</Link>
-              <Link to="/become-an-expert" className="transition hover:text-white">For Experts</Link>
-              <Link to="/about" className="transition hover:text-white">About</Link>
-            </div>
+          <motion.h1
+            {...heroAnimation(0.08)}
+            className="mx-auto mt-7 max-w-4xl font-serif text-[2.35rem] leading-[1.02] tracking-[-0.035em] text-white sm:text-5xl sm:leading-[1.02] lg:text-[5rem]"
+          >
+            Some Answers Can't Be
+            <br />
+            <span className="bg-gradient-to-r from-violet-200 via-violet-400 to-indigo-300 bg-clip-text text-transparent">
+              Googled.
+            </span>
+          </motion.h1>
 
-            <div className="hidden items-center gap-5 md:flex">
-              <button aria-label="Search EXPÉRIA" className="rounded-lg border border-white/15 p-2.5 text-white/75 transition hover:border-violet-300/50 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-300">
-                <Search className="h-4 w-4" />
+          <motion.p
+            {...heroAnimation(0.16)}
+            className="mx-auto mt-6 max-w-[650px] text-sm leading-relaxed text-white/55 sm:text-base lg:text-lg"
+          >
+            The internet can give you information. EXPÉRIA lets you ask
+            someone who's actually lived it.
+          </motion.p>
+
+          <motion.form
+            {...heroAnimation(0.24)}
+            onSubmit={handleSearch}
+            className="mx-auto mt-7 max-w-[560px]"
+          >
+            <div className="flex items-center rounded-2xl border border-white/10 bg-white/[0.055] p-1.5 shadow-2xl shadow-black/20 backdrop-blur-xl">
+              <Search className="ml-3 h-4 w-4 shrink-0 text-white/35" />
+
+              <input
+                name="query"
+                type="text"
+                placeholder="What are you curious about?"
+                className="min-w-0 flex-1 bg-transparent px-3 py-3 text-sm text-white outline-none placeholder:text-white/30"
+              />
+
+              <button
+                type="submit"
+                className="inline-flex shrink-0 items-center gap-1.5 rounded-xl bg-white px-4 py-2.5 font-accent text-xs font-semibold text-[#12131d] transition hover:bg-violet-100 active:scale-[0.97]"
+              >
+                Find someone
+                <ArrowRight className="h-3.5 w-3.5" />
               </button>
-              <Link to="/login" className="font-accent text-sm text-white/65 transition hover:text-white">Log in</Link>
-              <Link to="/signup" className="rounded-lg bg-violet-500 px-5 py-2.5 font-accent text-sm font-semibold text-white shadow-[0_8px_24px_rgba(124,58,237,0.28)] transition hover:bg-violet-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-300">Enter EXPÉRIA</Link>
             </div>
+          </motion.form>
 
-            <button
-              type="button"
-              aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-              aria-expanded={isMenuOpen}
-              onClick={() => setIsMenuOpen((open) => !open)}
-              className="rounded-lg border border-white/15 p-2.5 text-white md:hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-300"
-            >
-              {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-            </button>
-          </nav>
-
-          {isMenuOpen && (
-            <div className="border-t border-white/[0.08] bg-black px-6 py-5 md:hidden">
-              <div className="flex flex-col gap-4 font-accent text-sm text-white/70">
-                <a href="#why" onClick={() => setIsMenuOpen(false)}>Why EXPÉRIA</a>
-                <Link to="/how-it-works" onClick={() => setIsMenuOpen(false)}>How it works</Link>
-                <Link to="/become-an-expert" onClick={() => setIsMenuOpen(false)}>For Experts</Link>
-                <Link to="/about" onClick={() => setIsMenuOpen(false)}>About</Link>
-                <div className="flex gap-3 border-t border-white/[0.08] pt-4">
-                  <Link to="/login" className="rounded-lg border border-white/15 px-4 py-2">Log in</Link>
-                 <Link to="/signup" className="rounded-lg bg-violet-500 px-4 py-2 font-semibold text-white">Enter EXPÉRIA</Link>
-                </div>
-              </div>
-            </div>
-          )}
-        </header>
-
-        {/* 02 — HERO */}
-        <section className="relative mx-auto max-w-[1440px] px-6 pb-4 pt-[74px] lg:px-10 lg:pb-5 lg:pt-[82px]">
-          <div className="mx-auto max-w-[1050px] text-center">
-            <motion.h1 {...heroAnimation(0.08)} className="font-serif text-[1.9rem] leading-[1.06] tracking-[-0.02em] text-white sm:text-4xl sm:leading-[1.02] sm:tracking-[-0.03em] lg:text-[3.1rem]">
-              Don't Just Learn It.
-              <br />
-              Ask Someone Who's{" "}
-              <span className="bg-gradient-to-r from-violet-200 via-violet-400 to-indigo-300 bg-clip-text text-transparent">Done It.</span>
-            </motion.h1>
-
-            <motion.p {...heroAnimation(0.16)} className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-white/55 sm:text-base">
-              Get access to people who've actually lived the experience — not just people who've studied it.
-            </motion.p>
-
-            <motion.form {...heroAnimation(0.24)} onSubmit={handleSearch} className="mx-auto mt-6 lg:mt-7 max-w-[512px]">
-              <label htmlFor="experia-search" className="sr-only">What are you curious about?</label>
-             <div className="glare-border flex items-center gap-2 rounded-full border border-violet-400/60 bg-white/[0.055] p-1.5 pl-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_0_0_1px_rgba(167,139,250,0.15),0_18px_70px_rgba(76,29,149,0.25)] transition focus-within:border-violet-300 focus-within:bg-white/[0.08]">
-                <Search className="h-3.5 w-3.5 shrink-0 text-white/45" />
-                <input
-                  id="experia-search"
-                  type="search"
-                  value={query}
-                  onChange={(event) => setQuery(event.target.value)}
-                  placeholder="What are you curious about?"
-                  className="min-w-0 flex-1 bg-transparent py-1 font-accent text-xs text-white outline-none placeholder:text-white/38"
-                />
-                <button type="submit" className="inline-flex shrink-0 items-center gap-1.5 rounded-lg bg-white px-3 py-1.5 font-accent text-[0.7rem] font-semibold text-[#12131d] transition hover:bg-violet-100 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-300">
-                  Explore
-                  <ArrowRight className="h-3 w-3" />
-                </button>
-              </div>
-            </motion.form>
-
-            {/* 03 — TOPIC CURIOSITY */}
-            <motion.div {...heroAnimation(0.3)} className="mt-2.5 flex flex-wrap items-center justify-center gap-x-3 gap-y-1.5 font-accent text-[0.7rem] text-white/42 sm:text-xs">
-              {DISCOVERY_TAGS.map((tag, index) => (
-                <Link key={tag} to={`/explore?topic=${tag.toLowerCase()}`} className="transition hover:text-violet-200">
-                  {tag}
-                  {index < DISCOVERY_TAGS.length - 1 && <span className="ml-3 text-violet-300/50">·</span>}
+          <motion.div
+            {...heroAnimation(0.3)}
+            className="mt-5 flex flex-wrap items-center justify-center gap-x-4 gap-y-2"
+          >
+            {["Aviation", "Finance", "Medicine", "Startups", "Manufacturing"].map(
+              (topic) => (
+                <Link
+                  key={topic}
+                  to={`/explore?topic=${encodeURIComponent(topic.toLowerCase())}`}
+                  className="text-xs text-white/35 transition hover:text-violet-200"
+                >
+                  {topic}
                 </Link>
-              ))}
-            </motion.div>
-          </div>
+              )
+            )}
+          </motion.div>
 
-          {/* 04 — LIVE NOW */}
-          <FadeUp className="relative mx-auto mt-10 max-w-[900px] lg:mt-12">
-  <div className="pointer-events-none absolute -inset-24 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(124,58,237,0.35),rgba(124,58,237,0.1)_40%,transparent_70%)]" />
-  <article className="group relative overflow-hidden rounded-2xl border border-white/[0.12] bg-[#0b0c16] shadow-[0_20px_50px_rgba(0,0,0,0.45)]">
-              <div className="relative grid min-h-[200px] lg:grid-cols-[0.8fr_1.2fr] lg:min-h-[230px]">
-                <div className="relative min-h-[150px] overflow-hidden lg:min-h-full">
-                  <img src={LIVE_CONVERSATION.image} alt={`${LIVE_CONVERSATION.name}, ${LIVE_CONVERSATION.role}`} className="absolute inset-0 h-full w-full object-cover object-top transition duration-700 group-hover:scale-[1.025]" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#080910] via-[#080910]/15 to-transparent" />
-                  <div className="absolute inset-y-0 right-0 hidden w-1/2 bg-gradient-to-l from-[#0b0c16] to-transparent lg:block" />
-                </div>
+          <motion.p
+            {...heroAnimation(0.36)}
+            className="mt-7 font-accent text-[0.68rem] font-medium uppercase tracking-[0.2em] text-white/30"
+          >
+            Ask. Listen. Learn from experience.
+          </motion.p>
+        </div>
+      </section>
 
-                <div className="relative flex flex-col justify-center px-5 py-4 pb-9 sm:px-7 lg:px-8 lg:py-5 lg:pb-10">
-                  <div className="flex items-center gap-3 font-accent text-[0.7rem] text-white/60">
-                    <span className="inline-flex items-center gap-2 font-bold text-red-500"><span className="h-2 w-2 animate-pulse rounded-full bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.9)]" />LIVE NOW</span>
-                    <span className="h-1 w-1 rounded-full bg-white/20" />
-                    <span className="inline-flex items-center gap-1.5 font-semibold text-white/85"><UsersRound className="h-3.5 w-3.5" />{LIVE_CONVERSATION.watching}</span>
-                  </div>
+      {/* PROBLEM */}
+      <section className="relative px-6 py-16 lg:px-10 lg:py-24">
+        <FadeUp className="mx-auto max-w-4xl text-center">
+          <SectionLabel>You've already searched for the answer.</SectionLabel>
 
-                  <h2 className="mt-2 max-w-xl font-serif text-xl leading-[1.1] tracking-[-0.015em] text-white sm:text-2xl lg:text-[1.85rem]">
-                    {LIVE_CONVERSATION.title}
-                  </h2>
-
-                  <div className="mt-2 flex items-center gap-2">
-                    <p className="font-accent text-sm font-semibold text-white/90">{LIVE_CONVERSATION.name}</p>
-                    <VerificationBadge />
-                  </div>
-                  <p className="mt-0.5 font-accent text-xs text-violet-200/75">{LIVE_CONVERSATION.role} · {LIVE_CONVERSATION.credibility}</p>
-
-                  <p className="mt-2 hidden max-w-lg text-xs leading-relaxed text-white/58 sm:block">{LIVE_CONVERSATION.description}</p>
-
-                  <div className="mt-2.5 flex items-center gap-1.5 font-accent text-xs text-violet-200/80">
-                    <MessageCircle className="h-3.5 w-3.5" />{LIVE_CONVERSATION.questions}
-                  </div>
-
-                  <PrimaryButton to="/live" className="absolute bottom-3 right-5 px-4 py-2 text-xs sm:bottom-3.5 sm:right-7 lg:bottom-3.5 lg:right-8">
-                    Enter the conversation
-                  </PrimaryButton>
-                </div>
-              </div>
-            </article>
-          </FadeUp>
-        </section>
-      </div>
-
-      {/* 05 — ACCESS GAP */}
-      <section className="relative px-6 py-16 lg:px-10 lg:py-20">
-        <div className="mx-auto max-w-[900px] text-center">
-          <h2 className="font-serif text-2xl leading-snug text-white sm:text-3xl">
-            You can watch them. You can follow them. You can read about them.
-            <br className="hidden sm:block" />
-            <span className="text-violet-300">But can you ask them?</span>
+          <h2 className="mt-5 font-serif text-3xl leading-[1.08] tracking-[-0.025em] text-white sm:text-4xl lg:text-5xl">
+            You've watched the videos.
+            <br />
+            Read the articles.
+            <br />
+            Asked AI.
           </h2>
-          <p className="mx-auto mt-5 max-w-lg text-sm leading-relaxed text-white/50 sm:text-base">
-            EXPÉRIA exists to close that gap. Some people are worth hearing from — the difficult part has always been access.
-            You don't always need another course. Sometimes you need to hear how someone ahead of you thinks.
+
+          <p className="mx-auto mt-7 max-w-xl text-base leading-relaxed text-white/50 sm:text-lg">
+            And sometimes you're still left wondering:
           </p>
+
+          <p className="mt-5 font-serif text-2xl italic text-violet-200 sm:text-3xl">
+            “But what is it actually like?”
+          </p>
+
+          <p className="mx-auto mt-8 max-w-2xl text-base leading-relaxed text-white/50 sm:text-lg">
+            Information can tell you <span className="text-white/80">what to do.</span>
+            <br />
+            Experience can tell you{" "}
+            <span className="text-white">what happens when you do it.</span>
+          </p>
+        </FadeUp>
+      </section>
+
+      {/* QUESTIONS */}
+      <section className="relative px-6 py-16 lg:px-10 lg:py-20">
+        <div className="mx-auto max-w-6xl">
+          <FadeUp className="mb-8 max-w-3xl">
+            <SectionLabel>Questions worth asking</SectionLabel>
+
+            <h2 className="mt-4 font-serif text-3xl leading-tight tracking-[-0.02em] text-white sm:text-4xl lg:text-5xl">
+              The questions that matter aren't always in the textbook.
+            </h2>
+
+            <p className="mt-4 max-w-2xl text-sm leading-relaxed text-white/45 sm:text-base">
+              Sometimes the answer belongs to someone who's already lived it.
+            </p>
+          </FadeUp>
+
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {QUESTION_CARDS.map((item, index) => (
+              <QuestionCard key={item.question} item={item} index={index} />
+            ))}
+          </div>
+
+          <div className="mt-8 text-center">
+            <Link
+              to="/questions"
+              className="inline-flex items-center text-sm font-medium text-violet-200 transition hover:text-white"
+            >
+              View all questions
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Link>
+          </div>
         </div>
       </section>
 
-      {/* 06 — QUESTIONS PEOPLE WANT ANSWERED (auto-sliding preview, not tappable) */}
-      <section className="relative py-14 lg:py-16">
-        <div className="mx-auto max-w-[1360px] px-6 lg:px-10">
-          <SectionLabel action={<Link to="/questions" className="inline-flex items-center gap-1 font-accent text-xs text-white/50 transition hover:text-white">View all questions <ChevronRight className="h-4 w-4" /></Link>}>
-            Questions worth asking
-          </SectionLabel>
-          <p className="-mt-4 mb-6 max-w-md text-sm text-white/45">Hear the answer from someone who's actually done it.</p>
+      {/* LIVE CONVERSATION */}
+      <section className="relative px-6 py-16 lg:px-10 lg:py-24">
+        <div className="pointer-events-none absolute right-[-120px] top-1/2 h-[420px] w-[420px] -translate-y-1/2 rounded-full bg-violet-600/10 blur-[120px]" />
+
+        <div className="relative mx-auto grid max-w-6xl items-center gap-10 lg:grid-cols-[0.8fr_1.2fr]">
+          <FadeUp>
+            <SectionLabel>You've seen what they achieved.</SectionLabel>
+
+            <h2 className="mt-4 font-serif text-4xl leading-[1.05] tracking-[-0.025em] text-white sm:text-5xl">
+              Now ask them why.
+            </h2>
+
+            <p className="mt-6 max-w-lg text-base leading-relaxed text-white/50 sm:text-lg">
+              You can watch their interviews. Follow their work. Read about
+              their success.
+            </p>
+
+            <p className="mt-5 max-w-lg text-base leading-relaxed text-white/50 sm:text-lg">
+              But watching someone's experience isn't the same as having a
+              conversation with them.
+            </p>
+
+            <p className="mt-6 font-serif text-xl text-white sm:text-2xl">
+              EXPÉRIA closes that distance.
+            </p>
+          </FadeUp>
+
+          <FadeUp>
+            <LiveConversationCard />
+          </FadeUp>
         </div>
-        <Marquee items={TRENDING_QUESTIONS} keyFn={(item, i) => `${item.question}-${i}`} renderItem={(item) => <QuestionPreviewCard item={item} />} duration={50} />
       </section>
 
-      {/* 07 — PEOPLE WHO'VE DONE IT (auto-sliding preview, not tappable) */}
-      <section className="relative py-14 lg:py-16">
-        <div className="mx-auto max-w-[1360px] px-6 lg:px-10">
-          <SectionLabel action={<Link to="/live" className="inline-flex items-center gap-1 font-accent text-xs text-white/50 transition hover:text-white">View all <ChevronRight className="h-4 w-4" /></Link>}>
-            Upcoming live conversations
-          </SectionLabel>
-        </div>
-        <Marquee items={UPCOMING_CONVERSATIONS} keyFn={(c) => c.topic} renderItem={(c) => <ConversationPreviewCard conversation={c} />} duration={60} reverse />
-      </section>
+      {/* UPCOMING */}
+      <section className="relative px-6 py-16 lg:px-10 lg:py-20">
+        <div className="mx-auto max-w-6xl">
+          <FadeUp className="mb-8 flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
+            <div>
+              <SectionLabel>Live access</SectionLabel>
 
-      {/* EXPLORE TOPICS (auto-sliding preview, not tappable) */}
-      <section className="relative py-10 lg:py-12">
-        <div className="mx-auto max-w-[1360px] px-6 lg:px-10">
-          <SectionLabel>Explore topics</SectionLabel>
-        </div>
-                <Marquee items={EXPLORE_TOPICS} keyFn={(t) => t.label} renderItem={(t) => <TopicCard item={t} />} duration={42} />
-      </section>
+              <h2 className="mt-3 font-serif text-3xl leading-tight text-white sm:text-4xl">
+                Conversations you can enter.
+              </h2>
 
-      {/* 08 — WHY EXPERIA */}
-      <section id="why" className="relative px-6 py-14 lg:px-10 lg:py-16">
-        <div className="mx-auto max-w-[720px]">
-          <div className="grid gap-6 sm:grid-cols-2">
-            {WHY_EXPERIA.map(({ emphasis, muted }) => (
-              <FadeUp key={emphasis}>
-                <p className="font-serif text-lg leading-snug text-white sm:text-xl">{emphasis}</p>
-                <p className="mt-1 text-sm text-white/40">{muted}</p>
-              </FadeUp>
+              <p className="mt-3 max-w-2xl text-sm text-white/45 sm:text-base">
+                Don't just watch from the outside. Enter the conversation.
+              </p>
+            </div>
+
+            <Link
+              to="/live"
+              className="inline-flex shrink-0 items-center text-sm font-medium text-violet-200 hover:text-white"
+            >
+              View all
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Link>
+          </FadeUp>
+
+          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+            {UPCOMING_CONVERSATIONS.map((conversation) => (
+              <ConversationCard
+                key={conversation.topic}
+                conversation={conversation}
+              />
             ))}
           </div>
         </div>
       </section>
 
-      {/* 09 — HOW IT WORKS */}
-      <section className="relative px-6 py-14 lg:px-10 lg:py-16">
-        <div className="mx-auto max-w-[1200px] text-center">
-          <h2 className="font-serif text-2xl text-white sm:text-3xl">
-            How <span className="text-violet-300">EXPÉRIA</span> works
-          </h2>
+      {/* TOPICS */}
+      <section className="relative px-6 py-16 lg:px-10 lg:py-20">
+        <div className="mx-auto max-w-6xl">
+          <FadeUp className="mb-8">
+            <SectionLabel>Explore</SectionLabel>
 
-          <div className="relative mt-12 hidden grid-cols-4 items-start sm:grid">
-            <div className="absolute left-[12.5%] right-[12.5%] top-6 border-t border-dashed border-white/15" />
-            {HOW_IT_WORKS.map(({ icon: Icon, number, title, description }) => (
-              <div key={number} className="relative flex flex-col items-center px-3 text-center">
-                <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full border border-violet-300/30 bg-[#0b0c16] text-violet-300">
-                  <Icon className="h-5 w-5" />
-                </div>
-                <p className="mt-4 font-accent text-sm font-semibold text-white/90">{number}. {title}</p>
-                <p className="mt-1.5 text-xs leading-relaxed text-white/45">{description}</p>
-              </div>
-            ))}
-          </div>
+            <h2 className="mt-3 font-serif text-3xl text-white sm:text-4xl">
+              What are you curious about?
+            </h2>
+          </FadeUp>
 
-          <div className="mt-10 grid gap-6 sm:hidden">
-            {HOW_IT_WORKS.map(({ icon: Icon, number, title, description }) => (
-              <div key={number} className="flex flex-col items-center text-center">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full border border-violet-300/30 bg-[#0b0c16] text-violet-300">
-                  <Icon className="h-5 w-5" />
-                </div>
-                <p className="mt-4 font-accent text-sm font-semibold text-white/90">{number}. {title}</p>
-                <p className="mt-1.5 text-xs leading-relaxed text-white/45">{description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+          <div className="flex flex-wrap gap-3">
+            {TOPICS.map((topic) => {
+              const Icon = topic.icon;
 
-      {/* 10 — TRUST */}
-      <section className="relative px-6 py-8 lg:px-10">
-        <div className="mx-auto max-w-[1000px] rounded-xl border border-white/[0.08] bg-white/[0.02] px-6 py-6 text-center sm:px-10">
-          <p className="font-serif text-lg text-white">People worth listening to.</p>
-          <div className="mt-4 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 font-accent text-xs text-white/55 sm:text-sm">
-            <span className="inline-flex items-center gap-2"><ShieldCheck className="h-4 w-4 text-violet-300" />Identity verified</span>
-            <span className="inline-flex items-center gap-2"><BadgeCheck className="h-4 w-4 text-violet-300" />Background verified where applicable</span>
-            <span className="inline-flex items-center gap-2"><UserRound className="h-4 w-4 text-violet-300" />Real, contextualized experience</span>
-          </div>
-        </div>
-      </section>
-
-      {/* 11 — FAQ */}
-      <section className="relative px-6 py-14 lg:px-10 lg:py-16">
-        <div className="mx-auto max-w-[1200px]">
-          <SectionLabel action={<Link to="/faq" className="inline-flex items-center gap-1 font-accent text-xs text-white/50 transition hover:text-white">View all FAQs <ChevronRight className="h-4 w-4" /></Link>}>
-            Frequently asked questions
-          </SectionLabel>
-          <div className="grid gap-3 sm:grid-cols-2">
-            {FAQ_ITEMS.map((item, index) => {
-              const isOpen = openFaq === index;
               return (
-                <div key={item.q} className="rounded-xl border border-white/[0.1] bg-white/[0.03]">
-                  <button
-                    type="button"
-                    onClick={() => setOpenFaq(isOpen ? null : index)}
-                    aria-expanded={isOpen}
-                    className="flex w-full items-center justify-between gap-4 px-4 py-3.5 text-left font-accent text-sm text-white/85"
-                  >
-                    {item.q}
-                    <ChevronDown className={`h-4 w-4 shrink-0 text-white/45 transition-transform ${isOpen ? "rotate-180" : ""}`} />
-                  </button>
-                  {isOpen && (
-                    <p className="border-t border-white/[0.08] px-4 py-3.5 text-sm leading-relaxed text-white/55">{item.a}</p>
-                  )}
-                </div>
+                <Link
+                  key={topic.name}
+                  to={`/explore?topic=${encodeURIComponent(topic.name.toLowerCase())}`}
+                  className="group inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.035] px-4 py-2.5 transition hover:border-violet-300/20 hover:bg-violet-400/10"
+                >
+                  <Icon className="h-3.5 w-3.5 text-white/40 transition group-hover:text-violet-200" />
+                  <span className="text-sm text-white/60 transition group-hover:text-white">
+                    {topic.name}
+                  </span>
+                </Link>
               );
             })}
           </div>
         </div>
       </section>
 
-      {/* 12 — FINAL CTA */}
-      <section className="relative overflow-hidden px-6 py-24 text-center lg:px-10 lg:py-36">
-        <div className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[30rem] w-[48rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(124,58,237,0.2)_0%,transparent_65%)]" />
-        <FadeUp className="mx-auto max-w-3xl">
-          <h2 className="font-serif text-4xl leading-[1.15] text-white sm:text-5xl">Get closer to the people who've done it.</h2>
-          <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <PrimaryButton to="/explore" className="px-7">Enter EXPÉRIA</PrimaryButton>
+      {/* BRAND THESIS */}
+      <section className="relative overflow-hidden px-6 py-20 lg:px-10 lg:py-28">
+        <div className="pointer-events-none absolute left-1/2 top-1/2 h-[450px] w-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-violet-600/8 blur-[130px]" />
+
+        <FadeUp className="relative mx-auto max-w-4xl text-center">
+          <SectionLabel>The difference</SectionLabel>
+
+          <h2 className="mt-5 font-serif text-4xl leading-[1.05] tracking-[-0.03em] text-white sm:text-5xl lg:text-6xl">
+            Information tells you
+            <br />
+            <span className="text-white/45">what happened.</span>
+          </h2>
+
+          <p className="mt-5 font-serif text-3xl leading-tight text-violet-200 sm:text-4xl lg:text-5xl">
+            Experience tells you why.
+          </p>
+
+          <div className="mx-auto mt-8 max-w-2xl space-y-3 text-sm leading-relaxed text-white/45 sm:text-base">
+            <p>Ask what you actually want to know.</p>
+            <p>Hear how people really think.</p>
+            <p>Understand what happened along the way.</p>
           </div>
         </FadeUp>
       </section>
 
-      {/* 13 — FOOTER */}
-      <footer className="border-t border-white/[0.08] px-6 py-12 lg:px-10">
-        <div className="mx-auto max-w-[1360px]">
-          <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr_1fr]">
-            <div>
-              <Link to="/" className="font-serif text-lg tracking-[0.2em] text-white/85">EXP<span className="text-violet-300">É</span>RIA</Link>
-              <p className="mt-3 max-w-[240px] text-xs leading-relaxed text-white/40">Real people. Real experience. Real access.</p>
-              <div className="mt-5 flex items-center gap-3">
-                {SOCIAL_LINKS.map(({ icon: Icon, label, href }) => (
-                  <a key={label} href={href} target="_blank" rel="noreferrer" aria-label={label} className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 text-white/50 transition hover:border-violet-300/40 hover:text-violet-200">
-                    <Icon className="h-3.5 w-3.5" />
-                  </a>
-                ))}
-              </div>
+      {/* HOW IT WORKS */}
+      <section className="relative px-6 py-16 lg:px-10 lg:py-20">
+        <div className="mx-auto max-w-6xl">
+          <FadeUp className="mb-10">
+            <SectionLabel>The journey</SectionLabel>
+
+            <h2 className="mt-3 font-serif text-3xl text-white sm:text-4xl">
+              From “I wonder...” to “Now I know.”
+            </h2>
+          </FadeUp>
+
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {HOW_IT_WORKS.map((step) => {
+              const Icon = step.icon;
+
+              return (
+                <FadeUp key={step.number}>
+                  <div className="h-full rounded-2xl border border-white/10 bg-white/[0.03] p-6">
+                    <div className="flex items-center justify-between">
+                      <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-violet-400/10 text-violet-200">
+                        <Icon className="h-5 w-5" />
+                      </div>
+
+                      <span className="font-accent text-xs text-white/25">
+                        0{step.number}
+                      </span>
+                    </div>
+
+                    <h3 className="mt-6 font-serif text-xl text-white">
+                      {step.title}
+                    </h3>
+
+                    <p className="mt-3 text-sm leading-relaxed text-white/45">
+                      {step.description}
+                    </p>
+                  </div>
+                </FadeUp>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* TRUST */}
+      <section className="relative px-6 py-16 lg:px-10 lg:py-20">
+        <FadeUp className="mx-auto max-w-5xl">
+          <div className="rounded-3xl border border-white/10 bg-white/[0.025] p-7 sm:p-10 lg:p-12">
+            <div className="max-w-2xl">
+              <SectionLabel>Trust</SectionLabel>
+
+              <h2 className="mt-4 font-serif text-3xl leading-tight text-white sm:text-4xl">
+                Credentials tell you who they are.
+                <br />
+                <span className="text-violet-200">
+                  Experience tells you what they know.
+                </span>
+              </h2>
+
+              <p className="mt-5 text-sm leading-relaxed text-white/45 sm:text-base">
+                EXPÉRIA brings you closer to people who have actually spent
+                years doing the work — their decisions, mistakes, failures and
+                breakthroughs.
+              </p>
             </div>
 
-            {Object.entries(FOOTER_LINKS).map(([heading, links]) => (
-              <div key={heading}>
-                <p className="font-accent text-xs font-semibold uppercase tracking-[0.16em] text-white/40">{heading}</p>
-                <ul className="mt-4 space-y-2.5">
-                  {links.map((link) => (
-                    <li key={link.label}>
-                      <Link to={link.to} className="font-accent text-sm text-white/60 transition hover:text-white">{link.label}</Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+            <div className="mt-9 grid gap-3 sm:grid-cols-3">
+              {[
+                {
+                  icon: ShieldCheck,
+                  title: "Identity",
+                  text: "Reviewed",
+                },
+                {
+                  icon: CheckCircle2,
+                  title: "Background",
+                  text: "Reviewed where applicable",
+                },
+                {
+                  icon: UserRound,
+                  title: "Experience",
+                  text: "Relevant to the conversation",
+                },
+              ].map((item) => {
+                const Icon = item.icon;
+
+                return (
+                  <div
+                    key={item.title}
+                    className="rounded-2xl border border-white/10 bg-white/[0.025] p-5"
+                  >
+                    <Icon className="h-5 w-5 text-violet-200" />
+                    <p className="mt-4 text-sm font-medium text-white">
+                      {item.title}
+                    </p>
+                    <p className="mt-1 text-xs leading-relaxed text-white/40">
+                      {item.text}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </FadeUp>
+      </section>
+
+      {/* FAQ */}
+      <section className="relative px-6 py-16 lg:px-10 lg:py-20">
+        <div className="mx-auto max-w-4xl">
+          <FadeUp className="mb-8">
+            <SectionLabel>Questions</SectionLabel>
+
+            <h2 className="mt-3 font-serif text-3xl text-white sm:text-4xl">
+              Frequently asked questions.
+            </h2>
+          </FadeUp>
+
+          <div className="divide-y divide-white/10 rounded-2xl border border-white/10 bg-white/[0.02]">
+            {FAQS.map((faq, index) => (
+              <details
+                key={faq.question}
+                className="group px-5 py-5 sm:px-7"
+              >
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-5 text-sm font-medium text-white sm:text-base">
+                  <span>{faq.question}</span>
+
+                  <ChevronRight className="h-4 w-4 shrink-0 text-white/35 transition-transform duration-200 group-open:rotate-90" />
+                </summary>
+
+                <p className="max-w-3xl pr-7 pt-4 text-sm leading-relaxed text-white/45">
+                  {faq.answer}
+                </p>
+              </details>
             ))}
           </div>
+        </div>
+      </section>
 
-          <div className="mt-10 space-y-2 border-t border-white/[0.08] pt-6 text-center font-accent text-xs text-white/30 sm:text-left">
-            <p>Conversations on EXPÉRIA are educational and don't replace professional medical, legal, or financial advice.</p>
-            <p>©️ {new Date().getFullYear()} EXPÉRIA. All rights reserved.</p>
+      {/* FINAL CTA */}
+      <section className="relative overflow-hidden px-6 py-20 lg:px-10 lg:py-32">
+        <div className="pointer-events-none absolute left-1/2 top-1/2 h-[500px] w-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-violet-600/10 blur-[130px]" />
+
+        <FadeUp className="relative mx-auto max-w-4xl text-center">
+          <SectionLabel>EXPÉRIA</SectionLabel>
+
+          <h2 className="mt-5 font-serif text-4xl leading-[1.05] tracking-[-0.03em] text-white sm:text-5xl lg:text-6xl">
+            You have a question.
+            <br />
+            <span className="text-violet-200">
+              Someone has already lived the answer.
+            </span>
+          </h2>
+
+          <p className="mx-auto mt-7 max-w-xl text-sm leading-relaxed text-white/45 sm:text-base">
+            Don't end your search with another article.
+            <br />
+            Ask someone who's already been there.
+          </p>
+
+          <div className="mt-9">
+            <PrimaryButton to="/explore" className="px-7 py-3">
+              Find them
+            </PrimaryButton>
           </div>
+
+          <p className="mt-5 font-accent text-[0.68rem] uppercase tracking-[0.2em] text-white/25">
+            Your next question might be worth asking.
+          </p>
+        </FadeUp>
+      </section>
+
+      {/* FOOTER */}
+      <footer className="border-t border-white/10 px-6 py-12 lg:px-10">
+        <div className="mx-auto grid max-w-6xl gap-10 sm:grid-cols-2 lg:grid-cols-4">
+          <div>
+            <Link to="/" className="font-serif text-2xl text-white">
+              EXPÉRIA
+            </Link>
+
+            <p className="mt-3 max-w-xs text-sm leading-relaxed text-white/40">
+              Real people. Real experience. Real access.
+            </p>
+          </div>
+
+          <div>
+            <p className="font-accent text-xs font-semibold uppercase tracking-[0.18em] text-white/60">
+              Explore
+            </p>
+
+            <div className="mt-4 space-y-3">
+              <Link
+                to="/live"
+                className="block text-sm text-white/40 transition hover:text-white"
+              >
+                Conversations
+              </Link>
+              <Link
+                to="/questions"
+                className="block text-sm text-white/40 transition hover:text-white"
+              >
+                Questions
+              </Link>
+              <Link
+                to="/topics"
+                className="block text-sm text-white/40 transition hover:text-white"
+              >
+                Topics
+              </Link>
+            </div>
+          </div>
+
+          <div>
+            <p className="font-accent text-xs font-semibold uppercase tracking-[0.18em] text-white/60">
+              For Experts
+            </p>
+
+            <div className="mt-4 space-y-3">
+              <Link
+                to="/become-an-expert"
+                className="block text-sm text-white/40 transition hover:text-white"
+              >
+                Become an EXPÉRIA expert
+              </Link>
+              <Link
+                to="/expert-guidelines"
+                className="block text-sm text-white/40 transition hover:text-white"
+              >
+                Expert guidelines
+              </Link>
+            </div>
+          </div>
+
+          <div>
+            <p className="font-accent text-xs font-semibold uppercase tracking-[0.18em] text-white/60">
+              Company
+            </p>
+
+            <div className="mt-4 space-y-3">
+              <Link
+                to="/about"
+                className="block text-sm text-white/40 transition hover:text-white"
+              >
+                About
+              </Link>
+              <Link
+                to="/mission"
+                className="block text-sm text-white/40 transition hover:text-white"
+              >
+                Mission
+              </Link>
+              <Link
+                to="/contact"
+                className="block text-sm text-white/40 transition hover:text-white"
+              >
+                Contact
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        <div className="mx-auto mt-10 flex max-w-6xl flex-col gap-4 border-t border-white/10 pt-6 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-xs text-white/25">
+            ©️ 2026 EXPÉRIA. All rights reserved.
+          </p>
+
+          <p className="max-w-2xl text-xs leading-relaxed text-white/25 sm:text-right">
+            Conversations on EXPÉRIA are educational and don't replace
+            professional medical, legal, or financial advice.
+          </p>
         </div>
       </footer>
     </main>
   );
-}
+};
+
+export default Home;
