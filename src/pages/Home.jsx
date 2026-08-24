@@ -262,7 +262,15 @@ const SOCIAL_LINKS = [
   { icon: Youtube, label: "YouTube", href: "https://youtube.com" },
 ];
 
-function FadeUp({ children, delay = 0, className = "" }) {
+const TOPIC_GRADIENTS = [
+  "from-violet-600/35 via-indigo-600/15 to-transparent",
+  "from-fuchsia-600/30 via-violet-600/15 to-transparent",
+  "from-indigo-600/35 via-blue-600/10 to-transparent",
+  "from-rose-500/25 via-violet-600/15 to-transparent",
+  "from-blue-600/30 via-cyan-600/10 to-transparent",
+];
+
+function FadeUp({ children, delay = 0, className = "" }) { 
   const reduce = useReducedMotion();
 
   return (
@@ -343,27 +351,30 @@ function PrimaryButton({ children, to = "/explore", className = "" }) {
 // preview card for the marquee — real reservation happens after login.
 function ConversationPreviewCard({ conversation }) {
   return (
-    <article className="flex h-full w-[280px] overflow-hidden rounded-2xl border border-white/[0.11] bg-white/[0.035] sm:w-[320px]">
-      <div className="relative w-[38%] shrink-0 overflow-hidden">
+    <article className="flex h-full w-[300px] flex-col overflow-hidden rounded-2xl border border-white/[0.11] bg-white/[0.035] sm:w-[360px]">
+      <div className="relative h-44 w-full shrink-0 overflow-hidden sm:h-56">
         <img
           src={conversation.image}
           alt=""
           loading="lazy"
           className="absolute inset-0 h-full w-full object-cover object-top"
         />
-      </div>
-      <div className="flex min-w-0 flex-1 flex-col justify-center gap-1.5 px-4 py-3">
-        <div className="flex items-center gap-1.5 font-accent text-[0.68rem] text-violet-300">
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0b0c16] via-[#0b0c16]/10 to-transparent" />
+        <div className="absolute left-3 top-3 flex items-center gap-1.5 rounded-lg bg-black/60 px-2.5 py-1.5 font-accent text-[0.7rem] text-violet-200">
           <CalendarDays className="h-3.5 w-3.5" />
           {conversation.date} · {conversation.time}
         </div>
-        <h3 className="truncate font-serif text-lg leading-tight text-white">{conversation.topic}</h3>
+      </div>
+      <div className="flex flex-1 flex-col gap-1.5 px-5 py-4 sm:px-6 sm:py-5">
+        <h3 className="font-serif text-xl leading-tight text-white sm:text-2xl">{conversation.topic}</h3>
         <div className="flex items-center gap-1.5">
           <p className="truncate font-accent text-sm font-medium text-white/85">{conversation.name}</p>
           <VerificationBadge />
         </div>
-        <p className="truncate text-xs text-white/47">{conversation.role} · {conversation.credibility}</p>
-        <span className="mt-1.5 inline-flex w-fit items-center justify-center rounded-lg border border-violet-300/40 px-3 py-2 font-accent text-[0.7rem] font-semibold text-violet-100/80">
+        <p className="text-xs text-white/47 sm:text-sm">{conversation.role} · {conversation.credibility}</p>
+      </div>
+      <div className="px-5 pb-5 sm:px-6 sm:pb-6">
+        <span className="flex w-full items-center justify-center rounded-xl border border-violet-300/45 bg-violet-500/10 px-4 py-3.5 font-accent text-sm font-semibold text-violet-100">
           Reserve access
         </span>
       </div>
@@ -386,17 +397,24 @@ function QuestionPreviewCard({ item }) {
   );
 }
 
-// Non-interactive pill for the Topics marquee.
-function TopicPill({ item }) {
+// Non-interactive card for the Topics marquee — a topic-styled visual on
+// top (gradient + icon, standing in for topic imagery) with the name below.
+function TopicCard({ item }) {
   const Icon = item.icon;
+  const gradient = TOPIC_GRADIENTS[item.label.length % TOPIC_GRADIENTS.length];
+
   return (
-    <div className="flex items-center gap-2.5 rounded-lg border border-white/[0.1] bg-white/[0.03] px-4 py-2.5 font-accent text-xs text-white/60">
-      <Icon className="h-3.5 w-3.5 text-violet-300" />
-      {item.label}
+    <div className="flex w-[168px] flex-col overflow-hidden rounded-2xl border border-white/[0.1] bg-white/[0.03] sm:w-[196px]">
+      <div className={`relative flex h-28 items-center justify-center overflow-hidden bg-gradient-to-br ${gradient} sm:h-32`}>
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_28%,rgba(255,255,255,0.14),transparent_65%)]" />
+        <Icon className="relative h-9 w-9 text-white/90 sm:h-10 sm:w-10" strokeWidth={1.5} />
+      </div>
+      <div className="px-4 py-3.5 text-center">
+        <p className="font-accent text-sm font-semibold text-white/90">{item.label}</p>
+      </div>
     </div>
   );
 }
-
 export default function Home() {
   const reduce = useReducedMotion();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -636,7 +654,7 @@ export default function Home() {
         <div className="mx-auto max-w-[1360px] px-6 lg:px-10">
           <SectionLabel>Explore topics</SectionLabel>
         </div>
-        <Marquee items={EXPLORE_TOPICS} keyFn={(t) => t.label} renderItem={(t) => <TopicPill item={t} />} duration={38} />
+                <Marquee items={EXPLORE_TOPICS} keyFn={(t) => t.label} renderItem={(t) => <TopicCard item={t} />} duration={42} />
       </section>
 
       {/* 08 — WHY EXPERIA */}
