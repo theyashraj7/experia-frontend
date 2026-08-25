@@ -30,7 +30,6 @@ import {
   Stethoscope,
   Trophy,
   Twitter,
-  TrendingUp,
   UserRound,
   UsersRound,
   UtensilsCrossed,
@@ -46,20 +45,18 @@ import { IMAGES } from "@/data/mockData";
  * production app, replace these values with API-backed data from your live
  * conversation and expert-verification services.
  *
- * The "Upcoming conversations", "Questions worth asking", and "Explore
- * topics" strips are intentionally non-interactive (no links/taps) on this
- * pre-login marketing page — they're informational previews only. Real
- * browsing and reservation happens inside the logged-in product.
+ * The "Questions", "Upcoming conversations", and "Explore topics" strips
+ * are intentionally non-interactive (no links/taps) on this pre-login
+ * marketing page — they're informational previews only. Real browsing and
+ * reservation happens inside the logged-in product.
  */
 
-const DISCOVERY_TAGS = ["Aviation", "Finance", "Medicine", "Startups", "Manufacturing"];
-
 const LIVE_CONVERSATION = {
-  title: "What Nobody Tells You About Building Your First Company",
+  eyebrow: "Inside the mind of a founder",
+  question: "What actually happens when you're building a company from nothing?",
   name: "Arjun Malhotra",
   role: "Founder & CEO, Pesto Tech",
   credibility: "10+ years building companies",
-  description: "Building global SaaS products from India — and what founders often get wrong.",
   watching: "1,247 watching",
   questions: "23 questions being discussed",
   image: IMAGES.arjun,
@@ -67,72 +64,80 @@ const LIVE_CONVERSATION = {
 
 const UPCOMING_CONVERSATIONS = [
   {
+    topic: "Life in the Cockpit",
+    question: "What actually happens inside a pilot's mind when things go wrong at 35,000 feet?",
     date: "24 May",
     time: "7:00 PM IST",
-    topic: "Life in the Cockpit",
     name: "Capt. Rohit Verma",
     role: "Boeing 777 Captain",
     credibility: "20+ years · Commercial Aviation",
     image: IMAGES.karan,
   },
   {
+    topic: "Inside Venture Capital",
+    question: "What makes a VC lose interest in a startup in the first 10 minutes?",
     date: "25 May",
     time: "8:00 PM IST",
-    topic: "Inside Venture Capital",
     name: "Rohan Mehta",
     role: "Partner, Northstar Ventures",
     credibility: "15+ years · Venture Capital",
     image: IMAGES.rahul,
   },
   {
+    topic: "The Future of Medicine",
+    question: "What does an experienced doctor notice that a textbook never teaches you?",
     date: "26 May",
     time: "7:30 PM IST",
-    topic: "The Future of Medicine",
     name: "Dr. Ananya Iyer",
     role: "Physician & Researcher",
     credibility: "18+ years · Medicine",
     image: IMAGES.anjali,
   },
   {
+    topic: "Building from Zero",
+    question: "What does nobody tell you before you build your first company?",
     date: "27 May",
     time: "8:00 PM IST",
-    topic: "Building from Zero",
     name: "Kunal Shah",
     role: "Founder, CRED",
     credibility: "12+ years · Serial Entrepreneur",
     image: IMAGES.vikram,
   },
   {
+    topic: "What Michelin Inspectors Notice",
+    question: "What separates a good kitchen from an unforgettable one?",
     date: "28 May",
     time: "6:30 PM IST",
-    topic: "What Michelin Inspectors Actually Notice",
     name: "Chef Meera Nair",
     role: "Executive Chef, Ananta",
     credibility: "16+ years · Culinary Arts",
     image: IMAGES.neha,
   },
   {
+    topic: "Designing Buildings That Outlive Us",
+    question: "What does an architect think about that a client never notices?",
     date: "29 May",
     time: "7:00 PM IST",
-    topic: "Designing Buildings That Outlive Us",
     name: "Aditya Rao",
     role: "Principal Architect, Studio Line",
     credibility: "14+ years · Architecture",
     image: IMAGES.arjun,
   },
   {
+    topic: "Inside a Formula 1 Pit Crew",
+    question: "What happens in the 2 seconds nobody watching on TV ever notices?",
     date: "30 May",
     time: "8:30 PM IST",
-    topic: "Inside a Formula 1 Pit Crew",
     name: "Vikram Oberoi",
     role: "Race Engineer",
     credibility: "11+ years · Motorsport",
     image: IMAGES.karan,
   },
   {
+    topic: "What It Takes to Publish Real Research",
+    question: "What does a scientist do the day an experiment fails, again?",
     date: "31 May",
     time: "7:00 PM IST",
-    topic: "What It Takes to Publish Real Research",
     name: "Dr. Priya Nambiar",
     role: "Research Scientist, ISRO",
     credibility: "13+ years · Aerospace Research",
@@ -143,50 +148,42 @@ const UPCOMING_CONVERSATIONS = [
 const TRENDING_QUESTIONS = [
   {
     icon: Plane,
-    question: "What does a commercial pilot actually do during an emergency?",
-    curious: "12.4K people curious",
+    question: "What goes through a pilot's mind when an emergency happens at 35,000 feet?",
     tag: "Aviation",
   },
   {
-    icon: TrendingUp,
-    question: "How does a VC decide whether to invest in a startup?",
-    curious: "8.7K people curious",
+    icon: Briefcase,
+    question: "What makes a VC lose interest in a startup in the first 10 minutes?",
     tag: "Business",
   },
   {
     icon: Heart,
-    question: "What really happens inside an emergency room?",
-    curious: "6.3K people curious",
+    question: "What does an experienced doctor notice that a textbook never teaches you?",
     tag: "Medicine",
   },
   {
     icon: Sparkles,
-    question: "What does it actually take to build a company from zero?",
-    curious: "4.8K people curious",
+    question: "What does nobody tell you before you build your first company?",
     tag: "Startups",
   },
   {
     icon: Scale,
-    question: "How do lawyers decide whether a case is worth taking?",
-    curious: "3.9K people curious",
+    question: "How does an experienced lawyer know when a case isn't worth taking?",
     tag: "Law",
   },
   {
     icon: Palette,
-    question: "How does a designer know when something is actually finished?",
-    curious: "3.1K people curious",
+    question: "How does a great designer know when something isn't good enough?",
     tag: "Design",
   },
   {
     icon: Trophy,
-    question: "What separates a good athlete from a great one?",
-    curious: "5.6K people curious",
+    question: "What actually separates elite athletes from everyone else?",
     tag: "Sports",
   },
   {
     icon: FlaskConical,
-    question: "What does a scientist do after an experiment fails?",
-    curious: "2.7K people curious",
+    question: "What does a scientist do when an experiment keeps failing?",
     tag: "Science",
   },
 ];
@@ -209,21 +206,21 @@ const EXPLORE_TOPICS = [
 ];
 
 const WHY_EXPERIA = [
-  { emphasis: "Learn from experience.", muted: "Not just information." },
-  { emphasis: "Ask what you actually want to know.", muted: "Not just watch." },
-  { emphasis: "Hear how people really think.", muted: "Not just what they achieved." },
-  { emphasis: "Get closer to people you normally couldn't reach.", muted: "That's the actual value." },
+  "Ask what you actually want to know.",
+  "Hear how people really think.",
+  "Understand what happened along the way.",
 ];
 
 const HOW_IT_WORKS = [
-  { icon: Search, number: "1", title: "Find someone worth hearing from", description: "Find something — or someone — you're curious about." },
-  { icon: UserRound, number: "2", title: "Reserve access", description: "A small commitment to reserve your place in the conversation." },
-  { icon: CalendarClock, number: "3", title: "Enter the live conversation", description: "Join at the scheduled time." },
-  { icon: MessageSquare, number: "4", title: "Listen. Ask. Learn.", description: "Hear their experience. Ask your questions. Get real answers." },
+  { icon: Search, number: "01", title: "Find your question", description: "Start with something you've genuinely been wondering about." },
+  { icon: UserRound, number: "02", title: "Find someone who's lived it", description: "Meet people with real experience in that world." },
+  { icon: CalendarClock, number: "03", title: "Reserve your seat", description: "Save your place in the conversation." },
+  { icon: MessageSquare, number: "04", title: "Ask.", description: "Listen to their experience. Ask what you actually want to know." },
 ];
 
 const FAQ_ITEMS = [
   { q: "What exactly happens in an EXPÉRIA conversation?", a: "You join a live session with someone who has actually done what you're curious about, hear their experience, and ask them questions directly." },
+  { q: "What makes EXPÉRIA different from watching an expert on YouTube?", a: "YouTube lets you watch someone else's conversation. EXPÉRIA lets you enter one." },
   { q: "Can I ask the expert questions?", a: "Yes — every conversation includes a question queue. Your questions are part of the conversation, not an afterthought." },
   { q: "Who are the people I can hear from?", a: "Founders, pilots, doctors, investors, engineers, and other people with real, lived experience in their field." },
   { q: "How does EXPÉRIA verify experts?", a: "Every expert's identity and relevant background are reviewed before they can host a conversation." },
@@ -339,39 +336,35 @@ function PrimaryButton({ children, to = "/explore", className = "" }) {
   );
 }
 
-// Non-interactive: no link, no click destination. Purely an informational
-// preview card for the marquee — real reservation happens after login.
+// Non-interactive: no link, no click destination — question leads, date is secondary.
 function ConversationPreviewCard({ conversation }) {
   return (
-    <article className="flex h-full w-[280px] overflow-hidden rounded-2xl border border-white/[0.11] bg-white/[0.035] sm:w-[320px]">
-      <div className="relative w-[38%] shrink-0 overflow-hidden">
-        <img
-          src={conversation.image}
-          alt=""
-          loading="lazy"
-          className="absolute inset-0 h-full w-full object-cover object-top"
-        />
+    <article className="flex h-full w-[300px] flex-col overflow-hidden rounded-2xl border border-white/[0.11] bg-white/[0.035] sm:w-[340px]">
+      <div className="relative h-32 w-full overflow-hidden">
+        <img src={conversation.image} alt="" loading="lazy" className="absolute inset-0 h-full w-full object-cover object-top" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0b0c16] via-transparent to-transparent" />
       </div>
-      <div className="flex min-w-0 flex-1 flex-col justify-center gap-1.5 px-4 py-3">
-        <div className="flex items-center gap-1.5 font-accent text-[0.68rem] text-violet-300">
-          <CalendarDays className="h-3.5 w-3.5" />
-          {conversation.date} · {conversation.time}
-        </div>
-        <h3 className="truncate font-serif text-lg leading-tight text-white">{conversation.topic}</h3>
-        <div className="flex items-center gap-1.5">
-          <p className="truncate font-accent text-sm font-medium text-white/85">{conversation.name}</p>
+      <div className="flex flex-1 flex-col gap-1.5 px-4 py-3.5">
+        <p className="font-accent text-[0.62rem] font-semibold uppercase tracking-[0.14em] text-violet-300/70">{conversation.topic}</p>
+        <p className="font-serif text-base leading-snug text-white">{conversation.question}</p>
+        <div className="mt-auto flex items-center gap-1.5 pt-2">
+          <p className="truncate font-accent text-xs font-medium text-white/85">{conversation.name}</p>
           <VerificationBadge />
         </div>
-        <p className="truncate text-xs text-white/47">{conversation.role} · {conversation.credibility}</p>
-        <span className="mt-1.5 inline-flex w-fit items-center justify-center rounded-lg border border-violet-300/40 px-3 py-2 font-accent text-[0.7rem] font-semibold text-violet-100/80">
-          Reserve access
-        </span>
+        <p className="truncate text-[0.7rem] text-white/45">{conversation.role} · {conversation.credibility}</p>
+        <div className="mt-1.5 flex items-center justify-between gap-2">
+          <span className="flex items-center gap-1.5 font-accent text-[0.65rem] text-white/40">
+            <CalendarDays className="h-3 w-3" />
+            {conversation.date} · {conversation.time}
+          </span>
+          <span className="font-accent text-[0.68rem] font-semibold text-violet-300/80">Reserve your seat →</span>
+        </div>
       </div>
     </article>
   );
 }
 
-// Non-interactive preview card for the Questions marquee.
+// Non-interactive preview card for the Questions marquee — no fake numbers.
 function QuestionPreviewCard({ item }) {
   const Icon = item.icon;
   return (
@@ -380,8 +373,7 @@ function QuestionPreviewCard({ item }) {
         <Icon className="h-4 w-4" />
       </div>
       <p className="mt-4 flex-1 font-serif text-lg leading-snug text-white">{item.question}</p>
-      <p className="mt-4 text-xs text-white/45">{item.curious}</p>
-      <span className="mt-2 inline-flex w-fit items-center rounded-lg border border-white/[0.12] px-2.5 py-1 font-accent text-[0.65rem] text-white/55">{item.tag}</span>
+      <p className="mt-4 font-accent text-[0.68rem] text-violet-300/75">{item.tag} · Live conversation</p>
     </div>
   );
 }
@@ -422,11 +414,6 @@ export default function Home() {
     // Connect this handler to the Explore search route or API when available.
   };
 
-  const handleNewsletterSubmit = (event) => {
-    event.preventDefault();
-    // Connect this handler to your email/newsletter service when available.
-  };
-
   return (
     <main className="min-h-screen overflow-hidden bg-black text-white selection:bg-violet-400/30 selection:text-white">
       <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden bg-black">
@@ -457,7 +444,7 @@ export default function Home() {
         </svg>
       </div>
 
-      {/* 01 — NAVBAR */}
+      {/* NAVBAR */}
       <div className="relative">
         <header className={`fixed inset-x-0 top-0 z-30 transition-colors duration-300 ${isScrolled ? "border-b border-white/[0.08] bg-black" : "border-b border-transparent bg-transparent"}`}>
           <nav className="mx-auto flex h-[58px] max-w-[1440px] items-center justify-between px-6 lg:px-10" aria-label="Main navigation">
@@ -507,18 +494,16 @@ export default function Home() {
           )}
         </header>
 
-        {/* 02 — HERO */}
+        {/* 01 — HERO */}
         <section className="relative mx-auto max-w-[1440px] px-6 pb-4 pt-[74px] lg:px-10 lg:pb-5 lg:pt-[82px]">
           <div className="mx-auto max-w-[1050px] text-center">
             <motion.h1 {...heroAnimation(0.08)} className="font-serif text-[1.9rem] leading-[1.06] tracking-[-0.02em] text-white sm:text-4xl sm:leading-[1.02] sm:tracking-[-0.03em] lg:text-[3.1rem]">
-              Don't Just Learn It.
-              <br />
-              Ask Someone Who's{" "}
-              <span className="bg-gradient-to-r from-violet-200 via-violet-400 to-indigo-300 bg-clip-text text-transparent">Done It.</span>
+              Some Answers Can't Be{" "}
+              <span className="bg-gradient-to-r from-violet-200 via-violet-400 to-indigo-300 bg-clip-text text-transparent">Googled.</span>
             </motion.h1>
 
             <motion.p {...heroAnimation(0.16)} className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-white/55 sm:text-base">
-              Get access to people who've actually lived the experience — not just people who've studied it.
+              The internet can give you information. EXPÉRIA lets you ask someone who's actually lived it.
             </motion.p>
 
             <motion.form {...heroAnimation(0.24)} onSubmit={handleSearch} className="mx-auto mt-6 lg:mt-7 max-w-[512px]">
@@ -534,24 +519,18 @@ export default function Home() {
                   className="min-w-0 flex-1 bg-transparent py-1 font-accent text-xs text-white outline-none placeholder:text-white/38"
                 />
                 <button type="submit" className="inline-flex shrink-0 items-center gap-1.5 rounded-lg bg-white px-3 py-1.5 font-accent text-[0.7rem] font-semibold text-[#12131d] transition hover:bg-violet-100 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-300">
-                  Explore
+                  Find
                   <ArrowRight className="h-3 w-3" />
                 </button>
               </div>
             </motion.form>
 
-            {/* 03 — TOPIC CURIOSITY */}
-            <motion.div {...heroAnimation(0.3)} className="mt-2.5 flex flex-wrap items-center justify-center gap-x-3 gap-y-1.5 font-accent text-[0.7rem] text-white/42 sm:text-xs">
-              {DISCOVERY_TAGS.map((tag, index) => (
-                <Link key={tag} to={`/explore?topic=${tag.toLowerCase()}`} className="transition hover:text-violet-200">
-                  {tag}
-                  {index < DISCOVERY_TAGS.length - 1 && <span className="ml-3 text-violet-300/50">·</span>}
-                </Link>
-              ))}
-            </motion.div>
+            <motion.p {...heroAnimation(0.3)} className="mt-3 font-accent text-[0.7rem] italic text-white/35 sm:text-xs">
+              Ask. Listen. Learn from experience.
+            </motion.p>
           </div>
 
-          {/* 04 — LIVE NOW */}
+          {/* 03 — LIVE PROOF */}
           <FadeUp className="relative mx-auto mt-10 max-w-[900px] lg:mt-12">
   <div className="pointer-events-none absolute -inset-24 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(124,58,237,0.35),rgba(124,58,237,0.1)_40%,transparent_70%)]" />
   <article className="group relative overflow-hidden rounded-2xl border border-white/[0.12] bg-[#0b0c16] shadow-[0_20px_50px_rgba(0,0,0,0.45)]">
@@ -569,17 +548,16 @@ export default function Home() {
                     <span className="inline-flex items-center gap-1.5 font-semibold text-white/85"><UsersRound className="h-3.5 w-3.5" />{LIVE_CONVERSATION.watching}</span>
                   </div>
 
-                  <h2 className="mt-2 max-w-xl font-serif text-xl leading-[1.1] tracking-[-0.015em] text-white sm:text-2xl lg:text-[1.85rem]">
-                    {LIVE_CONVERSATION.title}
+                  <p className="mt-2.5 font-accent text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-violet-300/80">{LIVE_CONVERSATION.eyebrow}</p>
+                  <h2 className="mt-1.5 max-w-xl font-serif text-xl leading-[1.1] tracking-[-0.015em] text-white sm:text-2xl lg:text-[1.7rem]">
+                    {LIVE_CONVERSATION.question}
                   </h2>
 
-                  <div className="mt-2 flex items-center gap-2">
+                  <div className="mt-3 flex items-center gap-2">
                     <p className="font-accent text-sm font-semibold text-white/90">{LIVE_CONVERSATION.name}</p>
                     <VerificationBadge />
                   </div>
                   <p className="mt-0.5 font-accent text-xs text-violet-200/75">{LIVE_CONVERSATION.role} · {LIVE_CONVERSATION.credibility}</p>
-
-                  <p className="mt-2 hidden max-w-lg text-xs leading-relaxed text-white/58 sm:block">{LIVE_CONVERSATION.description}</p>
 
                   <div className="mt-2.5 flex items-center gap-1.5 font-accent text-xs text-violet-200/80">
                     <MessageCircle className="h-3.5 w-3.5" />{LIVE_CONVERSATION.questions}
@@ -595,58 +573,80 @@ export default function Home() {
         </section>
       </div>
 
-      {/* 05 — ACCESS GAP */}
+      {/* 02 — PROBLEM */}
       <section className="relative px-6 py-16 lg:px-10 lg:py-20">
-        <div className="mx-auto max-w-[900px] text-center">
-          <h2 className="font-serif text-2xl leading-snug text-white sm:text-3xl">
-            You can watch them. You can follow them. You can read about them.
-            <br className="hidden sm:block" />
-            <span className="text-violet-300">But can you ask them?</span>
-          </h2>
-          <p className="mx-auto mt-5 max-w-lg text-sm leading-relaxed text-white/50 sm:text-base">
-            EXPÉRIA exists to close that gap. Some people are worth hearing from — the difficult part has always been access.
-            You don't always need another course. Sometimes you need to hear how someone ahead of you thinks.
+        <div className="mx-auto max-w-[720px] text-center">
+          <h2 className="font-serif text-2xl leading-snug text-white sm:text-3xl">You've already searched for the answer.</h2>
+          <p className="mx-auto mt-5 max-w-md text-sm leading-relaxed text-white/50 sm:text-base">
+            You watched the videos. Read the articles. Asked AI. Maybe even took a course.
+            And sometimes you're still left wondering —
+          </p>
+          <p className="mt-3 font-serif text-xl italic text-violet-200 sm:text-2xl">"But what is it actually like?"</p>
+          <p className="mx-auto mt-6 max-w-md text-sm leading-relaxed text-white/40">
+            Information can tell you what to do. Experience can tell you what happens when you do it.
           </p>
         </div>
       </section>
 
-      {/* 06 — QUESTIONS PEOPLE WANT ANSWERED (auto-sliding preview, not tappable) */}
-      <section className="relative py-14 lg:py-16">
-        <div className="mx-auto max-w-[1360px] px-6 lg:px-10">
-          <SectionLabel action={<Link to="/questions" className="inline-flex items-center gap-1 font-accent text-xs text-white/50 transition hover:text-white">View all questions <ChevronRight className="h-4 w-4" /></Link>}>
-            Questions worth asking
-          </SectionLabel>
-          <p className="-mt-4 mb-6 max-w-md text-sm text-white/45">Hear the answer from someone who's actually done it.</p>
+      {/* 04 — THE GAP */}
+      <section className="relative px-6 py-16 lg:px-10 lg:py-20">
+        <div className="mx-auto max-w-[900px] text-center">
+          <h2 className="font-serif text-2xl leading-snug text-white sm:text-3xl">
+            You've seen what they achieved.
+            <br className="hidden sm:block" />
+            <span className="text-violet-300">Now ask them why.</span>
+          </h2>
+          <p className="mx-auto mt-5 max-w-lg text-sm leading-relaxed text-white/50 sm:text-base">
+            You can watch their interviews. Follow their work. Read about their success. Study what they built.
+            But there is a distance between watching someone's experience and having a conversation with them.
+            EXPÉRIA closes that distance.
+          </p>
         </div>
-        <Marquee items={TRENDING_QUESTIONS} keyFn={(item, i) => `${item.question}-${i}`} renderItem={(item) => <QuestionPreviewCard item={item} />} duration={50} />
       </section>
 
-      {/* 07 — PEOPLE WHO'VE DONE IT (auto-sliding preview, not tappable) */}
+      {/* 05 — QUESTIONS (auto-sliding preview, not tappable) */}
+      <section className="relative py-14 lg:py-16">
+        <div className="mx-auto max-w-[1360px] px-6 text-center lg:px-10">
+          <h2 className="font-serif text-2xl text-white sm:text-3xl">The questions that matter aren't always in the textbook.</h2>
+          <p className="mx-auto mt-3 max-w-lg text-sm text-white/45">
+            The things you're most curious about are often the things you can't learn from information alone.
+          </p>
+        </div>
+        <div className="mt-8">
+          <Marquee items={TRENDING_QUESTIONS} keyFn={(item, i) => `${item.question}-${i}`} renderItem={(item) => <QuestionPreviewCard item={item} />} duration={50} />
+        </div>
+      </section>
+
+      {/* 06 — UPCOMING (auto-sliding preview, not tappable) */}
       <section className="relative py-14 lg:py-16">
         <div className="mx-auto max-w-[1360px] px-6 lg:px-10">
           <SectionLabel action={<Link to="/live" className="inline-flex items-center gap-1 font-accent text-xs text-white/50 transition hover:text-white">View all <ChevronRight className="h-4 w-4" /></Link>}>
-            Upcoming live conversations
+            Don't just watch from the outside
           </SectionLabel>
         </div>
-        <Marquee items={UPCOMING_CONVERSATIONS} keyFn={(c) => c.topic} renderItem={(c) => <ConversationPreviewCard conversation={c} />} duration={60} reverse />
+        <Marquee items={UPCOMING_CONVERSATIONS} keyFn={(c) => c.topic} renderItem={(c) => <ConversationPreviewCard conversation={c} />} duration={65} reverse />
       </section>
 
-      {/* EXPLORE TOPICS (auto-sliding preview, not tappable) */}
+      {/* 07 — TOPICS (auto-sliding preview, not tappable, kept compact) */}
       <section className="relative py-10 lg:py-12">
         <div className="mx-auto max-w-[1360px] px-6 lg:px-10">
-          <SectionLabel>Explore topics</SectionLabel>
+          <SectionLabel>What are you curious about?</SectionLabel>
         </div>
         <Marquee items={EXPLORE_TOPICS} keyFn={(t) => t.label} renderItem={(t) => <TopicPill item={t} />} duration={38} />
       </section>
 
-      {/* 08 — WHY EXPERIA */}
+      {/* 08 — POSITIONING */}
       <section id="why" className="relative px-6 py-14 lg:px-10 lg:py-16">
-        <div className="mx-auto max-w-[720px]">
-          <div className="grid gap-6 sm:grid-cols-2">
-            {WHY_EXPERIA.map(({ emphasis, muted }) => (
-              <FadeUp key={emphasis}>
-                <p className="font-serif text-lg leading-snug text-white sm:text-xl">{emphasis}</p>
-                <p className="mt-1 text-sm text-white/40">{muted}</p>
+        <div className="mx-auto max-w-[720px] text-center">
+          <h2 className="font-serif text-2xl leading-snug text-white sm:text-3xl">
+            Information tells you what happened.
+            <br className="hidden sm:block" />
+            <span className="text-violet-300">Experience tells you why.</span>
+          </h2>
+          <div className="mx-auto mt-8 flex flex-col items-center gap-3">
+            {WHY_EXPERIA.map((line) => (
+              <FadeUp key={line}>
+                <p className="text-sm text-white/55 sm:text-base">{line}</p>
               </FadeUp>
             ))}
           </div>
@@ -657,7 +657,7 @@ export default function Home() {
       <section className="relative px-6 py-14 lg:px-10 lg:py-16">
         <div className="mx-auto max-w-[1200px] text-center">
           <h2 className="font-serif text-2xl text-white sm:text-3xl">
-            How <span className="text-violet-300">EXPÉRIA</span> works
+            From "I wonder..." to <span className="text-violet-300">"Now I know."</span>
           </h2>
 
           <div className="relative mt-12 hidden grid-cols-4 items-start sm:grid">
@@ -667,7 +667,7 @@ export default function Home() {
                 <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full border border-violet-300/30 bg-[#0b0c16] text-violet-300">
                   <Icon className="h-5 w-5" />
                 </div>
-                <p className="mt-4 font-accent text-sm font-semibold text-white/90">{number}. {title}</p>
+                <p className="mt-4 font-accent text-sm font-semibold text-white/90">{number} — {title}</p>
                 <p className="mt-1.5 text-xs leading-relaxed text-white/45">{description}</p>
               </div>
             ))}
@@ -679,7 +679,7 @@ export default function Home() {
                 <div className="flex h-12 w-12 items-center justify-center rounded-full border border-violet-300/30 bg-[#0b0c16] text-violet-300">
                   <Icon className="h-5 w-5" />
                 </div>
-                <p className="mt-4 font-accent text-sm font-semibold text-white/90">{number}. {title}</p>
+                <p className="mt-4 font-accent text-sm font-semibold text-white/90">{number} — {title}</p>
                 <p className="mt-1.5 text-xs leading-relaxed text-white/45">{description}</p>
               </div>
             ))}
@@ -688,13 +688,17 @@ export default function Home() {
       </section>
 
       {/* 10 — TRUST */}
-      <section className="relative px-6 py-8 lg:px-10">
-        <div className="mx-auto max-w-[1000px] rounded-xl border border-white/[0.08] bg-white/[0.02] px-6 py-6 text-center sm:px-10">
-          <p className="font-serif text-lg text-white">People worth listening to.</p>
-          <div className="mt-4 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 font-accent text-xs text-white/55 sm:text-sm">
+      <section className="relative px-6 py-10 lg:px-10">
+        <div className="mx-auto max-w-[1000px] rounded-xl border border-white/[0.08] bg-white/[0.02] px-6 py-7 text-center sm:px-10">
+          <p className="font-serif text-xl text-white">Experience is the credential.</p>
+          <p className="mx-auto mt-3 max-w-lg text-sm leading-relaxed text-white/50">
+            EXPÉRIA brings you closer to people who've actually spent years doing the work.
+            Their decisions. Their mistakes. Their breakthroughs. The parts that rarely make it into the textbook.
+          </p>
+          <div className="mt-5 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 font-accent text-xs text-white/55 sm:text-sm">
             <span className="inline-flex items-center gap-2"><ShieldCheck className="h-4 w-4 text-violet-300" />Identity verified</span>
-            <span className="inline-flex items-center gap-2"><BadgeCheck className="h-4 w-4 text-violet-300" />Background verified where applicable</span>
-            <span className="inline-flex items-center gap-2"><UserRound className="h-4 w-4 text-violet-300" />Real, contextualized experience</span>
+            <span className="inline-flex items-center gap-2"><BadgeCheck className="h-4 w-4 text-violet-300" />Experience reviewed where applicable</span>
+            <span className="inline-flex items-center gap-2"><UserRound className="h-4 w-4 text-violet-300" />Real-world experience</span>
           </div>
         </div>
       </section>
@@ -733,10 +737,16 @@ export default function Home() {
       <section className="relative overflow-hidden px-6 py-24 text-center lg:px-10 lg:py-36">
         <div className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[30rem] w-[48rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(124,58,237,0.2)_0%,transparent_65%)]" />
         <FadeUp className="mx-auto max-w-3xl">
-          <h2 className="font-serif text-4xl leading-[1.15] text-white sm:text-5xl">Get closer to the people who've done it.</h2>
+          <h2 className="font-serif text-4xl leading-[1.15] text-white sm:text-5xl">
+            You have a question.
+            <br />
+            Someone out there has already lived the answer.
+          </h2>
+          <p className="mt-5 font-serif text-lg italic text-white/50">Find them.</p>
           <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <PrimaryButton to="/explore" className="px-7">Enter EXPÉRIA</PrimaryButton>
+            <PrimaryButton to="/explore" className="px-7">Find your conversation</PrimaryButton>
           </div>
+          <p className="mt-8 font-accent text-xs uppercase tracking-[0.2em] text-white/35">Real people. Real experience. Real access.</p>
         </FadeUp>
       </section>
 
