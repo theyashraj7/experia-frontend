@@ -53,7 +53,7 @@ import { IMAGES } from "@/data/mockData";
 
 const LIVE_CONVERSATION = {
   eyebrow: "Inside the mind of a founder",
-  question: "What actually happens when you're building a company from nothing?",
+  question: "A Conversation With a Founder",
   name: "Arjun Malhotra",
   role: "Founder & CEO, Pesto Tech",
   credibility: "10+ years building companies",
@@ -503,7 +503,7 @@ export default function Home() {
             </motion.h1>
 
             <motion.p {...heroAnimation(0.16)} className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-white/55 sm:text-base">
-              The internet can give you information. EXPÉRIA lets you ask someone who's actually lived it.
+              The internet gives you information. EXPERIA gives you access to people who've actually lived it.
             </motion.p>
 
             <motion.form {...heroAnimation(0.24)} onSubmit={handleSearch} className="mx-auto mt-6 lg:mt-7 max-w-[512px]">
