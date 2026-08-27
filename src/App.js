@@ -15,6 +15,19 @@ import TopicDetail from "@/pages/TopicDetail";
 import ExpertDetail from "@/pages/ExpertDetail";
 import ConversationDetail from "@/pages/ConversationDetail";
 import LearningPage from "@/pages/LearningPage";
+import AboutPage from "@/pages/AboutPage";
+import HowItWorksPage from "@/pages/HowItWorksPage";
+import BecomeExpertPage from "@/pages/BecomeExpertPage";
+import CareersPage from "@/pages/CareersPage";
+import ContactPage from "@/pages/ContactPage";
+import HelpCenterPage from "@/pages/HelpCenterPage";
+import CommunityGuidelinesPage from "@/pages/CommunityGuidelinesPage";
+import SafetyPage from "@/pages/SafetyPage";
+import ContactSupportPage from "@/pages/ContactSupportPage";
+import PrivacyPage from "@/pages/PrivacyPage";
+import TermsPage from "@/pages/TermsPage";
+import ReservationPolicyPage from "@/pages/ReservationPolicyPage";
+import ExpertGuidelinesPage from "@/pages/ExpertGuidelinesPage";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -31,7 +44,7 @@ function App() {
         <BrowserRouter>
           <ScrollToTop />
           <Routes>
-                        <Route path="/" element={<Home />} />
+            <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Login />} />
             <Route path="/dashboard" element={<Dashboard />} />
@@ -43,6 +56,19 @@ function App() {
             <Route path="/questions" element={<QuestionsPage />} />
             <Route path="/conversations/:slug" element={<ConversationDetail />} />
             <Route path="/learning" element={<LearningPage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/how-it-works" element={<HowItWorksPage />} />
+            <Route path="/become-an-expert" element={<BecomeExpertPage />} />
+            <Route path="/careers" element={<CareersPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/help" element={<HelpCenterPage />} />
+            <Route path="/community-guidelines" element={<CommunityGuidelinesPage />} />
+            <Route path="/safety" element={<SafetyPage />} />
+            <Route path="/contact-support" element={<ContactSupportPage />} />
+            <Route path="/privacy" element={<PrivacyPage />} />
+            <Route path="/terms" element={<TermsPage />} />
+            <Route path="/reservation-policy" element={<ReservationPolicyPage />} />
+            <Route path="/expert-guidelines" element={<ExpertGuidelinesPage />} />
             <Route path="*" element={<Home />} />
           </Routes>
           <Toaster position="bottom-right" />
