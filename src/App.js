@@ -5,6 +5,8 @@ import { ThemeProvider } from "@/context/ThemeContext";
 import { Toaster } from "@/components/ui/sonner";
 
 import Home from "@/pages/Home";
+import Login from "@/pages/Login";
+import Dashboard from "@/pages/Dashboard";
 import LivePage from "@/pages/LivePage";
 import ExpertsPage from "@/pages/ExpertsPage";
 import TopicsPage from "@/pages/TopicsPage";
@@ -29,7 +31,10 @@ function App() {
         <BrowserRouter>
           <ScrollToTop />
           <Routes>
-            <Route path="/" element={<Home />} />
+                        <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Login />} />
+            <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/live" element={<LivePage />} />
             <Route path="/experts" element={<ExpertsPage />} />
             <Route path="/experts/:slug" element={<ExpertDetail />} />
