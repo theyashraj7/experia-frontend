@@ -1,12 +1,10 @@
 import { Link } from "react-router-dom";
-import { toast } from "sonner";
 import { useTheme } from "@/context/ThemeContext";
 import { cn } from "@/lib/utils";
 
 const COLUMNS = [
   {
     heading: "Platform",
-    routed: true,
     links: [
       ["Explore", "/topics"],
       ["Live", "/live"],
@@ -18,15 +16,31 @@ const COLUMNS = [
   },
   {
     heading: "Company",
-    links: [["About"], ["How it works"], ["Become an Expert"], ["Careers"], ["Contact"]],
+    links: [
+      ["About", "/about"],
+      ["How it works", "/how-it-works"],
+      ["Become an Expert", "/become-an-expert"],
+      ["Careers", "/careers"],
+      ["Contact", "/contact"],
+    ],
   },
   {
     heading: "Support",
-    links: [["Help Center"], ["Community Guidelines"], ["Safety"], ["Contact Support"]],
+    links: [
+      ["Help Center", "/help"],
+      ["Community Guidelines", "/community-guidelines"],
+      ["Safety", "/safety"],
+      ["Contact Support", "/contact-support"],
+    ],
   },
   {
     heading: "Legal",
-    links: [["Privacy"], ["Terms"], ["Reservation Policy"], ["Expert Guidelines"]],
+    links: [
+      ["Privacy", "/privacy"],
+      ["Terms", "/terms"],
+      ["Reservation Policy", "/reservation-policy"],
+      ["Expert Guidelines", "/expert-guidelines"],
+    ],
   },
 ];
 
@@ -75,17 +89,7 @@ export default function Footer() {
                     const className = "text-left text-sm text-white/70 transition-colors hover:text-white";
                     return (
                       <li key={label}>
-                        {col.routed ? (
-                          <Link to={to} data-testid={testId} className={className}>{label}</Link>
-                        ) : (
-                          <button
-                            data-testid={testId}
-                            onClick={() => toast(`${label}`, { description: "This page isn't part of the demo yet." })}
-                            className={className}
-                          >
-                            {label}
-                          </button>
-                        )}
+                        <Link to={to} data-testid={testId} className={className}>{label}</Link>
                       </li>
                     );
                   })}
