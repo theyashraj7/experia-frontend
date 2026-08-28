@@ -418,7 +418,7 @@ export default function Home() {
               The internet gives you information. EXPERIA gives you access to people who've actually lived it.
             </motion.p>
 
-            <motion.form {...heroAnimation(0.24)} onSubmit={handleSearch} className="mx-auto mt-6 lg:mt-7 max-w-[512px]">
+            <motion.form {...heroAnimation(0.24)} onSubmit={handleSearch} className="mx-auto mt-4 lg:mt-5 max-w-[512px]">
               <label htmlFor="experia-search" className="sr-only">What are you curious about?</label>
              <div className="glare-border flex items-center gap-2 rounded-full border border-violet-400/60 bg-white/[0.055] p-1.5 pl-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_0_0_1px_rgba(167,139,250,0.15),0_18px_70px_rgba(76,29,149,0.25)] transition focus-within:border-violet-300 focus-within:bg-white/[0.08]">
                 <Search className="h-3.5 w-3.5 shrink-0 text-white/45" />
