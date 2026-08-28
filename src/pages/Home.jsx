@@ -493,7 +493,9 @@ export default function Home() {
             You watched the videos. Read the articles. Asked AI. Maybe even took a course.
             And sometimes you're still left wondering —
           </p>
-          <p className="mt-3 font-serif text-xl italic text-violet-200 sm:text-2xl">"But what is it actually like?"</p>
+          <p className="mt-4 font-serif text-[1.35rem] font-medium leading-snug tracking-[-0.02em] text-white sm:text-[1.65rem]">
+  <span className="text-violet-300">But what is it actually like?</span>
+</p>
           <p className="mx-auto mt-6 max-w-md text-sm leading-relaxed text-white/40">
             Information can tell you what to do. Experience can tell you what happens when you do it.
           </p>
