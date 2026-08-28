@@ -526,7 +526,7 @@ export default function Home() {
       </section>
 
      {/* 05 — QUESTIONS */}
-<section className="relative py-14 lg:py-16">
+<section className="relative pt-14 pb-7 lg:pt-16 lg:pb-8">
   <div className="mx-auto max-w-[1360px] px-6 lg:px-10">
 
     {/* Main heading */}
@@ -565,8 +565,8 @@ export default function Home() {
   />
 </section>
 
-      {/* 06 — UPCOMING (auto-sliding preview, not tappable) */}
-      <section className="relative py-14 lg:py-16">
+      {/* 06 — UPCOMING */}
+<section className="relative pt-7 pb-14 lg:pt-8 lg:pb-16">
         <div className="mx-auto max-w-[1360px] px-6 lg:px-10">
           <SectionLabel action={<Link to="/live" className="inline-flex items-center gap-1 font-accent text-xs text-white/50 transition hover:text-white">View all <ChevronRight className="h-4 w-4" /></Link>}>
             Don't just watch from the outside
