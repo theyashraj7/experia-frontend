@@ -1,7 +1,6 @@
-import PageShell from "@/components/layout/PageShell";
-import PageHero from "@/components/PageHero";
-import { Reveal, Stagger, staggerItem } from "@/components/Reveal";
-import { CTA, Overline } from "@/components/atoms";
+import SiteHeader from "@/components/layout/SiteHeader";
+import SiteFooter from "@/components/layout/SiteFooter";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Search, UserRound, CalendarClock, MessageSquare } from "lucide-react";
 
@@ -14,40 +13,55 @@ const STEPS = [
 
 export default function HowItWorksPage() {
   return (
-    <PageShell>
-      <PageHero
-        overline="From curious to answered"
-        title={<>Four steps between you and <em className="font-display italic text-primary">someone who's done it.</em></>}
-        sub="No courses to finish, no modules to unlock. Just a direct line to real experience."
-      />
+    <main className="min-h-screen bg-black text-white selection:bg-violet-400/30 selection:text-white">
+      <SiteHeader />
 
-      <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
-        <Stagger className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4" stagger={0.08}>
+      <section className="mx-auto max-w-[900px] px-6 pb-10 pt-[110px] text-center lg:px-10 lg:pt-[130px]">
+        <p className="font-accent text-[0.68rem] font-semibold uppercase tracking-[0.25em] text-violet-300/75">From curious to answered</p>
+        <h1 className="mt-4 font-serif text-3xl leading-[1.08] tracking-[-0.02em] text-white sm:text-[2.6rem]">
+          Four steps between you and <span className="bg-gradient-to-r from-violet-200 via-violet-400 to-indigo-300 bg-clip-text text-transparent">someone who's done it.</span>
+        </h1>
+        <p className="mx-auto mt-5 max-w-lg text-sm leading-relaxed text-white/50 sm:text-base">
+          No courses to finish, no modules to unlock. Just a direct line to real experience.
+        </p>
+      </section>
+
+      <section className="mx-auto max-w-[1200px] px-6 py-14 lg:px-10 lg:py-16">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {STEPS.map(({ icon: Icon, title, body }, i) => (
-            <motion.div key={title} variants={staggerItem} className="rounded-2xl border border-border bg-surface p-6">
-              <span className="font-accent text-xs text-muted-foreground">0{i + 1}</span>
-              <div className="mt-3 flex h-11 w-11 items-center justify-center rounded-full border border-primary/30 bg-primary/10 text-primary">
+            <motion.div
+              key={title}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.5, delay: i * 0.08 }}
+              className="rounded-2xl border border-white/[0.1] bg-white/[0.03] p-6"
+            >
+              <span className="font-accent text-xs text-white/40">0{i + 1}</span>
+              <div className="mt-3 flex h-11 w-11 items-center justify-center rounded-full border border-violet-300/30 bg-violet-500/10 text-violet-300">
                 <Icon className="h-5 w-5" />
               </div>
-              <h3 className="mt-4 font-serif text-lg leading-snug">{title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{body}</p>
+              <h3 className="mt-4 font-serif text-lg leading-snug text-white">{title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-white/50">{body}</p>
             </motion.div>
           ))}
-        </Stagger>
-      </section>
-
-      <section className="border-t border-border bg-surface">
-        <div className="mx-auto max-w-4xl px-4 py-16 text-center sm:px-6 lg:px-8 lg:py-20">
-          <Reveal>
-            <Overline className="mb-4 block justify-center">Ready when you are</Overline>
-            <h2 className="font-serif text-3xl sm:text-4xl">Your first conversation is one search away.</h2>
-            <div className="mt-8 flex justify-center gap-3">
-              <CTA to="/topics">Explore topics</CTA>
-              <CTA to="/live" variant="ghost">See who's live</CTA>
-            </div>
-          </Reveal>
         </div>
       </section>
-    </PageShell>
+
+      <section className="border-t border-white/[0.08] px-6 py-16 text-center lg:px-10 lg:py-20">
+        <p className="font-accent text-[0.68rem] font-semibold uppercase tracking-[0.25em] text-violet-300/75">Ready when you are</p>
+        <h2 className="mt-4 font-serif text-2xl text-white sm:text-3xl">Your first conversation is one search away.</h2>
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+          <Link to="/topics" className="rounded-lg bg-gradient-to-r from-violet-500 to-indigo-500 px-6 py-3 font-accent text-sm font-semibold text-white shadow-[0_12px_32px_rgba(109,78,255,0.26)] transition hover:-translate-y-0.5">
+            Explore topics
+          </Link>
+          <Link to="/live" className="rounded-lg border border-white/15 px-6 py-3 font-accent text-sm font-semibold text-white/80 transition hover:border-white/30 hover:text-white">
+            See who's live
+          </Link>
+        </div>
+      </section>
+
+      <SiteFooter />
+    </main>
   );
 }
