@@ -251,7 +251,7 @@ function Marquee({ items, renderItem, keyFn, duration = 45, reverse = false }) {
   return (
     <div
       className="relative w-full overflow-hidden"
-      style={{ maskImage: "linear-gradient(90deg, transparent, black 6%, black 94%, transparent)", WebkitMaskImage: "linear-gradient(90deg, transparent, black 6%, black 94%, transparent)" }}
+      style={{ maskImage: "linear-gradient(90deg, transparent, black 2%, black 98%, transparent)", WebkitMaskImage: "linear-gradient(90deg, transparent, black 2%, black 98%, transparent)" }}
     >
       <motion.div
         className="flex w-max gap-4 pb-1"
