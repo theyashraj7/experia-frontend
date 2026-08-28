@@ -334,13 +334,20 @@ function ConversationPreviewCard({ conversation }) {
 // Non-interactive preview card for the Questions marquee — no fake numbers.
 function QuestionPreviewCard({ item }) {
   const Icon = item.icon;
+
   return (
-    <div className="flex h-[390px] w-[340px] flex-col rounded-2xl border border-white/[0.1] bg-white/[0.03] p-6 sm:h-[420px] sm:w-[380px]">
+    <div className="flex h-full w-[300px] flex-col rounded-2xl border border-white/[0.1] bg-white/[0.03] p-5 sm:w-[340px]">
       <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-violet-500/15 text-violet-300">
         <Icon className="h-4 w-4" />
       </div>
-      <p className="mt-4 flex-1 font-serif text-lg leading-snug text-white">{item.question}</p>
-      <p className="mt-4 font-accent text-[0.68rem] text-violet-300/75">{item.tag} · Live conversation</p>
+
+      <p className="mt-4 flex-1 font-serif text-lg leading-snug text-white">
+        {item.question}
+      </p>
+
+      <p className="mt-4 font-accent text-[0.68rem] text-violet-300/75">
+        {item.tag} · Live conversation
+      </p>
     </div>
   );
 }
@@ -518,37 +525,45 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 05 — QUESTIONS (auto-sliding preview, not tappable) */}
-      <section className="relative py-14 lg:py-16">
-        <div className="mx-auto max-w-[1360px] px-6 lg:px-10">
-  <div className="mb-8 flex items-center justify-between">
-    <p className="font-accent text-[0.68rem] font-semibold uppercase tracking-[0.25em] text-violet-300/75">
-      Trending Questions
-    </p>
+     {/* 05 — QUESTIONS */}
+<section className="relative py-14 lg:py-16">
+  <div className="mx-auto max-w-[1360px] px-6 lg:px-10">
 
-    <Link
-      to="/questions"
-      className="inline-flex items-center gap-1 font-accent text-xs text-white/50 transition hover:text-white"
-    >
-      View all
-      <ChevronRight className="h-4 w-4" />
-    </Link>
+    {/* Main heading */}
+    <div className="text-center">
+      <h2 className="font-serif text-2xl text-white sm:text-3xl">
+        The questions that matter aren't always in the textbook.
+      </h2>
+
+      <p className="mx-auto mt-3 max-w-lg text-sm text-white/45">
+        The things you're most curious about are often the things you can't learn from information alone.
+      </p>
+    </div>
+
+    {/* Section label */}
+    <div className="mt-8 mb-3 flex items-end justify-between gap-4">
+      <p className="font-accent text-[0.68rem] font-semibold uppercase tracking-[0.25em] text-violet-300/75">
+        Trending Questions
+      </p>
+
+      <Link
+        to="/questions"
+        className="inline-flex items-center gap-1 font-accent text-xs text-white/50 transition hover:text-white"
+      >
+        View all
+        <ChevronRight className="h-4 w-4" />
+      </Link>
+    </div>
+
   </div>
 
-  <div className="text-center">
-    <h2 className="font-serif text-2xl text-white sm:text-3xl">
-      The questions that matter aren't always in the textbook.
-    </h2>
-
-    <p className="mx-auto mt-3 max-w-lg text-sm text-white/45">
-      The things you're most curious about are often the things you can't learn from information alone.
-    </p>
-  </div>
-</div>
-        <div className="mt-8">
-          <Marquee items={TRENDING_QUESTIONS} keyFn={(item, i) => `${item.question}-${i}`} renderItem={(item) => <QuestionPreviewCard item={item} />} duration={50} />
-        </div>
-      </section>
+  <Marquee
+    items={TRENDING_QUESTIONS}
+    keyFn={(item, i) => `${item.question}-${i}`}
+    renderItem={(item) => <QuestionPreviewCard item={item} />}
+    duration={50}
+  />
+</section>
 
       {/* 06 — UPCOMING (auto-sliding preview, not tappable) */}
       <section className="relative py-14 lg:py-16">
