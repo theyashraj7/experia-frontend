@@ -541,7 +541,7 @@ export default function Home() {
     </div>
 
     {/* Section label */}
-    <div className="mt-8 mb-3 flex items-end justify-between gap-4">
+    <div className="mt-10 mb-3 flex items-end justify-between gap-4">
       <p className="font-accent text-[0.68rem] font-semibold uppercase tracking-[0.25em] text-violet-300/75">
         Trending Questions
       </p>
