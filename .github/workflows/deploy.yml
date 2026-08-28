@@ -35,6 +35,9 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Sync 404.html with the latest build
+        run: cp build/index.html build/404.html
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
