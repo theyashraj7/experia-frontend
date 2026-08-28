@@ -435,7 +435,7 @@ export default function Home() {
                   value={query}
                   onChange={(event) => setQuery(event.target.value)}
                   placeholder="What are you curious about?"
-                  className="min-w-0 flex-1 bg-transparent py-1 font-accent text-xs text-white outline-none placeholder:text-white/38"
+                  className="min-w-0 flex-1 bg-transparent py-1 font-accent text-sm text-white outline-none placeholder:text-white/38 sm:text-base"
                 />
                 <button type="submit" className="inline-flex shrink-0 items-center gap-1.5 rounded-lg bg-white px-3 py-1.5 font-accent text-[0.7rem] font-semibold text-[#12131d] transition hover:bg-violet-100 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-300">
                   Find
