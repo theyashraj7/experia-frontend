@@ -482,9 +482,12 @@ export default function Home() {
                     <MessageCircle className="h-3.5 w-3.5" />{LIVE_CONVERSATION.questions}
                   </div>
 
-                  <PrimaryButton to="/live" className="absolute bottom-3 right-5 px-4 py-2 text-xs sm:bottom-3.5 sm:right-7 lg:bottom-3.5 lg:right-8">
-                    Enter the conversation
-                  </PrimaryButton>
+                 <PrimaryButton
+  to="/live"
+  className="absolute bottom-3 left-1/2 -translate-x-1/2 px-4 py-2 text-xs sm:bottom-3.5 sm:left-auto sm:right-7 sm:translate-x-0 lg:bottom-3.5 lg:right-8"
+>
+  Enter the conversation
+</PrimaryButton>
                 </div>
               </div>
             </article>
