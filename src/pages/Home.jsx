@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, useReducedMotion } from "framer-motion";
 import {
@@ -14,10 +14,7 @@ import {
   FlaskConical,
   Gamepad2,
   Heart,
-  Instagram,
   Landmark,
-  Linkedin,
-  Menu,
   MessageCircle,
   MessageSquare,
   Music,
@@ -29,14 +26,13 @@ import {
   Sparkles,
   Stethoscope,
   Trophy,
-  Twitter,
   UserRound,
   UsersRound,
   UtensilsCrossed,
-  X,
-  Youtube,
 } from "lucide-react";
 import { IMAGES } from "@/data/mockData";
+import SiteHeader from "@/components/layout/SiteHeader";
+import SiteFooter from "@/components/layout/SiteFooter";
 
 /**
  * EXPERIA final landing page
@@ -230,35 +226,6 @@ const FAQ_ITEMS = [
   { q: "Do I need prior knowledge?", a: "No. Come with your curiosity — that's the only requirement." },
 ];
 
-const FOOTER_LINKS = {
-  Explore: [
-    { label: "Conversations", to: "/live" },
-    { label: "Questions", to: "/questions" },
-    { label: "Topics", to: "/topics" },
-  ],
-  "For Experts": [
-    { label: "Become an EXPÉRIA expert", to: "/become-an-expert" },
-    { label: "Expert guidelines", to: "/expert-guidelines" },
-  ],
-  Company: [
-    { label: "About", to: "/about" },
-    { label: "Mission", to: "/mission" },
-    { label: "Contact", to: "/contact" },
-  ],
-  Trust: [
-    { label: "Safety", to: "/safety" },
-    { label: "Privacy", to: "/privacy" },
-    { label: "Terms", to: "/terms" },
-  ],
-};
-
-const SOCIAL_LINKS = [
-  { icon: Instagram, label: "Instagram", href: "https://instagram.com" },
-  { icon: Linkedin, label: "LinkedIn", href: "https://linkedin.com" },
-  { icon: Twitter, label: "Twitter", href: "https://twitter.com" },
-  { icon: Youtube, label: "YouTube", href: "https://youtube.com" },
-];
-
 function FadeUp({ children, delay = 0, className = "" }) {
   const reduce = useReducedMotion();
 
@@ -391,17 +358,8 @@ function TopicPill({ item }) {
 
 export default function Home() {
   const reduce = useReducedMotion();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [query, setQuery] = useState("");
-  const [isScrolled, setIsScrolled] = useState(false);
   const [openFaq, setOpenFaq] = useState(null);
-
-  useEffect(() => {
-    const onScroll = () => setIsScrolled(window.scrollY > 8);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   const heroAnimation = (delay) => ({
     initial: reduce ? false : { opacity: 0, y: 16 },
@@ -446,53 +404,7 @@ export default function Home() {
 
       {/* NAVBAR */}
       <div className="relative">
-        <header className={`fixed inset-x-0 top-0 z-30 transition-colors duration-300 ${isScrolled ? "border-b border-white/[0.08] bg-black" : "border-b border-transparent bg-transparent"}`}>
-          <nav className="mx-auto flex h-[58px] max-w-[1440px] items-center justify-between px-6 lg:px-10" aria-label="Main navigation">
-            <Link to="/" className="font-serif text-[1.55rem] tracking-[0.23em] text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-300">
-              EXP<span className="text-violet-300">É</span>RIA
-            </Link>
-
-            <div className="hidden items-center gap-7 font-accent text-sm text-white/60 md:flex">
-              <a href="#why" className="transition hover:text-white">Why EXPÉRIA</a>
-              <Link to="/how-it-works" className="transition hover:text-white">How it works</Link>
-              <Link to="/become-an-expert" className="transition hover:text-white">For Experts</Link>
-              <Link to="/about" className="transition hover:text-white">About</Link>
-            </div>
-
-            <div className="hidden items-center gap-5 md:flex">
-              <button aria-label="Search EXPÉRIA" className="rounded-lg border border-white/15 p-2.5 text-white/75 transition hover:border-violet-300/50 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-300">
-                <Search className="h-4 w-4" />
-              </button>
-              <Link to="/login" className="font-accent text-sm text-white/65 transition hover:text-white">Log in</Link>
-              <Link to="/signup" className="rounded-lg bg-violet-500 px-5 py-2.5 font-accent text-sm font-semibold text-white shadow-[0_8px_24px_rgba(124,58,237,0.28)] transition hover:bg-violet-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-300">Enter EXPÉRIA</Link>
-            </div>
-
-            <button
-              type="button"
-              aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-              aria-expanded={isMenuOpen}
-              onClick={() => setIsMenuOpen((open) => !open)}
-              className="rounded-lg border border-white/15 p-2.5 text-white md:hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-300"
-            >
-              {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-            </button>
-          </nav>
-
-          {isMenuOpen && (
-            <div className="border-t border-white/[0.08] bg-black px-6 py-5 md:hidden">
-              <div className="flex flex-col gap-4 font-accent text-sm text-white/70">
-                <a href="#why" onClick={() => setIsMenuOpen(false)}>Why EXPÉRIA</a>
-                <Link to="/how-it-works" onClick={() => setIsMenuOpen(false)}>How it works</Link>
-                <Link to="/become-an-expert" onClick={() => setIsMenuOpen(false)}>For Experts</Link>
-                <Link to="/about" onClick={() => setIsMenuOpen(false)}>About</Link>
-                <div className="flex gap-3 border-t border-white/[0.08] pt-4">
-                  <Link to="/login" className="rounded-lg border border-white/15 px-4 py-2">Log in</Link>
-                 <Link to="/signup" className="rounded-lg bg-violet-500 px-4 py-2 font-semibold text-white">Enter EXPÉRIA</Link>
-                </div>
-              </div>
-            </div>
-          )}
-        </header>
+        <SiteHeader floating />
 
         {/* 01 — HERO */}
         <section className="relative mx-auto max-w-[1440px] px-6 pb-4 pt-[74px] lg:px-10 lg:pb-5 lg:pt-[82px]">
@@ -751,41 +663,7 @@ export default function Home() {
       </section>
 
       {/* 13 — FOOTER */}
-      <footer className="border-t border-white/[0.08] px-6 py-12 lg:px-10">
-        <div className="mx-auto max-w-[1360px]">
-          <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr_1fr]">
-            <div>
-              <Link to="/" className="font-serif text-lg tracking-[0.2em] text-white/85">EXP<span className="text-violet-300">É</span>RIA</Link>
-              <p className="mt-3 max-w-[240px] text-xs leading-relaxed text-white/40">Real people. Real experience. Real access.</p>
-              <div className="mt-5 flex items-center gap-3">
-                {SOCIAL_LINKS.map(({ icon: Icon, label, href }) => (
-                  <a key={label} href={href} target="_blank" rel="noreferrer" aria-label={label} className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 text-white/50 transition hover:border-violet-300/40 hover:text-violet-200">
-                    <Icon className="h-3.5 w-3.5" />
-                  </a>
-                ))}
-              </div>
-            </div>
-
-            {Object.entries(FOOTER_LINKS).map(([heading, links]) => (
-              <div key={heading}>
-                <p className="font-accent text-xs font-semibold uppercase tracking-[0.16em] text-white/40">{heading}</p>
-                <ul className="mt-4 space-y-2.5">
-                  {links.map((link) => (
-                    <li key={link.label}>
-                      <Link to={link.to} className="font-accent text-sm text-white/60 transition hover:text-white">{link.label}</Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-10 space-y-2 border-t border-white/[0.08] pt-6 text-center font-accent text-xs text-white/30 sm:text-left">
-            <p>Conversations on EXPÉRIA are educational and don't replace professional medical, legal, or financial advice.</p>
-            <p>©️ {new Date().getFullYear()} EXPÉRIA. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter />
     </main>
   );
 }
