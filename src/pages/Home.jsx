@@ -460,7 +460,7 @@ export default function Home() {
                   <div className="absolute inset-y-0 right-0 hidden w-1/2 bg-gradient-to-l from-[#0b0c16] to-transparent lg:block" />
                 </div>
 
-                <div className="relative flex flex-col justify-center px-5 py-4 pb-9 sm:px-7 lg:px-8 lg:py-5 lg:pb-10">
+                <div className="relative flex flex-col justify-center px-5 py-4 pb-28 sm:px-7 sm:pb-10 lg:px-8 lg:py-5 lg:pb-10">
                   <div className="flex items-center gap-3 font-accent text-[0.7rem] text-white/60">
                     <span className="inline-flex items-center gap-2 font-bold text-red-500"><span className="h-2 w-2 animate-pulse rounded-full bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.9)]" />LIVE NOW</span>
                     <span className="h-1 w-1 rounded-full bg-white/20" />
@@ -484,7 +484,7 @@ export default function Home() {
 
                  <PrimaryButton
   to="/live"
-  className="absolute bottom-3 left-1/2 -translate-x-1/2 px-4 py-2 text-xs sm:bottom-3.5 sm:left-auto sm:right-7 sm:translate-x-0 lg:bottom-3.5 lg:right-8"
+  className="absolute bottom-5 left-1/2 -translate-x-1/2 px-5 py-2.5 text-xs sm:bottom-3.5 sm:left-auto sm:right-7 sm:translate-x-0 lg:right-8"
 >
   Enter the conversation
 </PrimaryButton>
