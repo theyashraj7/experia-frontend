@@ -536,20 +536,41 @@ export default function Home() {
 </section>
 
       {/* 04 — THE GAP */}
-      <section className="relative px-6 py-16 lg:px-10 lg:py-20">
-        <div className="mx-auto max-w-[900px] text-center">
-          <h2 className="font-serif text-[1.7rem] leading-snug text-white sm:text-3xl">
-            You've seen what they achieved.
-            <br className="hidden sm:block" />
-            <span className="text-violet-300">Now ask them why.</span>
-          </h2>
-          <p className="mx-auto mt-5 max-w-lg text-base leading-relaxed text-white/50 sm:text-lg">
-            You can watch their interviews. Follow their work. Read about their success. Study what they built.
-            But there is a distance between watching someone's experience and having a conversation with them.
-            EXPÉRIA closes that distance.
-          </p>
-        </div>
-      </section>
+<section className="relative px-6 py-16 lg:px-10 lg:py-20">
+  <div className="mx-auto max-w-[900px] text-center">
+    <h2 className="font-serif text-[1.7rem] leading-snug text-white sm:text-3xl">
+      You can watch their journey.
+      <br className="hidden sm:block" />
+      <span className="text-violet-300">But you can't usually talk to them.</span>
+    </h2>
+
+    <p className="mx-auto mt-5 max-w-lg text-base leading-relaxed text-white/50 sm:text-lg">
+      You can watch their interviews.
+      Follow their work.
+      Read about what they built.
+    </p>
+
+    <p className="mx-auto mt-6 max-w-lg font-serif text-xl leading-relaxed text-white/80 sm:text-2xl">
+      But there's a difference between
+      <br />
+      <span className="italic text-violet-200">
+        hearing someone's story
+      </span>
+      {" "}and{" "}
+      <span className="italic text-violet-200">
+        having the chance to ask them yourself.
+      </span>
+    </p>
+
+    <p className="mx-auto mt-6 max-w-md text-base leading-relaxed text-white/45">
+      EXPÉRIA exists to close that distance.
+      <br />
+      <span className="text-white/70">
+        To bring you into the conversation.
+      </span>
+    </p>
+  </div>
+</section>
 
       {/* 05 — QUESTIONS (auto-sliding preview, not tappable) */}
       <section className="relative py-16 lg:py-20">
