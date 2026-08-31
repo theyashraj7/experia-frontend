@@ -255,7 +255,7 @@ function Marquee({ items, renderItem, keyFn, duration = 45, reverse = false }) {
       style={{ maskImage: "linear-gradient(90deg, transparent, black 2%, black 98%, transparent)", WebkitMaskImage: "linear-gradient(90deg, transparent, black 2%, black 98%, transparent)" }}
     >
       <motion.div
-        className="flex w-max gap-4 pb-1"
+        className="flex w-max gap-6 pb-1"
         animate={reduce ? undefined : { x: reverse ? ["-50%", "0%"] : ["0%", "-50%"] }}
         transition={reduce ? undefined : { duration, ease: "linear", repeat: Infinity }}
       >
