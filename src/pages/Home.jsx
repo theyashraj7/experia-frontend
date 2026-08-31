@@ -1,6 +1,7 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { motion, useReducedMotion } from "framer-motion";
+import { useAuth } from "@/context/AuthContext";
 import {
   ArrowRight,
   BadgeCheck,
@@ -251,7 +252,7 @@ function Marquee({ items, renderItem, keyFn, duration = 45, reverse = false }) {
   return (
     <div
       className="relative w-full overflow-hidden"
-      style={{ maskImage: "linear-gradient(90deg, transparent, black 2%, black 98%, transparent)", WebkitMaskImage: "linear-gradient(90deg, transparent, black 2%, black 98%, transparent)" }}
+      style={{ maskImage: "linear-gradient(90deg, transparent, black 6%, black 94%, transparent)", WebkitMaskImage: "linear-gradient(90deg, transparent, black 6%, black 94%, transparent)" }}
     >
       <motion.div
         className="flex w-max gap-4 pb-1"
@@ -291,7 +292,7 @@ function SectionLabel({ children, action }) {
   );
 }
 
-function PrimaryButton({ children, to = "/explore", className = "" }) {
+function PrimaryButton({ children, to = "/experts", className = "" }) {
   return (
     <Link
       to={to}
@@ -334,20 +335,13 @@ function ConversationPreviewCard({ conversation }) {
 // Non-interactive preview card for the Questions marquee — no fake numbers.
 function QuestionPreviewCard({ item }) {
   const Icon = item.icon;
-
   return (
-    <div className="flex h-full w-[300px] flex-col rounded-2xl border border-white/[0.1] bg-white/[0.03] p-5 sm:w-[340px]">
+    <div className="flex h-full w-[280px] flex-col rounded-xl border border-white/[0.1] bg-white/[0.03] p-5 sm:w-[300px]">
       <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-violet-500/15 text-violet-300">
         <Icon className="h-4 w-4" />
       </div>
-
-      <p className="mt-4 flex-1 font-serif text-lg leading-snug text-white">
-        {item.question}
-      </p>
-
-      <p className="mt-4 font-accent text-[0.68rem] text-violet-300/75">
-        {item.tag} · Live conversation
-      </p>
+      <p className="mt-4 flex-1 font-serif text-lg leading-snug text-white">{item.question}</p>
+      <p className="mt-4 font-accent text-[0.68rem] text-violet-300/75">{item.tag} · Live conversation</p>
     </div>
   );
 }
@@ -367,6 +361,21 @@ export default function Home() {
   const reduce = useReducedMotion();
   const [query, setQuery] = useState("");
   const [openFaq, setOpenFaq] = useState(null);
+  const { isAuthenticated } = useAuth();
+  const navigate = useNavigate();
+
+  // Logged-in visitors only see this page if they deliberately clicked the
+  // EXPÉRIA logo (SiteHeader flags that click). Any other way of landing
+  // here — including the browser back button — sends them straight back
+  // to their dashboard instead of re-showing the marketing homepage.
+  useEffect(() => {
+    if (!isAuthenticated) return;
+    if (sessionStorage.getItem("experia_from_logo") === "1") {
+      sessionStorage.removeItem("experia_from_logo");
+      return;
+    }
+    navigate("/dashboard", { replace: true });
+  }, [isAuthenticated, navigate]);
 
   const heroAnimation = (delay) => ({
     initial: reduce ? false : { opacity: 0, y: 16 },
@@ -376,7 +385,9 @@ export default function Home() {
 
   const handleSearch = (event) => {
     event.preventDefault();
-    // Connect this handler to the Explore search route or API when available.
+    // Protected route — unauthenticated visitors are sent to /login first;
+    // once logged in this becomes the real search/discovery destination.
+    navigate("/experts");
   };
 
   return (
@@ -425,7 +436,7 @@ export default function Home() {
               The internet gives you information. EXPERIA gives you access to people who've actually lived it.
             </motion.p>
 
-            <motion.form {...heroAnimation(0.24)} onSubmit={handleSearch} className="mx-auto mt-4 lg:mt-5 max-w-[512px]">
+            <motion.form {...heroAnimation(0.24)} onSubmit={handleSearch} className="mx-auto mt-6 lg:mt-7 max-w-[512px]">
               <label htmlFor="experia-search" className="sr-only">What are you curious about?</label>
              <div className="glare-border flex items-center gap-2 rounded-full border border-violet-400/60 bg-white/[0.055] p-1.5 pl-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_0_0_1px_rgba(167,139,250,0.15),0_18px_70px_rgba(76,29,149,0.25)] transition focus-within:border-violet-300 focus-within:bg-white/[0.08]">
                 <Search className="h-3.5 w-3.5 shrink-0 text-white/45" />
@@ -453,14 +464,14 @@ export default function Home() {
           <FadeUp className="relative mx-auto mt-10 max-w-[900px] lg:mt-12">
   <div className="pointer-events-none absolute -inset-24 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(124,58,237,0.35),rgba(124,58,237,0.1)_40%,transparent_70%)]" />
   <article className="group relative overflow-hidden rounded-2xl border border-white/[0.12] bg-[#0b0c16] shadow-[0_20px_50px_rgba(0,0,0,0.45)]">
-              <div className="relative grid min-h-[240px] lg:grid-cols-[0.8fr_1.2fr] lg:min-h-[276px]">
+              <div className="relative grid min-h-[200px] lg:grid-cols-[0.8fr_1.2fr] lg:min-h-[230px]">
                 <div className="relative min-h-[150px] overflow-hidden lg:min-h-full">
                   <img src={LIVE_CONVERSATION.image} alt={`${LIVE_CONVERSATION.name}, ${LIVE_CONVERSATION.role}`} className="absolute inset-0 h-full w-full object-cover object-top transition duration-700 group-hover:scale-[1.025]" />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#080910] via-[#080910]/15 to-transparent" />
                   <div className="absolute inset-y-0 right-0 hidden w-1/2 bg-gradient-to-l from-[#0b0c16] to-transparent lg:block" />
                 </div>
 
-                <div className="relative flex flex-col justify-center px-5 pt-4 pb-2 sm:px-7 sm:pb-10 lg:px-8 lg:py-5 lg:pb-10">
+                <div className="relative flex flex-col justify-center px-5 py-4 pb-9 sm:px-7 lg:px-8 lg:py-5 lg:pb-10">
                   <div className="flex items-center gap-3 font-accent text-[0.7rem] text-white/60">
                     <span className="inline-flex items-center gap-2 font-bold text-red-500"><span className="h-2 w-2 animate-pulse rounded-full bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.9)]" />LIVE NOW</span>
                     <span className="h-1 w-1 rounded-full bg-white/20" />
@@ -482,12 +493,9 @@ export default function Home() {
                     <MessageCircle className="h-3.5 w-3.5" />{LIVE_CONVERSATION.questions}
                   </div>
 
-                 <PrimaryButton
-  to="/live"
-  className="mt-5 self-center px-5 py-2.5 text-xs sm:absolute sm:bottom-3.5 sm:right-7 sm:mt-0 sm:self-auto lg:right-8"
->
-  Enter the conversation
-</PrimaryButton>
+                  <PrimaryButton to="/live" className="absolute bottom-3 right-5 px-4 py-2 text-xs sm:bottom-3.5 sm:right-7 lg:bottom-3.5 lg:right-8">
+                    Enter the conversation
+                  </PrimaryButton>
                 </div>
               </div>
             </article>
@@ -503,9 +511,7 @@ export default function Home() {
             You watched the videos. Read the articles. Asked AI. Maybe even took a course.
             And sometimes you're still left wondering —
           </p>
-          <p className="mt-4 font-serif text-[1.35rem] font-medium italic leading-snug tracking-[-0.02em] text-violet-300 sm:text-[1.65rem]">
-  "But what is it actually like?"
-</p>
+          <p className="mt-3 font-serif text-xl italic text-violet-200 sm:text-2xl">"But what is it actually like?"</p>
           <p className="mx-auto mt-6 max-w-md text-sm leading-relaxed text-white/40">
             Information can tell you what to do. Experience can tell you what happens when you do it.
           </p>
@@ -528,48 +534,21 @@ export default function Home() {
         </div>
       </section>
 
-     {/* 05 — QUESTIONS */}
-<section className="relative pt-14 pb-7 lg:pt-16 lg:pb-8">
-  <div className="mx-auto max-w-[1360px] px-6 lg:px-10">
+      {/* 05 — QUESTIONS (auto-sliding preview, not tappable) */}
+      <section className="relative py-14 lg:py-16">
+        <div className="mx-auto max-w-[1360px] px-6 text-center lg:px-10">
+          <h2 className="font-serif text-2xl text-white sm:text-3xl">The questions that matter aren't always in the textbook.</h2>
+          <p className="mx-auto mt-3 max-w-lg text-sm text-white/45">
+            The things you're most curious about are often the things you can't learn from information alone.
+          </p>
+        </div>
+        <div className="mt-8">
+          <Marquee items={TRENDING_QUESTIONS} keyFn={(item, i) => `${item.question}-${i}`} renderItem={(item) => <QuestionPreviewCard item={item} />} duration={50} />
+        </div>
+      </section>
 
-    {/* Main heading */}
-    <div className="text-center">
-      <h2 className="font-serif text-2xl text-white sm:text-3xl">
-        The questions that matter aren't always in the textbook.
-      </h2>
-
-      <p className="mx-auto mt-3 max-w-lg text-sm text-white/45">
-        The things you're most curious about are often the things you can't learn from information alone.
-      </p>
-    </div>
-
-    {/* Section label */}
-    <div className="mt-10 mb-3 flex items-end justify-between gap-4">
-      <p className="font-accent text-[0.68rem] font-semibold uppercase tracking-[0.25em] text-violet-300/75">
-        Trending Questions
-      </p>
-
-      <Link
-        to="/questions"
-        className="inline-flex items-center gap-1 font-accent text-xs text-white/50 transition hover:text-white"
-      >
-        View all
-        <ChevronRight className="h-4 w-4" />
-      </Link>
-    </div>
-
-  </div>
-
-  <Marquee
-    items={TRENDING_QUESTIONS}
-    keyFn={(item, i) => `${item.question}-${i}`}
-    renderItem={(item) => <QuestionPreviewCard item={item} />}
-    duration={50}
-  />
-</section>
-
-      {/* 06 — UPCOMING */}
-<section className="relative pt-7 pb-14 lg:pt-8 lg:pb-16">
+      {/* 06 — UPCOMING (auto-sliding preview, not tappable) */}
+      <section className="relative py-14 lg:py-16">
         <div className="mx-auto max-w-[1360px] px-6 lg:px-10">
           <SectionLabel action={<Link to="/live" className="inline-flex items-center gap-1 font-accent text-xs text-white/50 transition hover:text-white">View all <ChevronRight className="h-4 w-4" /></Link>}>
             Don't just watch from the outside
@@ -657,7 +636,7 @@ export default function Home() {
       {/* 11 — FAQ */}
       <section className="relative px-6 py-14 lg:px-10 lg:py-16">
         <div className="mx-auto max-w-[1200px]">
-          <SectionLabel action={<Link to="/faq" className="inline-flex items-center gap-1 font-accent text-xs text-white/50 transition hover:text-white">View all FAQs <ChevronRight className="h-4 w-4" /></Link>}>
+          <SectionLabel action={<Link to="/help" className="inline-flex items-center gap-1 font-accent text-xs text-white/50 transition hover:text-white">View all FAQs <ChevronRight className="h-4 w-4" /></Link>}>
             Frequently asked questions
           </SectionLabel>
           <div className="grid gap-3 sm:grid-cols-2">
@@ -695,7 +674,7 @@ export default function Home() {
           </h2>
           <p className="mt-5 font-serif text-lg italic text-white/50">Find them.</p>
           <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <PrimaryButton to="/explore" className="px-7">Find your conversation</PrimaryButton>
+            <PrimaryButton to="/live" className="px-7">Find your conversation</PrimaryButton>
           </div>
           <p className="mt-8 font-accent text-xs uppercase tracking-[0.2em] text-white/35">Real people. Real experience. Real access.</p>
         </FadeUp>
