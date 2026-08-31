@@ -255,7 +255,7 @@ function Marquee({ items, renderItem, keyFn, duration = 45, reverse = false }) {
       style={{ maskImage: "linear-gradient(90deg, transparent, black 2%, black 98%, transparent)", WebkitMaskImage: "linear-gradient(90deg, transparent, black 2%, black 98%, transparent)" }}
     >
       <motion.div
-        className="flex w-max gap-6 pb-1"
+        className="flex w-max gap-4 pb-1"
         animate={reduce ? undefined : { x: reverse ? ["-50%", "0%"] : ["0%", "-50%"] }}
         transition={reduce ? undefined : { duration, ease: "linear", repeat: Infinity }}
       >
@@ -284,7 +284,7 @@ function VerificationBadge({ label = "Verified experience" }) {
 function SectionLabel({ children, action }) {
   return (
     <div className="mb-3 flex items-end justify-between gap-4">
-      <p className="font-accent text-[0.68rem] font-semibold uppercase tracking-[0.25em] text-violet-300/75">
+      <p className="font-accent text-xs font-semibold uppercase tracking-[0.22em] text-violet-300/75">
         {children}
       </p>
       {action}
@@ -312,20 +312,20 @@ function ConversationPreviewCard({ conversation }) {
         <img src={conversation.image} alt="" loading="lazy" className="absolute inset-0 h-full w-full object-cover object-top" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#0b0c16] via-transparent to-transparent" />
       </div>
-      <div className="flex flex-1 flex-col gap-1.5 px-4 py-3.5">
-        <p className="font-accent text-[0.62rem] font-semibold uppercase tracking-[0.14em] text-violet-300/70">{conversation.topic}</p>
+      <div className="flex flex-1 flex-col gap-2 px-4 py-4">
+        <p className="font-accent text-xs font-semibold uppercase tracking-[0.12em] text-violet-300/70">{conversation.topic}</p>
         <p className="font-serif text-base leading-snug text-white">{conversation.question}</p>
         <div className="mt-auto flex items-center gap-1.5 pt-2">
-          <p className="truncate font-accent text-xs font-medium text-white/85">{conversation.name}</p>
+          <p className="truncate font-accent text-sm font-medium text-white/85">{conversation.name}</p>
           <VerificationBadge />
         </div>
-        <p className="truncate text-[0.7rem] text-white/45">{conversation.role} · {conversation.credibility}</p>
+        <p className="truncate text-xs text-white/45">{conversation.role} · {conversation.credibility}</p>
         <div className="mt-1.5 flex items-center justify-between gap-2">
-          <span className="flex items-center gap-1.5 font-accent text-[0.65rem] text-white/40">
+          <span className="flex items-center gap-1.5 font-accent text-xs text-white/40">
             <CalendarDays className="h-3 w-3" />
             {conversation.date} · {conversation.time}
           </span>
-          <span className="font-accent text-[0.68rem] font-semibold text-violet-300/80">Reserve your seat →</span>
+          <span className="font-accent text-xs font-semibold text-violet-300/80">Reserve your seat →</span>
         </div>
       </div>
     </article>
@@ -341,7 +341,7 @@ function QuestionPreviewCard({ item }) {
         <Icon className="h-4 w-4" />
       </div>
       <p className="mt-4 flex-1 font-serif text-lg leading-snug text-white">{item.question}</p>
-      <p className="mt-4 font-accent text-[0.68rem] text-violet-300/75">{item.tag} · Live conversation</p>
+      <p className="mt-4 font-accent text-xs text-violet-300/75">{item.tag} · Live conversation</p>
     </div>
   );
 }
@@ -350,7 +350,7 @@ function QuestionPreviewCard({ item }) {
 function TopicPill({ item }) {
   const Icon = item.icon;
   return (
-    <div className="flex items-center gap-2.5 rounded-lg border border-white/[0.1] bg-white/[0.03] px-4 py-2.5 font-accent text-xs text-white/60">
+    <div className="flex items-center gap-2.5 rounded-lg border border-white/[0.1] bg-white/[0.03] px-4 py-3 font-accent text-sm text-white/60">
       <Icon className="h-3.5 w-3.5 text-violet-300" />
       {item.label}
     </div>
@@ -427,12 +427,12 @@ export default function Home() {
         {/* 01 — HERO */}
         <section className="relative mx-auto max-w-[1440px] px-6 pb-4 pt-[74px] lg:px-10 lg:pb-5 lg:pt-[82px]">
           <div className="mx-auto max-w-[1050px] text-center">
-            <motion.h1 {...heroAnimation(0.08)} className="font-serif text-[1.9rem] leading-[1.06] tracking-[-0.02em] text-white sm:text-4xl sm:leading-[1.02] sm:tracking-[-0.03em] lg:text-[3.1rem]">
+            <motion.h1 {...heroAnimation(0.08)} className="font-serif text-[2.15rem] leading-[1.08] tracking-[-0.02em] text-white sm:text-4xl sm:leading-[1.02] sm:tracking-[-0.03em] lg:text-[3.1rem]">
               Some Answers Can't Be{" "}
               <span className="bg-gradient-to-r from-violet-200 via-violet-400 to-indigo-300 bg-clip-text text-transparent">Googled.</span>
             </motion.h1>
 
-            <motion.p {...heroAnimation(0.16)} className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-white/55 sm:text-base">
+            <motion.p {...heroAnimation(0.16)} className="mx-auto mt-5 max-w-md text-base leading-relaxed text-white/55 sm:text-lg">
               The internet gives you information. EXPERIA gives you access to people who've actually lived it.
             </motion.p>
 
@@ -446,16 +446,16 @@ export default function Home() {
                   value={query}
                   onChange={(event) => setQuery(event.target.value)}
                   placeholder="What are you curious about?"
-                  className="min-w-0 flex-1 bg-transparent py-1 font-accent text-xs text-white outline-none placeholder:text-white/38"
+                  className="min-w-0 flex-1 bg-transparent py-1.5 font-accent text-sm text-white outline-none placeholder:text-white/38"
                 />
-                <button type="submit" className="inline-flex shrink-0 items-center gap-1.5 rounded-lg bg-white px-3 py-1.5 font-accent text-[0.7rem] font-semibold text-[#12131d] transition hover:bg-violet-100 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-300">
+                <button type="submit" className="inline-flex shrink-0 items-center gap-1.5 rounded-lg bg-white px-3.5 py-2 font-accent text-sm font-semibold text-[#12131d] transition hover:bg-violet-100 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-300">
                   Find
                   <ArrowRight className="h-3 w-3" />
                 </button>
               </div>
             </motion.form>
 
-            <motion.p {...heroAnimation(0.3)} className="mt-3 font-accent text-[0.7rem] italic text-white/35 sm:text-xs">
+            <motion.p {...heroAnimation(0.3)} className="mt-4 font-accent text-xs italic text-white/40 sm:text-sm">
               Ask. Listen. Learn from experience.
             </motion.p>
           </div>
@@ -472,24 +472,24 @@ export default function Home() {
                 </div>
 
                 <div className="relative flex flex-col justify-center px-5 pt-4 pb-2 sm:px-7 sm:pb-10 lg:px-8 lg:py-5 lg:pb-10">
-                  <div className="flex items-center gap-3 font-accent text-[0.7rem] text-white/60">
+                  <div className="flex items-center gap-3 font-accent text-xs text-white/60">
                     <span className="inline-flex items-center gap-2 font-bold text-red-500"><span className="h-2 w-2 animate-pulse rounded-full bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.9)]" />LIVE NOW</span>
                     <span className="h-1 w-1 rounded-full bg-white/20" />
                     <span className="inline-flex items-center gap-1.5 font-semibold text-white/85"><UsersRound className="h-3.5 w-3.5" />{LIVE_CONVERSATION.watching}</span>
                   </div>
 
-                  <p className="mt-2.5 font-accent text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-violet-300/80">{LIVE_CONVERSATION.eyebrow}</p>
-                  <h2 className="mt-1.5 max-w-xl font-serif text-xl leading-[1.1] tracking-[-0.015em] text-white sm:text-2xl lg:text-[1.7rem]">
+                  <p className="mt-3 font-accent text-xs font-semibold uppercase tracking-[0.16em] text-violet-300/80">{LIVE_CONVERSATION.eyebrow}</p>
+                  <h2 className="mt-2 max-w-xl font-serif text-2xl leading-[1.12] tracking-[-0.015em] text-white sm:text-2xl lg:text-[1.85rem]">
                     {LIVE_CONVERSATION.question}
                   </h2>
 
-                  <div className="mt-3 flex items-center gap-2">
-                    <p className="font-accent text-sm font-semibold text-white/90">{LIVE_CONVERSATION.name}</p>
+                  <div className="mt-3.5 flex items-center gap-2">
+                    <p className="font-accent text-base font-semibold text-white/90">{LIVE_CONVERSATION.name}</p>
                     <VerificationBadge />
                   </div>
-                  <p className="mt-0.5 font-accent text-xs text-violet-200/75">{LIVE_CONVERSATION.role} · {LIVE_CONVERSATION.credibility}</p>
+                  <p className="mt-0.5 font-accent text-sm text-violet-200/75">{LIVE_CONVERSATION.role} · {LIVE_CONVERSATION.credibility}</p>
 
-                  <div className="mt-2.5 flex items-center gap-1.5 font-accent text-xs text-violet-200/80">
+                  <div className="mt-3 flex items-center gap-1.5 font-accent text-sm text-violet-200/80">
                     <MessageCircle className="h-3.5 w-3.5" />{LIVE_CONVERSATION.questions}
                   </div>
 
@@ -509,13 +509,13 @@ export default function Home() {
       {/* 02 — PROBLEM */}
       <section className="relative px-6 py-16 lg:px-10 lg:py-20">
         <div className="mx-auto max-w-[720px] text-center">
-          <h2 className="font-serif text-2xl leading-snug text-white sm:text-3xl">You've already searched for the answer.</h2>
-          <p className="mx-auto mt-5 max-w-md text-sm leading-relaxed text-white/50 sm:text-base">
+          <h2 className="font-serif text-[1.7rem] leading-snug text-white sm:text-3xl">You've already searched for the answer.</h2>
+          <p className="mx-auto mt-5 max-w-md text-base leading-relaxed text-white/50 sm:text-lg">
             You watched the videos. Read the articles. Asked AI. Maybe even took a course.
             And sometimes you're still left wondering —
           </p>
-          <p className="mt-3 font-serif text-xl italic text-violet-200 sm:text-2xl">"But what is it actually like?"</p>
-          <p className="mx-auto mt-6 max-w-md text-sm leading-relaxed text-white/40">
+          <p className="mt-4 font-serif text-xl italic text-violet-200 sm:text-2xl">"But what is it actually like?"</p>
+          <p className="mx-auto mt-6 max-w-md text-base leading-relaxed text-white/40">
             Information can tell you what to do. Experience can tell you what happens when you do it.
           </p>
         </div>
@@ -524,12 +524,12 @@ export default function Home() {
       {/* 04 — THE GAP */}
       <section className="relative px-6 py-16 lg:px-10 lg:py-20">
         <div className="mx-auto max-w-[900px] text-center">
-          <h2 className="font-serif text-2xl leading-snug text-white sm:text-3xl">
+          <h2 className="font-serif text-[1.7rem] leading-snug text-white sm:text-3xl">
             You've seen what they achieved.
             <br className="hidden sm:block" />
             <span className="text-violet-300">Now ask them why.</span>
           </h2>
-          <p className="mx-auto mt-5 max-w-lg text-sm leading-relaxed text-white/50 sm:text-base">
+          <p className="mx-auto mt-5 max-w-lg text-base leading-relaxed text-white/50 sm:text-lg">
             You can watch their interviews. Follow their work. Read about their success. Study what they built.
             But there is a distance between watching someone's experience and having a conversation with them.
             EXPÉRIA closes that distance.
@@ -540,8 +540,8 @@ export default function Home() {
       {/* 05 — QUESTIONS (auto-sliding preview, not tappable) */}
       <section className="relative py-16 lg:py-20">
         <div className="mx-auto max-w-[1360px] px-6 text-center lg:px-10">
-          <h2 className="font-serif text-2xl text-white sm:text-3xl">The questions that matter aren't always in the textbook.</h2>
-          <p className="mx-auto mt-3 max-w-lg text-sm text-white/45">
+          <h2 className="font-serif text-[1.7rem] text-white sm:text-3xl">The questions that matter aren't always in the textbook.</h2>
+          <p className="mx-auto mt-3.5 max-w-lg text-base text-white/50">
             The things you're most curious about are often the things you can't learn from information alone.
           </p>
         </div>
@@ -571,15 +571,15 @@ export default function Home() {
       {/* 08 — POSITIONING */}
       <section id="why" className="relative px-6 py-14 lg:px-10 lg:py-16">
         <div className="mx-auto max-w-[720px] text-center">
-          <h2 className="font-serif text-2xl leading-snug text-white sm:text-3xl">
+          <h2 className="font-serif text-[1.7rem] leading-snug text-white sm:text-3xl">
             Information tells you what happened.
             <br className="hidden sm:block" />
             <span className="text-violet-300">Experience tells you why.</span>
           </h2>
-          <div className="mx-auto mt-8 flex flex-col items-center gap-3">
+          <div className="mx-auto mt-8 flex flex-col items-center gap-3.5">
             {WHY_EXPERIA.map((line) => (
               <FadeUp key={line}>
-                <p className="text-sm text-white/55 sm:text-base">{line}</p>
+                <p className="text-base text-white/55 sm:text-lg">{line}</p>
               </FadeUp>
             ))}
           </div>
@@ -589,7 +589,7 @@ export default function Home() {
       {/* 09 — HOW IT WORKS */}
       <section className="relative px-6 py-14 lg:px-10 lg:py-16">
         <div className="mx-auto max-w-[1200px] text-center">
-          <h2 className="font-serif text-2xl text-white sm:text-3xl">
+          <h2 className="font-serif text-[1.7rem] text-white sm:text-3xl">
             From "I wonder..." to <span className="text-violet-300">"Now I know."</span>
           </h2>
 
@@ -600,20 +600,20 @@ export default function Home() {
                 <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full border border-violet-300/30 bg-[#0b0c16] text-violet-300">
                   <Icon className="h-5 w-5" />
                 </div>
-                <p className="mt-4 font-accent text-sm font-semibold text-white/90">{number} — {title}</p>
-                <p className="mt-1.5 text-xs leading-relaxed text-white/45">{description}</p>
+                <p className="mt-4 font-accent text-base font-semibold text-white/90">{number} — {title}</p>
+                <p className="mt-2 text-sm leading-relaxed text-white/50">{description}</p>
               </div>
             ))}
           </div>
 
-          <div className="mt-10 grid gap-6 sm:hidden">
+          <div className="mt-10 grid gap-7 sm:hidden">
             {HOW_IT_WORKS.map(({ icon: Icon, number, title, description }) => (
               <div key={number} className="flex flex-col items-center text-center">
                 <div className="flex h-12 w-12 items-center justify-center rounded-full border border-violet-300/30 bg-[#0b0c16] text-violet-300">
                   <Icon className="h-5 w-5" />
                 </div>
-                <p className="mt-4 font-accent text-sm font-semibold text-white/90">{number} — {title}</p>
-                <p className="mt-1.5 text-xs leading-relaxed text-white/45">{description}</p>
+                <p className="mt-4 font-accent text-base font-semibold text-white/90">{number} — {title}</p>
+                <p className="mt-2 text-sm leading-relaxed text-white/50">{description}</p>
               </div>
             ))}
           </div>
@@ -623,12 +623,12 @@ export default function Home() {
       {/* 10 — TRUST */}
       <section className="relative px-6 py-10 lg:px-10">
         <div className="mx-auto max-w-[1000px] rounded-xl border border-white/[0.08] bg-white/[0.02] px-6 py-7 text-center sm:px-10">
-          <p className="font-serif text-xl text-white">Experience is the credential.</p>
-          <p className="mx-auto mt-3 max-w-lg text-sm leading-relaxed text-white/50">
+          <p className="font-serif text-xl text-white sm:text-2xl">Experience is the credential.</p>
+          <p className="mx-auto mt-3 max-w-lg text-base leading-relaxed text-white/50">
             EXPÉRIA brings you closer to people who've actually spent years doing the work.
             Their decisions. Their mistakes. Their breakthroughs. The parts that rarely make it into the textbook.
           </p>
-          <div className="mt-5 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 font-accent text-xs text-white/55 sm:text-sm">
+          <div className="mt-5 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 font-accent text-sm text-white/55 sm:text-base">
             <span className="inline-flex items-center gap-2"><ShieldCheck className="h-4 w-4 text-violet-300" />Identity verified</span>
             <span className="inline-flex items-center gap-2"><BadgeCheck className="h-4 w-4 text-violet-300" />Experience reviewed where applicable</span>
             <span className="inline-flex items-center gap-2"><UserRound className="h-4 w-4 text-violet-300" />Real-world experience</span>
@@ -651,13 +651,13 @@ export default function Home() {
                     type="button"
                     onClick={() => setOpenFaq(isOpen ? null : index)}
                     aria-expanded={isOpen}
-                    className="flex w-full items-center justify-between gap-4 px-4 py-3.5 text-left font-accent text-sm text-white/85"
+                    className="flex w-full items-center justify-between gap-4 px-4 py-4 text-left font-accent text-base text-white/85"
                   >
                     {item.q}
                     <ChevronDown className={`h-4 w-4 shrink-0 text-white/45 transition-transform ${isOpen ? "rotate-180" : ""}`} />
                   </button>
                   {isOpen && (
-                    <p className="border-t border-white/[0.08] px-4 py-3.5 text-sm leading-relaxed text-white/55">{item.a}</p>
+                    <p className="border-t border-white/[0.08] px-4 py-4 text-sm leading-relaxed text-white/55">{item.a}</p>
                   )}
                 </div>
               );
@@ -675,7 +675,7 @@ export default function Home() {
             <br />
             Someone out there has already lived the answer.
           </h2>
-          <p className="mt-5 font-serif text-lg italic text-white/50">Find them.</p>
+          <p className="mt-5 font-serif text-xl italic text-white/50">Find them.</p>
           <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <PrimaryButton to="/live" className="px-7">Find your conversation</PrimaryButton>
           </div>
