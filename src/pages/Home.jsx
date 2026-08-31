@@ -538,36 +538,31 @@ export default function Home() {
       {/* 04 — THE GAP */}
 <section className="relative px-6 py-16 lg:px-10 lg:py-20">
   <div className="mx-auto max-w-[900px] text-center">
-    <h2 className="font-serif text-[1.7rem] leading-snug text-white sm:text-3xl">
-      You can watch their journey.
+    <h2 className="font-serif text-[1.7rem] leading-[1.15] text-white sm:text-3xl">
+      You've heard their stories.
       <br className="hidden sm:block" />
-      <span className="text-violet-300">But you can't usually talk to them.</span>
+      <span className="text-violet-300">But what if you could ask them yourself?</span>
     </h2>
 
     <p className="mx-auto mt-5 max-w-lg text-base leading-relaxed text-white/50 sm:text-lg">
-      You can watch their interviews.
-      Follow their work.
-      Read about what they built.
+      The founder who built it.
+      The pilot who has lived it.
+      The doctor who has seen it.
+      The professional who has spent years doing it.
     </p>
 
     <p className="mx-auto mt-6 max-w-lg font-serif text-xl leading-relaxed text-white/80 sm:text-2xl">
-      But there's a difference between
+      Not another interview.
+      <br />
+      Not another video.
       <br />
       <span className="italic text-violet-200">
-        hearing someone's story
-      </span>
-      {" "}and{" "}
-      <span className="italic text-violet-200">
-        having the chance to ask them yourself.
+        A chance to hear from them. And ask.
       </span>
     </p>
 
     <p className="mx-auto mt-6 max-w-md text-base leading-relaxed text-white/45">
-      EXPÉRIA exists to close that distance.
-      <br />
-      <span className="text-white/70">
-        To bring you into the conversation.
-      </span>
+      That's the access EXPÉRIA is building.
     </p>
   </div>
 </section>
