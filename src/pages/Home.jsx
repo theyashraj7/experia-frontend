@@ -535,7 +535,7 @@ export default function Home() {
       </section>
 
       {/* 05 — QUESTIONS (auto-sliding preview, not tappable) */}
-      <section className="relative py-14 lg:py-16">
+      <section className="relative py-16 lg:py-20">
         <div className="mx-auto max-w-[1360px] px-6 text-center lg:px-10">
           <h2 className="font-serif text-2xl text-white sm:text-3xl">The questions that matter aren't always in the textbook.</h2>
           <p className="mx-auto mt-3 max-w-lg text-sm text-white/45">
@@ -548,7 +548,7 @@ export default function Home() {
       </section>
 
       {/* 06 — UPCOMING (auto-sliding preview, not tappable) */}
-      <section className="relative py-14 lg:py-16">
+      <section className="relative py-16 lg:py-20">
         <div className="mx-auto max-w-[1360px] px-6 lg:px-10">
           <SectionLabel action={<Link to="/live" className="inline-flex items-center gap-1 font-accent text-xs text-white/50 transition hover:text-white">View all <ChevronRight className="h-4 w-4" /></Link>}>
             Don't just watch from the outside
@@ -636,7 +636,7 @@ export default function Home() {
       {/* 11 — FAQ */}
       <section className="relative px-6 py-14 lg:px-10 lg:py-16">
         <div className="mx-auto max-w-[1200px]">
-          <SectionLabel action={<Link to="/help" className="inline-flex items-center gap-1 font-accent text-xs text-white/50 transition hover:text-white">View all FAQs <ChevronRight className="h-4 w-4" /></Link>}>
+          <SectionLabel action={<Link to="/faq" className="inline-flex items-center gap-1 font-accent text-xs text-white/50 transition hover:text-white">View all FAQs <ChevronRight className="h-4 w-4" /></Link>}>
             Frequently asked questions
           </SectionLabel>
           <div className="grid gap-3 sm:grid-cols-2">
