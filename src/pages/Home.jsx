@@ -593,14 +593,45 @@ export default function Home() {
 </section>
 
       {/* 06 — UPCOMING (auto-sliding preview, not tappable) */}
-      <section className="relative py-16 lg:py-20">
-        <div className="mx-auto max-w-[1360px] px-6 lg:px-10">
-          <SectionLabel action={<Link to="/live" className="inline-flex items-center gap-1 font-accent text-xs text-white/50 transition hover:text-white">View all <ChevronRight className="h-4 w-4" /></Link>}>
-            Don't just watch from the outside
-          </SectionLabel>
-        </div>
-        <Marquee items={UPCOMING_CONVERSATIONS} keyFn={(c) => c.topic} renderItem={(c) => <ConversationPreviewCard conversation={c} />} duration={65} reverse />
-      </section>
+<section className="relative py-16 lg:py-20">
+  <div className="mx-auto max-w-[1360px] px-6 lg:px-10">
+    <SectionLabel
+      action={
+        <Link
+          to="/live"
+          className="inline-flex items-center gap-1 font-accent text-xs text-white/50 transition hover:text-white"
+        >
+          View all
+          <ChevronRight className="h-4 w-4" />
+        </Link>
+      }
+    >
+      People worth hearing from
+    </SectionLabel>
+
+    <div className="mb-7 max-w-xl">
+      <h2 className="font-serif text-[1.7rem] leading-snug text-white sm:text-3xl">
+        Soon, you could be in a conversation
+        <br className="hidden sm:block" />
+        <span className="text-violet-300">with someone who's actually done it.</span>
+      </h2>
+
+      <p className="mt-3.5 max-w-lg text-base leading-relaxed text-white/50 sm:text-lg">
+        Founders. Pilots. Doctors. Investors. Engineers.
+        People whose experience is worth hearing — and whose answers
+        you can't find in a search.
+      </p>
+    </div>
+  </div>
+
+  <Marquee
+    items={UPCOMING_CONVERSATIONS}
+    keyFn={(c) => c.topic}
+    renderItem={(c) => <ConversationPreviewCard conversation={c} />}
+    duration={65}
+    reverse
+  />
+</section>
 
       {/* 07 — TOPICS (auto-sliding preview, not tappable, kept compact) */}
       <section className="relative py-10 lg:py-12">
