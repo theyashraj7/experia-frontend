@@ -1,15 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, useReducedMotion } from "framer-motion";
+import SiteHeader from "@/components/layout/SiteHeader";
 import {
   ArrowRight,
   BadgeCheck,
   CalendarDays,
   ChevronRight,
-  Menu,
   MessageCircle,
   Search,
-  X,
 } from "lucide-react";
 import {
   EXPERTS,
@@ -70,16 +69,7 @@ function SectionLabel({ children, action }) {
 
 export default function Dashboard() {
   const reduce = useReducedMotion();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
   const [query, setQuery] = useState("");
-
-  useEffect(() => {
-    const onScroll = () => setIsScrolled(window.scrollY > 8);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   const heroAnimation = (delay) => ({
     initial: reduce ? false : { opacity: 0, y: 16 },
@@ -105,52 +95,7 @@ export default function Dashboard() {
         <div className="absolute right-[-18rem] top-[36rem] h-[38rem] w-[38rem] rounded-full bg-[radial-gradient(circle,rgba(99,102,241,0.18)_0%,transparent_65%)]" />
       </div>
 
-      {/* NAV — same identity as the marketing site, but now every link is real */}
-      <header className={`fixed inset-x-0 top-0 z-30 transition-colors duration-300 ${isScrolled ? "border-b border-white/[0.08] bg-black" : "border-b border-transparent bg-transparent"}`}>
-        <nav className="mx-auto flex h-[58px] max-w-[1440px] items-center justify-between px-6 lg:px-10" aria-label="Main navigation">
-          <Link to="/dashboard" className="font-serif text-[1.55rem] tracking-[0.23em] text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-300">
-            EXP<span className="text-violet-300">É</span>RIA
-          </Link>
-
-          <div className="hidden items-center gap-7 font-accent text-sm text-white/60 md:flex">
-            <Link to="/live" className="transition hover:text-white">Live</Link>
-            <Link to="/experts" className="transition hover:text-white">People</Link>
-            <Link to="/questions" className="transition hover:text-white">Questions</Link>
-            <Link to="/topics" className="transition hover:text-white">Fields</Link>
-          </div>
-
-          <div className="hidden items-center gap-4 md:flex">
-            <button aria-label="Search EXPÉRIA" className="rounded-lg border border-white/15 p-2.5 text-white/75 transition hover:border-violet-300/50 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-300">
-              <Search className="h-4 w-4" />
-            </button>
-            <Link to="/learning" className="flex h-9 w-9 items-center justify-center rounded-full border border-violet-300/30 bg-violet-500/10 font-accent text-xs font-semibold text-violet-200 transition hover:border-violet-300/60" aria-label="Your account">
-              {LEARNER.name.charAt(0)}
-            </Link>
-          </div>
-
-          <button
-            type="button"
-            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-            aria-expanded={isMenuOpen}
-            onClick={() => setIsMenuOpen((open) => !open)}
-            className="rounded-lg border border-white/15 p-2.5 text-white md:hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-300"
-          >
-            {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </button>
-        </nav>
-
-        {isMenuOpen && (
-          <div className="border-t border-white/[0.08] bg-black px-6 py-5 md:hidden">
-            <div className="flex flex-col gap-4 font-accent text-sm text-white/70">
-              <Link to="/live" onClick={() => setIsMenuOpen(false)}>Live</Link>
-              <Link to="/experts" onClick={() => setIsMenuOpen(false)}>People</Link>
-              <Link to="/questions" onClick={() => setIsMenuOpen(false)}>Questions</Link>
-              <Link to="/topics" onClick={() => setIsMenuOpen(false)}>Fields</Link>
-              <Link to="/learning" onClick={() => setIsMenuOpen(false)} className="border-t border-white/[0.08] pt-4">Your world</Link>
-            </div>
-          </div>
-        )}
-      </header>
+      <SiteHeader />
 
       {/* THE DOORWAY — personal, quiet, a question not a dashboard */}
       <section className="relative mx-auto max-w-[900px] px-6 pb-6 pt-[100px] text-center lg:pt-[130px]">
