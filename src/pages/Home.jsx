@@ -568,17 +568,29 @@ export default function Home() {
 </section>
 
       {/* 05 — QUESTIONS (auto-sliding preview, not tappable) */}
-      <section className="relative py-16 lg:py-20">
-        <div className="mx-auto max-w-[1360px] px-6 text-center lg:px-10">
-          <h2 className="font-serif text-[1.7rem] text-white sm:text-3xl">The questions that matter aren't always in the textbook.</h2>
-          <p className="mx-auto mt-3.5 max-w-lg text-base text-white/50">
-            The things you're most curious about are often the things you can't learn from information alone.
-          </p>
-        </div>
-        <div className="mt-8">
-          <Marquee items={TRENDING_QUESTIONS} keyFn={(item, i) => `${item.question}-${i}`} renderItem={(item) => <QuestionPreviewCard item={item} />} duration={50} />
-        </div>
-      </section>
+<section className="relative py-16 lg:py-20">
+  <div className="mx-auto max-w-[1360px] px-6 text-center lg:px-10">
+    <h2 className="font-serif text-[1.7rem] leading-snug text-white sm:text-3xl">
+      Some questions are better answered
+      <br className="hidden sm:block" />
+      <span className="text-violet-300">by someone who's lived them.</span>
+    </h2>
+
+    <p className="mx-auto mt-3.5 max-w-lg text-base leading-relaxed text-white/50 sm:text-lg">
+      The questions you really want to ask aren't always answered by a search.
+      Sometimes, you need the person behind the experience.
+    </p>
+  </div>
+
+  <div className="mt-8">
+    <Marquee
+      items={TRENDING_QUESTIONS}
+      keyFn={(item, i) => `${item.question}-${i}`}
+      renderItem={(item) => <QuestionPreviewCard item={item} />}
+      duration={50}
+    />
+  </div>
+</section>
 
       {/* 06 — UPCOMING (auto-sliding preview, not tappable) */}
       <section className="relative py-16 lg:py-20">
