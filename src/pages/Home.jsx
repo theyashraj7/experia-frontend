@@ -292,7 +292,7 @@ function SectionLabel({ children, action }) {
   );
 }
 
-function PrimaryButton({ children, to = "/experts", className = "" }) {
+function PrimaryButton({ children, to = "/explore", className = "" }) {
   return (
     <Link
       to={to}
@@ -464,14 +464,14 @@ export default function Home() {
           <FadeUp className="relative mx-auto mt-10 max-w-[900px] lg:mt-12">
   <div className="pointer-events-none absolute -inset-24 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(124,58,237,0.35),rgba(124,58,237,0.1)_40%,transparent_70%)]" />
   <article className="group relative overflow-hidden rounded-2xl border border-white/[0.12] bg-[#0b0c16] shadow-[0_20px_50px_rgba(0,0,0,0.45)]">
-              <div className="relative grid min-h-[200px] lg:grid-cols-[0.8fr_1.2fr] lg:min-h-[230px]">
+              <div className="relative grid min-h-[240px] lg:grid-cols-[0.8fr_1.2fr] lg:min-h-[276px]">
                 <div className="relative min-h-[150px] overflow-hidden lg:min-h-full">
                   <img src={LIVE_CONVERSATION.image} alt={`${LIVE_CONVERSATION.name}, ${LIVE_CONVERSATION.role}`} className="absolute inset-0 h-full w-full object-cover object-top transition duration-700 group-hover:scale-[1.025]" />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#080910] via-[#080910]/15 to-transparent" />
                   <div className="absolute inset-y-0 right-0 hidden w-1/2 bg-gradient-to-l from-[#0b0c16] to-transparent lg:block" />
                 </div>
 
-                <div className="relative flex flex-col justify-center px-5 py-4 pb-9 sm:px-7 lg:px-8 lg:py-5 lg:pb-10">
+                <div className="relative flex flex-col justify-center px-5 pt-4 pb-2 sm:px-7 sm:pb-10 lg:px-8 lg:py-5 lg:pb-10">
                   <div className="flex items-center gap-3 font-accent text-[0.7rem] text-white/60">
                     <span className="inline-flex items-center gap-2 font-bold text-red-500"><span className="h-2 w-2 animate-pulse rounded-full bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.9)]" />LIVE NOW</span>
                     <span className="h-1 w-1 rounded-full bg-white/20" />
