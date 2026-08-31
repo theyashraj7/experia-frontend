@@ -507,19 +507,33 @@ export default function Home() {
       </div>
 
       {/* 02 — PROBLEM */}
-      <section className="relative px-6 py-16 lg:px-10 lg:py-20">
-        <div className="mx-auto max-w-[720px] text-center">
-          <h2 className="font-serif text-[1.7rem] leading-snug text-white sm:text-3xl">You've already searched for the answer.</h2>
-          <p className="mx-auto mt-5 max-w-md text-base leading-relaxed text-white/50 sm:text-lg">
-            You watched the videos. Read the articles. Asked AI. Maybe even took a course.
-            And sometimes you're still left wondering —
-          </p>
-          <p className="mt-4 font-serif text-xl italic text-violet-200 sm:text-2xl">"But what is it actually like?"</p>
-          <p className="mx-auto mt-6 max-w-md text-base leading-relaxed text-white/40">
-            Information can tell you what to do. Experience can tell you what happens when you do it.
-          </p>
-        </div>
-      </section>
+<section className="relative px-6 py-16 lg:px-10 lg:py-20">
+  <div className="mx-auto max-w-[720px] text-center">
+    <h2 className="font-serif text-[1.7rem] leading-snug text-white sm:text-3xl">
+      You've already searched for the answer.
+    </h2>
+
+    <p className="mx-auto mt-5 max-w-md text-base leading-relaxed text-white/50 sm:text-lg">
+      You watched the videos.
+      <br />
+      Read the articles.
+      <br />
+      Asked AI.
+    </p>
+
+    <p className="mx-auto mt-5 max-w-md font-serif text-2xl font-medium italic leading-snug tracking-[-0.02em] text-violet-300 sm:text-3xl">
+      And still wondered:
+      <br />
+      "But what is it actually like?"
+    </p>
+
+    <p className="mx-auto mt-6 max-w-md text-base leading-relaxed text-white/45 sm:text-lg">
+      Information tells you what to do.
+      <br />
+      <span className="text-white/70">Experience tells you what happens when you do it.</span>
+    </p>
+  </div>
+</section>
 
       {/* 04 — THE GAP */}
       <section className="relative px-6 py-16 lg:px-10 lg:py-20">
