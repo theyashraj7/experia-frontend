@@ -12,6 +12,7 @@ import {
   User,
 } from "lucide-react";
 import { IMAGES } from "@/data/mockData";
+import { useAuth } from "@/context/AuthContext";
 
 /**
  * Shared auth screen for both /login and /signup. Mode is derived from the
@@ -39,7 +40,9 @@ function GoogleIcon(props) {
 export default function Login() {
   const location = useLocation();
   const navigate = useNavigate();
+  const { login } = useAuth();
   const isSignup = location.pathname === "/signup";
+  const redirectTo = location.state?.from || "/dashboard";
 
   const [showPassword, setShowPassword] = useState(false);
   const [form, setForm] = useState({ name: "", email: "", password: "" });
@@ -54,7 +57,8 @@ export default function Login() {
     setSubmitting(true);
     // Prototype only — replace with a real auth call. Simulates success.
     setTimeout(() => {
-      navigate("/dashboard");
+      login();
+      navigate(redirectTo, { replace: true });
     }, 500);
   };
 
