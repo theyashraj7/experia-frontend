@@ -634,12 +634,28 @@ export default function Home() {
 </section>
 
       {/* 07 — TOPICS (auto-sliding preview, not tappable, kept compact) */}
-      <section className="relative py-10 lg:py-12">
-        <div className="mx-auto max-w-[1360px] px-6 lg:px-10">
-          <SectionLabel>What are you curious about?</SectionLabel>
-        </div>
-        <Marquee items={EXPLORE_TOPICS} keyFn={(t) => t.label} renderItem={(t) => <TopicPill item={t} />} duration={38} />
-      </section>
+<section className="relative py-10 lg:py-12">
+  <div className="mx-auto max-w-[1360px] px-6 lg:px-10">
+    <SectionLabel>Across every field</SectionLabel>
+
+    <h2 className="max-w-2xl font-serif text-[1.7rem] leading-snug text-white sm:text-3xl">
+      Whatever you want to understand,
+      <br className="hidden sm:block" />
+      <span className="text-violet-300">
+        there's someone who has lived it.
+      </span>
+    </h2>
+  </div>
+
+  <div className="mt-6">
+    <Marquee
+      items={EXPLORE_TOPICS}
+      keyFn={(t) => t.label}
+      renderItem={(t) => <TopicPill item={t} />}
+      duration={38}
+    />
+  </div>
+</section>
 
       {/* 08 — POSITIONING */}
       <section id="why" className="relative px-6 py-14 lg:px-10 lg:py-16">
