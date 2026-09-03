@@ -432,9 +432,20 @@ export default function Home() {
               <span className="bg-gradient-to-r from-violet-200 via-violet-400 to-indigo-300 bg-clip-text text-transparent">Googled.</span>
             </motion.h1>
 
-            <motion.p {...heroAnimation(0.16)} className="mx-auto mt-5 max-w-md text-base leading-relaxed text-white/55 sm:text-lg">
-              The internet gives you information. EXPERIA gives you access to people who've actually lived it.
-            </motion.p>
+            <motion.p
+  {...heroAnimation(0.16)}
+  className="mx-auto mt-5 max-w-xl font-serif text-xl leading-[1.25] text-white/85 sm:text-2xl"
+>
+  Ask someone who's done it.
+</motion.p>
+
+<motion.p
+  {...heroAnimation(0.2)}
+  className="mx-auto mt-4 max-w-md text-base leading-relaxed text-white/50 sm:text-lg"
+>
+  Live conversations with people who've actually built, achieved, discovered,
+  solved, and experienced what you want to understand.
+</motion.p>
 
             <motion.form {...heroAnimation(0.24)} onSubmit={handleSearch} className="mx-auto mt-6 lg:mt-7 max-w-[512px]">
               <label htmlFor="experia-search" className="sr-only">What are you curious about?</label>
