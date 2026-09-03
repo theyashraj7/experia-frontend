@@ -434,7 +434,7 @@ export default function Home() {
 
             <motion.p
   {...heroAnimation(0.16)}
-  className="mx-auto mt-5 max-w-xl font-serif text-xl leading-[1.25] text-white/85 sm:text-2xl"
+  className="mx-auto mt-5 font-serif text-xl leading-[1.25] text-white/85 sm:text-2xl"
 >
   Ask someone who's done it.
 </motion.p>
@@ -443,8 +443,9 @@ export default function Home() {
   {...heroAnimation(0.2)}
   className="mx-auto mt-4 max-w-md text-base leading-relaxed text-white/50 sm:text-lg"
 >
-  Live conversations with people who've actually built, achieved, discovered,
-  solved, and experienced what you want to understand.
+  Get access to live conversations with
+  <br className="hidden sm:block" />
+  people who’ve actually done what you want to do.
 </motion.p>
 
             <motion.form {...heroAnimation(0.24)} onSubmit={handleSearch} className="mx-auto mt-6 lg:mt-7 max-w-[512px]">
