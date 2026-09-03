@@ -425,7 +425,7 @@ export default function Home() {
         <SiteHeader floating />
 
         {/* 01 — HERO */}
-        <section className="relative mx-auto max-w-[1440px] px-6 pb-4 pt-[74px] lg:px-10 lg:pb-5 lg:pt-[82px]">
+        <section className="relative mx-auto max-w-[1440px] px-6 pb-4 pt-[96px] lg:px-10 lg:pb-5 lg:pt-[120px]">
           <div className="mx-auto max-w-[1050px] text-center">
             <motion.h1 {...heroAnimation(0.08)} className="font-serif text-[2.15rem] leading-[1.08] tracking-[-0.02em] text-white sm:text-4xl sm:leading-[1.02] sm:tracking-[-0.03em] lg:text-[3.1rem]">
               Some Answers Can't Be{" "}
